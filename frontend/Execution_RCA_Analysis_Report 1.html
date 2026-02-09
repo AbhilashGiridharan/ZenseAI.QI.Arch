@@ -1,0 +1,2473 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Execution RCA Analysis Report - LBB Customer Creation Flow</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 30px; }
+        h3 { color: #16a085; }
+        .summary-dashboard { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 10px; margin: 20px 0; }
+        .metric { display: inline-block; margin: 10px 20px; text-align: center; }
+        .metric-value { font-size: 2em; font-weight: bold; display: block; }
+        .metric-label { font-size: 0.9em; opacity: 0.9; }
+        .cluster { border: 1px solid #ddd; margin: 15px 0; border-radius: 8px; overflow: hidden; }
+        .cluster-header { background: #3498db; color: white; padding: 15px; cursor: pointer; transition: background 0.3s; }
+        .cluster-header:hover { background: #2980b9; }
+        .cluster-content { display: none; padding: 20px; background: #fafafa; }
+        .cluster-content.expanded { display: block; }
+        .test-case { border-left: 4px solid #e74c3c; margin: 10px 0; padding: 10px; background: white; border-radius: 5px; }
+        .test-case-header { font-weight: bold; color: #c0392b; margin-bottom: 5px; }
+        .error-message { color: #e74c3c; font-family: monospace; background: #fff5f5; padding: 8px; border-radius: 4px; margin: 5px 0; }
+        .recommendations { background: #e8f5e8; border: 1px solid #4caf50; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .quick-win { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; margin: 8px 0; }
+        .strategic { background: #d1ecf1; border-left: 4px solid #17a2b8; padding: 10px; margin: 8px 0; }
+        .evidence { background: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 5px; margin: 15px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background: #f2f2f2; font-weight: bold; }
+        .pattern-list { background: #fff; border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin: 10px 0; }
+        .expand-btn { float: right; font-size: 1.2em; transition: transform 0.3s; }
+        .rotate { transform: rotate(180deg); }
+    </style>
+    <script>
+        function toggleCluster(element) {
+            const content = element.nextElementSibling;
+            const btn = element.querySelector('.expand-btn');
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                btn.innerHTML = '▼';
+                btn.classList.remove('rotate');
+            } else {
+                content.classList.add('expanded');
+                btn.innerHTML = '▲';
+                btn.classList.add('rotate');
+            }
+        }
+        
+        function expandAll() {
+            const contents = document.querySelectorAll('.cluster-content');
+            const btns = document.querySelectorAll('.expand-btn');
+            contents.forEach(content => content.classList.add('expanded'));
+            btns.forEach(btn => {
+                btn.innerHTML = '▲';
+                btn.classList.add('rotate');
+            });
+        }
+        
+        function collapseAll() {
+            const contents = document.querySelectorAll('.cluster-content');
+            const btns = document.querySelectorAll('.expand-btn');
+            contents.forEach(content => content.classList.remove('expanded'));
+            btns.forEach(btn => {
+                btn.innerHTML = '▼';
+                btn.classList.remove('rotate');
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Execution RCA Analysis Report</h1>
+        <p><strong>Report Generated:</strong> 2026-01-28 18:34:15</p>
+        
+        <div class="summary-dashboard">
+            <h2 style="margin-top: 0; color: white;">📊 SUMMARY DASHBOARD</h2>
+            <div class="metric">
+                <span class="metric-value">497</span>
+                <span class="metric-label">Total Test Cases</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">260</span>
+                <span class="metric-label">Passed</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">236</span>
+                <span class="metric-label">Failed</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">52.31%</span>
+                <span class="metric-label">Pass Rate</span>
+            </div>
+        </div>
+        
+        <div style="margin: 20px 0;">
+            <strong>High-level Observation:</strong> Analysis of LBB Customer Creation Flow test execution reveals significant quality concerns with a 52.3% pass rate. Primary failure patterns center around element locator instability and UI synchronization issues, indicating potential automation framework and application stability challenges.
+        </div>
+        
+        <h2>📊 ISSUE CATEGORIZATION SUMMARY</h2>
+        <table>
+            <tr>
+                <th>Issue Category</th>
+                <th>Count</th>
+                <th>% of Failures</th>
+                <th>% of Total Tests</th>
+                <th>Impact Level</th>
+                <th>Primary Root Cause</th>
+            </tr>
+            <tr>
+                <td><strong>🔧 Script Issues</strong></td>
+                <td>191</td>
+                <td>80.9%</td>
+                <td>38.4%</td>
+                <td>🚨 Critical</td>
+                <td>Element locator instability</td>
+            </tr>
+            <tr>
+                <td><strong>🖥️ Application Issues</strong></td>
+                <td>23</td>
+                <td>9.7%</td>
+                <td>4.6%</td>
+                <td>⚠️ High</td>
+                <td>Backend service & business logic</td>
+            </tr>
+            <tr>
+                <td><strong>🔍 Other Issues</strong></td>
+                <td>17</td>
+                <td>7.2%</td>
+                <td>3.4%</td>
+                <td>📋 Medium</td>
+                <td>Requires investigation</td>
+            </tr>
+            <tr>
+                <td><strong>📊 Data Issues</strong></td>
+                <td>5</td>
+                <td>2.1%</td>
+                <td>1.0%</td>
+                <td>🔧 Low</td>
+                <td>Test data management</td>
+            </tr>
+            <tr>
+                <td><strong>🌐 Environment Issues</strong></td>
+                <td>0</td>
+                <td>0.0%</td>
+                <td>0.0%</td>
+                <td>🔧 Ongoing</td>
+                <td>Infrastructure monitoring</td>
+            </tr>
+            <tr style="background: #f0f0f0; font-weight: bold;">
+                <td><strong>TOTAL</strong></td>
+                <td><strong>236</strong></td>
+                <td><strong>100.0%</strong></td>
+                <td><strong>47.5%</strong></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        
+        <div style="background: #e8f4fd; border: 1px solid #b3d4fc; border-radius: 5px; padding: 15px; margin: 15px 0;">
+            <h3 style="margin-top: 0;">Key Insights from Categorization:</h3>
+            <ul>
+                <li><strong>Script Issues dominate</strong> with 81% of all failures</li>
+                <li><strong>LittleBrownBook_Label element</strong> is the single biggest issue (44 occurrences)</li>
+                <li><strong>Application backend issues</strong> require secondary focus (23 failures)</li>
+                <li><strong>Data and environment issues</strong> are relatively minor but still need attention</li>
+            </ul>
+        </div>
+        
+        <h2>🔧 FAILURE CLUSTERS & ROOT CAUSE ANALYSIS</h2>
+        <p><button onclick="expandAll()" style="background: #3498db; color: white; border: none; padding: 8px 15px; border-radius: 5px; margin: 5px;">Expand All</button>
+        <button onclick="collapseAll()" style="background: #95a5a6; color: white; border: none; padding: 8px 15px; border-radius: 5px; margin: 5px;">Collapse All</button></p>
+        
+        <table>
+            <tr>
+                <th>Issue Category</th>
+                <th>Cluster</th>
+                <th>No. of Failures</th>
+                <th>Example Test Cases</th>
+                <th>Probable Root Cause</th>
+                <th>Suggested Fix</th>
+            </tr>
+            <tr>
+                <td><strong>📊 Data</strong></td>
+                <td><strong>Data Validation - Consent Issues</strong></td>
+                <td>1</td>
+                <td>CLIEN-8027_EditWhatsApp...</td>
+                <td>Test Data Management - Consent validation logic issues</td>
+                <td>Review consent validation logic and data setup procedures</td>
+            </tr>
+            <tr>
+                <td><strong>📊 Data</strong></td>
+                <td><strong>Data Validation - JSON Path</strong></td>
+                <td>4</td>
+                <td>CLIEN-17636__Client Info Page Colleague Card Valid..., Test case 1..., Test case 1...</td>
+                <td>Test Data Management - JSON response structure validation failures</td>
+                <td>Implement robust JSON schema validation and path existence checks</td>
+            </tr>
+            <tr>
+                <td><strong>🔍 Other</strong></td>
+                <td><strong>Other Issues</strong></td>
+                <td>17</td>
+                <td>CLIEN-19929_ValidateIndividualBookViewResults_LL2..., TC01_Epic 4180_Story 8021_CLIEN_19986_Validate the..., CLIEN-19988_Epic 4180_Story 8019_Validate the view...</td>
+                <td>Requires Further Investigation - Multiple potential root causes</td>
+                <td>Detailed investigation and case-by-case analysis required</td>
+            </tr>
+            <tr>
+                <td><strong>🔧 Script</strong></td>
+                <td><strong>Element Not Found - Add_new_client</strong></td>
+                <td>7</td>
+                <td>CLIEN_17061_My Most recent Notes validation..., CLIEN-19943_Epic 2741_Story 7672_CLIEN-19943_Creat..., CLIEN-17563_Manage Notes Edit, and Delete Function...</td>
+                <td>UI/Automation Framework - Client creation button locator instability</td>
+                <td>Review client creation button element selector and add explicit wait conditions</td>
+            </tr>
+            <tr>
+                <td><strong>🔧 Script</strong></td>
+                <td><strong>Element Not Found - Cancel_button</strong></td>
+                <td>6</td>
+                <td>CLIEN-20422_Epic_3227_Story 8005_LL3 verifies spen..., CLIEN-17066_ClientInfoPage_Region_TopOfPage_Admin..., CLIEN_20426_Epic_3227_Story 8003_LL2VerifiesInfoPa...</td>
+                <td>UI/Automation Framework - Action button locator instability</td>
+                <td>Implement consistent action button identification pattern across application</td>
+            </tr>
+            <tr>
+                <td><strong>🔧 Script</strong></td>
+                <td><strong>Element Not Found - LittleBrownBook_Label</strong></td>
+                <td>44</td>
+                <td>CLIEN-20528_TC03_Epic_3227_Story_7287_(RC) Client ..., Test case 1..., CLIEN-19859_View Shopping Passes_LL3...</td>
+                <td>UI/Automation Framework - Critical element locator instability for LittleBrownBook_Label</td>
+                <td>Priority fix: Add data-testid for LittleBrownBook_Label element and implement robust locator strategy</td>
+            </tr>
+            <tr>
+                <td><strong>🔧 Script</strong></td>
+                <td><strong>Element Not Found - Other Elements</strong></td>
+                <td>94</td>
+                <td>CLIEN-17706_View and Navigate Potential Clients_Le..., NewClientCreationWithPerferredMethodAsEmail..., CLIEN-17554_Validate teambook against API_LL3 Role...</td>
+                <td>UI/Automation Framework - Various element locator instabilities</td>
+                <td>Comprehensive element locator audit and Page Object Model implementation</td>
+            </tr>
+            <tr>
+                <td><strong>🔧 Script</strong></td>
+                <td><strong>Element Not Found - add_connections_button</strong></td>
+                <td>5</td>
+                <td>CLIEN_20413_Epic_2815_Story 8042_AddsRemovesAndMan..., CLIEN_20414_Epic_2815_Story 8042_AddsRemovesAndMan..., CLIEN-20415_Epic_2815_Story 8042_AddsRemovesAndMan...</td>
+                <td>UI/Automation Framework - Connection button locator instability</td>
+                <td>Add connection button locator audit and wait condition optimization</td>
+            </tr>
+            <tr>
+                <td><strong>🔧 Script</strong></td>
+                <td><strong>Element Not Found - back_button</strong></td>
+                <td>8</td>
+                <td>Test case 1..., CLIEN-20029_TC02_Epic 3226_Story_8001_Scenario 1_V..., CLIEN_20258_Epic_3226_Story__4381_Scenario 1_Valid...</td>
+                <td>UI/Automation Framework - Navigation button locator instability</td>
+                <td>Standardize navigation button selectors and add fallback locator strategies</td>
+            </tr>
+            <tr>
+                <td><strong>🔧 Script</strong></td>
+                <td><strong>Element Not Found - select_view_button</strong></td>
+                <td>27</td>
+                <td>CLIEN-17126_LBB_Team Book Seller Display and Inter..., CLIEN-17116_Client not found message check_My Book..., CLIEN-17129_Client not found message check_My Book...</td>
+                <td>UI/Automation Framework - View selection button locator instability</td>
+                <td>Implement dynamic wait for select_view_button with reduced timeout threshold</td>
+            </tr>
+            <tr>
+                <td><strong>🖥️ Application</strong></td>
+                <td><strong>API/Backend - Connection Issues</strong></td>
+                <td>2</td>
+                <td>CLIEN_19965_Epic 3287_Story_7939_Scenario 2_Valida..., CLIEN_19966_Epic 3287_Story_7939_Scenario 1_Valida...</td>
+                <td>Backend Service Integration - Client connection matching failures</td>
+                <td>Implement client connection pre-validation and test data setup verification</td>
+            </tr>
+            <tr>
+                <td><strong>🖥️ Application</strong></td>
+                <td><strong>API/Backend - Data Mismatch</strong></td>
+                <td>11</td>
+                <td>CLIEN-22370 Team Book Top Filter Pills_ Global Acc..., Test case 1..., CLIEN-17050_Verify the customer search results wit...</td>
+                <td>Backend Service Integration - API vs UI data inconsistency</td>
+                <td>Implement API-UI data synchronization validation framework</td>
+            </tr>
+            <tr>
+                <td><strong>🖥️ Application</strong></td>
+                <td><strong>API/Backend - Service Not Working</strong></td>
+                <td>4</td>
+                <td>Test case 1..., CLIEN-16857__Validate the contents of have rewards..., CLIEN-__Validate the contents of have not shopped ...</td>
+                <td>Backend Service Integration - API service availability issues</td>
+                <td>Add API health checks and service availability monitoring</td>
+            </tr>
+            <tr>
+                <td><strong>🖥️ Application</strong></td>
+                <td><strong>Logical Abort - Next Step Not Created</strong></td>
+                <td>5</td>
+                <td>CLIEN-21252_Epic 2611_Story 2614_Scenario 2_Valida..., CLIEN_Epic 2611_Story 2614_Scenario 2_Validate cli..., CLIEN_Epic 2611_Story 2614_Scenario 2_Validate cli...</td>
+                <td>Business Logic - Next step creation workflow failures</td>
+                <td>Review next step creation business logic and add prerequisite validation</td>
+            </tr>
+            <tr>
+                <td><strong>🖥️ Application</strong></td>
+                <td><strong>Logical Abort - UI Validation</strong></td>
+                <td>1</td>
+                <td>CLIEN-17148__ValidateSelectAView_EntireStore_LL2...</td>
+                <td>Business Logic - UI state validation failures</td>
+                <td>Implement comprehensive UI state validation with detailed error reporting</td>
+            </tr>
+        </table>
+        
+        <h3>🔍 Interactive Failure Clusters</h3>
+        <p><em>Click on each cluster to expand and view detailed test case information:</em></p>
+        <div class="cluster">
+            <div class="cluster-header" onclick="toggleCluster(this)">
+                <strong>🚨 Data Validation - Consent Issues (1 failures)</strong>
+                <span class="expand-btn">▼</span>
+            </div>
+            <div class="cluster-content">
+                <h4>Root Cause Analysis:</h4>
+                <p><strong>Category:</strong> Test Data Management - Consent validation logic issues</p>
+                <p><strong>Impact:</strong> Low Impact - 0.2% of total test execution affected</p>
+                <p><strong>Recommendation:</strong> Conduct detailed analysis and implement targeted solutions</p>
+                
+                <h4>Failed Test Cases:</h4>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 1: CLIEN-8027_EditWhatsApp</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:56</div>
+                    <div><strong>S.No:</strong> 282.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-8027_EditWhatsApp</div>
+                    <div class="error-message"><strong>Error:</strong> Error: consent validation passed</div>
+                </div>
+            </div>
+        </div>
+        <div class="cluster">
+            <div class="cluster-header" onclick="toggleCluster(this)">
+                <strong>🚨 Data Validation - JSON Path (4 failures)</strong>
+                <span class="expand-btn">▼</span>
+            </div>
+            <div class="cluster-content">
+                <h4>Root Cause Analysis:</h4>
+                <p><strong>Category:</strong> Test Data Management - JSON response structure validation failures</p>
+                <p><strong>Impact:</strong> Low Impact - 0.8% of total test execution affected</p>
+                <p><strong>Recommendation:</strong> Conduct detailed analysis and implement targeted solutions</p>
+                
+                <h4>Failed Test Cases:</h4>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 1: CLIEN-17636__Client Info Page Colleague Card Validation and Navigation Flow-Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:42</div>
+                    <div><strong>S.No:</strong> 474.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17636__Client Info Page Colleague Card Validation and Navigation Flow-Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Failed to check JSON node value at path: '$.data.breakdownItems[0].spendPercentage'. Error: Missing property in path $['data']['breakdownItems']</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 2: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:36</div>
+                    <div><strong>S.No:</strong> 483.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17111___Client Info Page Colleague Card Validation and Navigation Flow-Region</div>
+                    <div class="error-message"><strong>Error:</strong> Failed to check JSON node value at path: '$.data.breakdownItems[0].spendPercentage'. Error: Missing property in path $['data']['breakdownItems']</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 3: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:31</div>
+                    <div><strong>S.No:</strong> 484.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17631___Client Info Page Colleague Card Validation and Navigation Flow-Stores</div>
+                    <div class="error-message"><strong>Error:</strong> Failed to check JSON node value at path: '$.data.breakdownItems[0].spendPercentage'. Error: Missing property in path $['data']['breakdownItems']</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 4: CLIEN-17632___Client Info Page Colleague Card Validation and Navigation Flow-LL3</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:37</div>
+                    <div><strong>S.No:</strong> 494.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17632___Client Info Page Colleague Card Validation and Navigation Flow-LL3</div>
+                    <div class="error-message"><strong>Error:</strong> Failed to check JSON node value at path: '$.data.breakdownItems[0].spendPercentage'. Error: Missing property in path $['data']['breakdownItems']</div>
+                </div>
+            </div>
+        </div>
+        <div class="cluster">
+            <div class="cluster-header" onclick="toggleCluster(this)">
+                <strong>🚨 Other Issues (17 failures)</strong>
+                <span class="expand-btn">▼</span>
+            </div>
+            <div class="cluster-content">
+                <h4>Root Cause Analysis:</h4>
+                <p><strong>Category:</strong> Requires Further Investigation - Multiple potential root causes</p>
+                <p><strong>Impact:</strong> Low Impact - 3.4% of total test execution affected</p>
+                <p><strong>Recommendation:</strong> Conduct detailed analysis and implement targeted solutions</p>
+                
+                <h4>Failed Test Cases:</h4>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 1: CLIEN-19929_ValidateIndividualBookViewResults_LL2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:45</div>
+                    <div><strong>S.No:</strong> 230.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19929_ValidateIndividualBookViewResults_LL2</div>
+                    <div class="error-message"><strong>Error:</strong> Label can not be empty.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 2: TC01_Epic 4180_Story 8021_CLIEN_19986_Validate the view consent for admin role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:09</div>
+                    <div><strong>S.No:</strong> 275.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_19986_TC01_Epic 4180_Story 8021_Validate the view consent for admin role</div>
+                    <div class="error-message"><strong>Error:</strong> Verification failed for 'Verifying Concent Text As Expected'. Expected: text matches regex 'Consent Needed|Consented| Invalid', but actual is: 'Consent needed'.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 3: CLIEN-19988_Epic 4180_Story 8019_Validate the view consent for LL2 Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:50</div>
+                    <div><strong>S.No:</strong> 286.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19988_Epic 4180_Story 8019_Validate the view consent for LL2 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Verification failed for 'Verifying Concent Text As Expected'. Expected: text matches regex 'Consent Needed|Consented| Invalid', but actual is: 'Consent needed'.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 4: CLIEN-19989_Epic 4180_Story 8019_Validate the view consent for LL3 Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:49</div>
+                    <div><strong>S.No:</strong> 296.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19989_Epic 4180_Story 8019_Validate the view consent for LL3 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Verification failed for 'Verifying Concent Text As Expected'. Expected: text matches regex 'Consent Needed|Consented| Invalid', but actual is: 'Consent needed'.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 5: LBB_CLIEN-17125_Region Book Seller Display and Interaction Bubble Validation for Global Access Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:07</div>
+                    <div><strong>S.No:</strong> 303.0</div>
+                    <div><strong>Scenario:</strong> LBB_CLIEN-17125_Region Book Seller Display and Interaction Bubble Validation for Global Access Role</div>
+                    <div class="error-message"><strong>Error:</strong> Error: Colleague Connection not matched with expected</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 6: CLIEN21391_Epic 996_Story 7042 & Story 1653_Validate the outreach options tabs All, contacted &Not contacted for a campaign_LL2 role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:12</div>
+                    <div><strong>S.No:</strong> 349.0</div>
+                    <div><strong>Scenario:</strong> CLIEN21391_Epic 996_Story 7042 & Story 1653_Validate the outreach options tabs All, contacted &Not contacted for a campaign_LL2 role</div>
+                    <div class="error-message"><strong>Error:</strong> Error: No of Clients count is not matched with Displayed records</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 7: CLIEN21393_Epic 996_Story 7042 & Story 1653_Validate the outreach options tabs All, contacted &Not contacted for a campaign_LL3 role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:13</div>
+                    <div><strong>S.No:</strong> 353.0</div>
+                    <div><strong>Scenario:</strong> CLIEN21393_Epic 996_Story 7042 & Story 1653_Validate the outreach options tabs All, contacted &Not contacted for a campaign_LL3 role</div>
+                    <div class="error-message"><strong>Error:</strong> Error: No of Clients count is not matched with Displayed records</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 8: CLIEN21394_Epic 996_Story 7042 & Story 1653_Validate the outreach options tabs All, contacted &Not contacted for a campaign_Admin role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:17</div>
+                    <div><strong>S.No:</strong> 357.0</div>
+                    <div><strong>Scenario:</strong> CLIEN21394_Epic 996_Story 7042 & Story 1653_Validate the outreach options tabs All, contacted &Not contacted for a campaign_Admin role</div>
+                    <div class="error-message"><strong>Error:</strong> Error: No of Clients count is not matched with Displayed records</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 9: clien-17586</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:39</div>
+                    <div><strong>S.No:</strong> 371.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17586__Individual Book View Display Validation_Store</div>
+                    <div class="error-message"><strong>Error:</strong> Label can not be empty.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 10: CLIEN-17551_Validate Colleague Dropdown Behavior and Client Info Display for Store User</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:03</div>
+                    <div><strong>S.No:</strong> 396.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17551_Validate Colleague Dropdown Behavior and Client Info Display for Store User</div>
+                    <div class="error-message"><strong>Error:</strong> Verification failed for 'Verifying Name is in squence as per sorting '. Expected: text equals 'sf integ (CORPORATE)', but actual is: 'Arun R (CORPORATE)'.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 11: CLIEN-17552_Validate Colleague Dropdown and Client Info Display for Region User</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:51</div>
+                    <div><strong>S.No:</strong> 402.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17552_Validate Colleague Dropdown and Client Info Display for Region User</div>
+                    <div class="error-message"><strong>Error:</strong> Verification failed for 'Verifying Name is in squence as per sorting '. Expected: text equals 'sf integ (CORPORATE)', but actual is: 'Arun R (CORPORATE)'.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 12: CLIEN-17053_Search Validation_Multiple records</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:19</div>
+                    <div><strong>S.No:</strong> 409.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17053_Search Validation_Multiple records</div>
+                    <div class="error-message"><strong>Error:</strong> Verification failed for 'Verifying if Mail Id Matches'. Expected: text equals, ignore case 'null', but actual is: 'vigneshkanth07@gmail.com'.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 13: CLIEN-19861_ValidateShopping Pass_Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:22</div>
+                    <div><strong>S.No:</strong> 475.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19861_ValidateShopping Pass_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Verification failed for 'Expiration date matches with SFDC '. Expected: text equals '0404', but actual is: ''.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 14: CLIEN-17719_Potential New Clients Filter, Count, and Navigation Validation_Level3</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:57</div>
+                    <div><strong>S.No:</strong> 476.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17719_Potential New Clients Filter, Count, and Navigation Validation_Level3</div>
+                    <div class="error-message"><strong>Error:</strong> Failed to verify sort order of list. Error: 'Invalid number list: [0, , 0].'</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 15: CLIEN_21098_Epic 2913_Story 7128_Scenario 1_LL1_Viewing Team data</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:10</div>
+                    <div><strong>S.No:</strong> 488.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_21098_Epic 2913_Story 7128_Scenario 1_LL1_Viewing Team data</div>
+                    <div class="error-message"><strong>Error:</strong> Verification failed for 'visit with connections matches and is Expected'. Expected: text matches regex 'Visits with connections:\s*0\b', but actual is: 'client_book_client_0 CHARLOTTE BENTACOURT TOP O...</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 16: CLIEN_21100_Epic 2913_Story 7128_Scenario 3_LL3_Viewing team data</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:45</div>
+                    <div><strong>S.No:</strong> 490.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_21100_Epic 2913_Story 7128_Scenario 3_LL3_Viewing team data</div>
+                    <div class="error-message"><strong>Error:</strong> Verification failed for 'visit with connections matches and is Expected'. Expected: text matches regex 'Visits with connections:\s*0\b', but actual is: 'client_book_client_0 CHARLOTTE BENTACOURT TOP O...</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 17: CLIEN_21099_Epic 2913_Story 7128_Scenario 2_LL2_Viewing team data</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:43</div>
+                    <div><strong>S.No:</strong> 493.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_21099_Epic 2913_Story 7128_Scenario 2_LL2_Viewing team data</div>
+                    <div class="error-message"><strong>Error:</strong> Verification failed for 'visit with connections matches and is Expected'. Expected: text matches regex 'Visits with connections:\s*0\b', but actual is: 'client_book_client_0 CHARLOTTE BENTACOURT TOP O...</div>
+                </div>
+            </div>
+        </div>
+        <div class="cluster">
+            <div class="cluster-header" onclick="toggleCluster(this)">
+                <strong>🚨 Element Not Found - Add_new_client (7 failures)</strong>
+                <span class="expand-btn">▼</span>
+            </div>
+            <div class="cluster-content">
+                <h4>Root Cause Analysis:</h4>
+                <p><strong>Category:</strong> UI/Automation Framework - Client creation button locator instability</p>
+                <p><strong>Impact:</strong> Low Impact - 1.4% of total test execution affected</p>
+                <p><strong>Recommendation:</strong> Conduct detailed analysis and implement targeted solutions</p>
+                
+                <h4>Failed Test Cases:</h4>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 1: CLIEN_17061_My Most recent Notes validation</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:11:54</div>
+                    <div><strong>S.No:</strong> 209.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_17061_My Most recent Notes validation</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Add a new client] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 2: CLIEN-19943_Epic 2741_Story 7672_CLIEN-19943_Create new notes from plus action button_LL2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:06:29</div>
+                    <div><strong>S.No:</strong> 246.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19943_Epic 2741_Story 7672_CLIEN-19943_Create new notes from plus action button_LL2</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Add a new client] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 3: CLIEN-17563_Manage Notes Edit, and Delete Functionality_LL1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:05:54</div>
+                    <div><strong>S.No:</strong> 308.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17563_Manage Notes Edit, and Delete Functionality_LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Add a new client] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 4: CLIEN-17677_Manage Notes Add, Edit, and Delete Functionality_LL2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:06:10</div>
+                    <div><strong>S.No:</strong> 317.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17677_Manage Notes Add, Edit, and Delete Functionality_LL2</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Add a new client] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 5: CLIEN-17678_Manage Notes Add, Edit, and Delete Functionality_LL3</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:05:47</div>
+                    <div><strong>S.No:</strong> 328.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17678_Manage Notes Add, Edit, and Delete Functionality_LL3</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Add a new client] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 6: CLIEN-17566_Manage Notes Add, Edit_Different Combinations_LL1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:06:11</div>
+                    <div><strong>S.No:</strong> 377.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17566_Manage Notes Add, Edit_Different Combinations_LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Add a new client] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 7: CLIEN-18967_Manage Notes Add, Edit_Different Combinations_LL2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:06:32</div>
+                    <div><strong>S.No:</strong> 416.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-18967_Manage Notes Add, Edit_Different Combinations_LL2</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Add a new client] is not found after waiting for: 160 seconds.</div>
+                </div>
+            </div>
+        </div>
+        <div class="cluster">
+            <div class="cluster-header" onclick="toggleCluster(this)">
+                <strong>🚨 Element Not Found - Cancel_button (6 failures)</strong>
+                <span class="expand-btn">▼</span>
+            </div>
+            <div class="cluster-content">
+                <h4>Root Cause Analysis:</h4>
+                <p><strong>Category:</strong> UI/Automation Framework - Action button locator instability</p>
+                <p><strong>Impact:</strong> Low Impact - 1.2% of total test execution affected</p>
+                <p><strong>Recommendation:</strong> Conduct detailed analysis and implement targeted solutions</p>
+                
+                <h4>Failed Test Cases:</h4>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 1: CLIEN-20422_Epic_3227_Story 8005_LL3 verifies spend, visits, last visit, and progress bar logic for Team Book Info page</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:36</div>
+                    <div><strong>S.No:</strong> 219.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20422_Epic_3227_Story 8005_LL3 verifies spend, visits, last visit, and progress bar logic for Team Book Info page</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Cancel] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 2: CLIEN-17066_ClientInfoPage_Region_TopOfPage_Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:02</div>
+                    <div><strong>S.No:</strong> 260.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17066_ClientInfoPage_Region_TopOfPage_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Cancel] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 3: CLIEN_20426_Epic_3227_Story 8003_LL2VerifiesInfoPageAccess,Header,Cancel,ClientName,TeamLeader,AndLoyaltyBadgeLogic</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:02</div>
+                    <div><strong>S.No:</strong> 382.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_20426_Epic_3227_Story 8003_LL2VerifiesInfoPageAccess,Header,Cancel,ClientName,TeamLeader,AndLoyaltyBadgeLogic</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Cancel] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 4: CLIEN-20427_Epic_3227_Story 8003_LL3_VerifiesInfoPageAccess,Header,Cancel,ClientName,TeamLeader,AndLoyaltyBadgeLogic</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:02</div>
+                    <div><strong>S.No:</strong> 400.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20427_Epic_3227_Story 8003_LL3_VerifiesInfoPageAccess,Header,Cancel,ClientName,TeamLeader,AndLoyaltyBadgeLogic</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Cancel] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 5: CLIEN-20423_Epic_3227_Story 8005_LL2 verifies spend, visits, last visit, and progress bar logic for Team Book Info page</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:02</div>
+                    <div><strong>S.No:</strong> 447.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20423_Epic_3227_Story 8005_LL2 verifies spend, visits, last visit, and progress bar logic for Team Book Info page</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Cancel] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 6: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:40</div>
+                    <div><strong>S.No:</strong> 469.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17555_LBB_ValidateDeleteShoppingPass</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : No,Cancel] is not found after waiting for: 30 seconds.</div>
+                </div>
+            </div>
+        </div>
+        <div class="cluster">
+            <div class="cluster-header" onclick="toggleCluster(this)">
+                <strong>🚨 Element Not Found - LittleBrownBook_Label (44 failures)</strong>
+                <span class="expand-btn">▼</span>
+            </div>
+            <div class="cluster-content">
+                <h4>Root Cause Analysis:</h4>
+                <p><strong>Category:</strong> UI/Automation Framework - Critical element locator instability for LittleBrownBook_Label</p>
+                <p><strong>Impact:</strong> Low Impact - 8.9% of total test execution affected</p>
+                <p><strong>Recommendation:</strong> Conduct detailed analysis and implement targeted solutions</p>
+                
+                <h4>Failed Test Cases:</h4>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 1: CLIEN-20528_TC03_Epic_3227_Story_7287_(RC) Client Info Page - Store - colleague card_Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:09:17</div>
+                    <div><strong>S.No:</strong> 188.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20528_TC03_Epic_3227_Story_7287_(RC) Client Info Page - Store - colleague card_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 2: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:52</div>
+                    <div><strong>S.No:</strong> 189.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20531-ColleagueBookPage_Sort_Level_2</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 3: CLIEN-19859_View Shopping Passes_LL3</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:11:58</div>
+                    <div><strong>S.No:</strong> 190.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19859_View Shopping Passes_LL3</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 4: CLIEN-17109_LBB_Add Filter option for transaction and clear for date selection</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:11:56</div>
+                    <div><strong>S.No:</strong> 191.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17109_LBB_Add Filter option for transaction and clear for date selection</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 5: CLIEN-17062_Validate Add_Edit_Delete Note functionality</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:09:06</div>
+                    <div><strong>S.No:</strong> 192.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17062_Validate Add_Edit_Delete Note functionality</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 6: NewClientCreationWithPerferredMethodAsCall</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:09:56</div>
+                    <div><strong>S.No:</strong> 193.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_17093_Add a New customer functionality_Phone</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 7: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:09:08</div>
+                    <div><strong>S.No:</strong> 194.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-22001_Validate teambook against API_LL2 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 8: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:10:29</div>
+                    <div><strong>S.No:</strong> 195.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20421_Epic_3227_Story 8005_ValidateTheLoginValidation_Level1</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 9: CLIEN-20533-ColleagueBookPage_Sort_Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:05:11</div>
+                    <div><strong>S.No:</strong> 204.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20533-ColleagueBookPage_Sort_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 10: CLIEN-17150_ValidateSelectAView_EntireRegion_LL1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:33</div>
+                    <div><strong>S.No:</strong> 212.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17150_ValidateSelectAView_EntireRegion_LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 11: CLIEN-17090_Validate Addresses tabs in client info page</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:41</div>
+                    <div><strong>S.No:</strong> 217.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17090_Validate Addresses tabs in client info page</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 12: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:15:59</div>
+                    <div><strong>S.No:</strong> 226.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17115___Client Book Top Filter Pills and Loyalty Quick Filter Validation - Region</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 13: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:15:49</div>
+                    <div><strong>S.No:</strong> 232.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20552_TC01_Epic_3227_Story_7286_(RC) Client Info Page - Store - KPIS_LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 14: CLIEN_17656_LBB_My Book Validation with no clients found-LL2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:13:41</div>
+                    <div><strong>S.No:</strong> 233.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_17656_LBB_My Book Validation with no clients found-LL2</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 15: CLIEN-17724_LBB_Client Connections Seller Details and Organization-Wide View-LL1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:31</div>
+                    <div><strong>S.No:</strong> 234.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17724_LBB_Client Connections Seller Details and Organization-Wide View-LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 16: CLIEN_17657_LBB_My Book Validation with no clients found-LL3</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:09:26</div>
+                    <div><strong>S.No:</strong> 236.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_17657_LBB_My Book Validation with no clients found-LL3</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 17: CLIEN-21095_Epic 2611_Story 15405_Scenario 1_Edit steps and validate in client profile and calendar page_LL1 role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:51</div>
+                    <div><strong>S.No:</strong> 237.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21095_Epic 2611_Story 15405_Scenario 1_Edit steps and validate in client profile and calendar page_LL1 role</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 18: CLIEN_19942_Epic 2741_Story 7672_Create new notes from plus action button_LL1 Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:15</div>
+                    <div><strong>S.No:</strong> 240.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_19942_Epic 2741_Story 7672_Create new notes from plus action button_LL1 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 19: CLIEN_17658_LBB_My Book Validation with no clients found-Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:07:37</div>
+                    <div><strong>S.No:</strong> 247.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_17658_LBB_My Book Validation with no clients found-Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 20: CLIEN_17556__LBB_User Level 1_Edit Existing Phone Number Validation and Update Flow</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:09:55</div>
+                    <div><strong>S.No:</strong> 252.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_17556__LBB_User Level 1_Edit Existing Phone Number Validation and Update Flow</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 21: CLIEN-17098_ClientInfoPage_Region_TopOfPage_level1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:23</div>
+                    <div><strong>S.No:</strong> 254.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17098_ClientInfoPage_Region_TopOfPage_level1</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 22: CLIEN-17112___Client Info Page Connection Insights and Spend Breakdown Validation-stores</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:09:27</div>
+                    <div><strong>S.No:</strong> 263.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17112___Client Info Page Connection Insights and Spend Breakdown Validation-stores Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 23: CLIEN-17713_Potential New Clients Card Details and Visual Indicators_Colleague</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:09:02</div>
+                    <div><strong>S.No:</strong> 264.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17624_Potential New Clients Card Details and Visual Indicators_Colleague</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 24: CLIEN_Epic 2611_Story 2614_Scenario 2_Validate client (optional) field search criteria in New next step page_LL2 Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:15:50</div>
+                    <div><strong>S.No:</strong> 266.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21254_Epic 2611_Story 2614_Scenario 2_Validate client (optional) field search criteria in New next step page_LL2 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 25: CLIEN_17589_LBB_User Admin_Edit Existing Phone Number Validation and Update Flow</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:34</div>
+                    <div><strong>S.No:</strong> 268.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_17589_LBB_User Admin_Edit Existing Phone Number Validation and Update Flow</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 26: CLIEN_17588__LBB_User Level 3_Edit Existing Phone Number Validation and Update Flow</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:50</div>
+                    <div><strong>S.No:</strong> 270.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_17588__LBB_User Level 3_Edit Existing Phone Number Validation and Update Flow</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 27: CLIEN-19953_ValidateTsearchResultsForIndividualBookFor_Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:09:27</div>
+                    <div><strong>S.No:</strong> 271.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19953_ValidateTsearchResultsForIndividualBookFor_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 28: CLIEN-17152_ValidateRegionSelectionBehaviorInViewPage_Admin Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:50</div>
+                    <div><strong>S.No:</strong> 277.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17152_ValidateRegionSelectionBehaviorInViewPage_Admin Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 29: CLIEN-17625_Potential New Clients Sorting and Expiry Logic_Colleague</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:16</div>
+                    <div><strong>S.No:</strong> 278.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17625_Potential New Clients Sorting and Expiry Logic_Colleague</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 30: CLIEN-20003_LBB_Validate if user able to load individual book and search criteria in select a view page_LL1 role_PositiveFlow</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:15:46</div>
+                    <div><strong>S.No:</strong> 281.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20003_LBB_Validate if user able to load individual book and search criteria in select a view page_LL1 role_PositiveFlow</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 31: CLIEN_21323_Epic 2913_Story 7043 & Story 7048_Scenario 1_Admin_Validate sorting options for store , team , region,global & individual_Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:45</div>
+                    <div><strong>S.No:</strong> 283.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_21323_Epic 2913_Story 7043 & Story 7048_Scenario 1_Admin_Validate sorting options for store , team , region,global & individual_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 32: CLIEN-8027_LBB Validate Edit WhatsApp - LL1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:16:01</div>
+                    <div><strong>S.No:</strong> 285.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-8027_LBB Validate Edit WhatsApp - LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 33: CLIEN-17140_LBB_Validate Manager Selection Behavior in Team Book for LL3 Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:09:30</div>
+                    <div><strong>S.No:</strong> 289.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17140_LBB_Validate Manager Selection Behavior in Team Book for LL3 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 34: CLIEN-17144_LBB_Validate Team Book UI, Filters, and Client Card Details for Store Access Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:47</div>
+                    <div><strong>S.No:</strong> 310.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17144_LBB_Validate Team Book UI, Filters, and Client Card Details for Store Access Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 35: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:09:00</div>
+                    <div><strong>S.No:</strong> 331.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20403_Epic_5211_Story_8036__ValidateTheRemoveCustomerFromColleaguesBooks_ LL2</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 36: CLIEN-17076_View Contact Method_No Data_No Phone Number</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:08</div>
+                    <div><strong>S.No:</strong> 352.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17076_View Contact Method_No Data_No Phone Number</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 37: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:52</div>
+                    <div><strong>S.No:</strong> 397.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19937_LBB_Validate the region book when having more than 1 connections</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 38: CLIEN-18923_Add phone number with invalid inputs_LL2 Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:59</div>
+                    <div><strong>S.No:</strong> 398.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-18923_Add phone number with invalid inputs_LL2 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 39: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:01</div>
+                    <div><strong>S.No:</strong> 418.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21993-Validate MY BOOK against API_LL2 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 40: CLIEN-17056_ValidateDisplay Credit Cards/ShoppingPassesInTheWallet</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:07</div>
+                    <div><strong>S.No:</strong> 438.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17056_ValidateDisplay Credit Cards/ShoppingPassesInTheWallet</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 41: CLIEN-17137_Validate Client Card Details and UI Behavior in Global Book for Admin Access Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:29</div>
+                    <div><strong>S.No:</strong> 445.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17137_Validate Client Card Details and UI Behavior in Global Book for Admin Access Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 42: CLIEN-17718_Potential New Clients Filter, Count, and Navigation Validation_Level2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:08</div>
+                    <div><strong>S.No:</strong> 467.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17718_Potential New Clients Filter, Count, and Navigation Validation_Level2</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 43: CLIEN-19860_ValidateShopping Pass_Level 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:05:41</div>
+                    <div><strong>S.No:</strong> 473.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19860_ValidateShopping Pass_Level 1</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 44: CLIEN_Epic 1752_Story 6164 & 6311_Create a campaign for Admin role _Edit _Delete Campaign</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:50</div>
+                    <div><strong>S.No:</strong> 480.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_Epic 1752_Story 6164 & 6311_Create a campaign for Admin role _Edit _Delete Campaign</div>
+                    <div class="error-message"><strong>Error:</strong> Element LittleBrownBook_Label does not exist.</div>
+                </div>
+            </div>
+        </div>
+        <div class="cluster">
+            <div class="cluster-header" onclick="toggleCluster(this)">
+                <strong>🚨 Element Not Found - Other Elements (94 failures)</strong>
+                <span class="expand-btn">▼</span>
+            </div>
+            <div class="cluster-content">
+                <h4>Root Cause Analysis:</h4>
+                <p><strong>Category:</strong> UI/Automation Framework - Various element locator instabilities</p>
+                <p><strong>Impact:</strong> Medium Impact - 18.9% of total test execution affected</p>
+                <p><strong>Recommendation:</strong> Conduct detailed analysis and implement targeted solutions</p>
+                
+                <h4>Failed Test Cases:</h4>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 1: CLIEN-17706_View and Navigate Potential Clients_Level3</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:06</div>
+                    <div><strong>S.No:</strong> 198.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17706_View and Navigate Potential Clients_Level3</div>
+                    <div class="error-message"><strong>Error:</strong> Found 3 instances of web element LBB_PotentialClientListCount on the screen, but expected 4.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 2: NewClientCreationWithPerferredMethodAsEmail</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:09</div>
+                    <div><strong>S.No:</strong> 199.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_17093_Add a New customer functionality_Email</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Search] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 3: CLIEN-17554_Validate teambook against API_LL3 Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:11</div>
+                    <div><strong>S.No:</strong> 201.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17554_Validate teambook against API_LL3 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Nicolas Rivault] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 4: NewClientCreationWithPerferredMethodAsText</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:10:38</div>
+                    <div><strong>S.No:</strong> 202.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_17093_Add a New customer functionality_Text</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : CLIENT CONSENT You are about to create a new client in your book and in the global book. Do you have client consent?] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 5: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:44</div>
+                    <div><strong>S.No:</strong> 207.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20525_TC01_Epic_3227_Story_7287_(RC) Client Info Page - Store - colleague card_LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : entire_store] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 6: CLIEN-17714_Potential New Clients Card Details and Visual Indicators_Level3</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:09</div>
+                    <div><strong>S.No:</strong> 210.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17714_Potential New Clients Card Details and Visual Indicators_Level3</div>
+                    <div class="error-message"><strong>Error:</strong> Found 3 instances of web element LBB_PotentialClientListCount on the screen, but expected 4.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 7: CLIEN-17145_ValidateStoreBookRestrictionsAndDataFormattingForColleagueRole</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:43</div>
+                    <div><strong>S.No:</strong> 211.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17145_ValidateStoreBookRestrictionsAndDataFormattingForColleagueRole</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : client_book] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 8: CLIEN-17713_Potential New Clients Card Details and Visual Indicators_Level2.</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:06</div>
+                    <div><strong>S.No:</strong> 216.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17713_Potential New Clients Card Details and Visual Indicators_Level2</div>
+                    <div class="error-message"><strong>Error:</strong> Found 1 instances of web element LBB_PotentialClientListCount on the screen, but expected 2.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 9: CLIEN-19927</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:48</div>
+                    <div><strong>S.No:</strong> 220.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19927_ValidateIndividualBookViewResults_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : client_book] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 10: CLIEN-22009_LBB_ValidationOfBookViewDisplay_Global</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:24</div>
+                    <div><strong>S.No:</strong> 223.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-22009_LBB_ValidationOfBookViewDisplay_Global</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : entire_region] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 11: CLIEN_17655_LBB_My Book validation when no clients found-LL1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:52</div>
+                    <div><strong>S.No:</strong> 224.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_17655_LBB_My Book validation when no clients found-LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : 0 Clients] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 12: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:29</div>
+                    <div><strong>S.No:</strong> 225.0</div>
+                    <div><strong>Scenario:</strong> Epic 2817_Story 8015_CLIEN-19985_ValidateFilterViewOfShoppingPassesByColleague_LL3</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : associate_0] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 13: CLIEN_21094_Epic 2611_Story 15405_Scenario 1_Edit steps and validate in client profile and calendar page_LL2 role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:01</div>
+                    <div><strong>S.No:</strong> 229.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_21094_Epic 2611_Story 15405_Scenario 1_Edit steps and validate in client profile and calendar page_LL2 role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : client_book_client_0] is not found after waiting for: 20 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 14: CLIEN-19928_Individual book view results _LL1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:46</div>
+                    <div><strong>S.No:</strong> 231.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19928_Individual book view results _LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_ViewingText does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 15: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:49</div>
+                    <div><strong>S.No:</strong> 235.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19926_Individual book view results _LL3</div>
+                    <div class="error-message"><strong>Error:</strong> MyBookViewingTextis an Abstract element with no identification attributes specified. Failed to locate the element.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 16: CLIEN-17570_View and Navigate Potential Clients_Level1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:39</div>
+                    <div><strong>S.No:</strong> 241.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17570_View and Navigate Potential Clients_Level1</div>
+                    <div class="error-message"><strong>Error:</strong> Found 3 instances of web element LBB_PotentialClientListCount on the screen, but expected 4.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 17: CLIEN-17709_Potential New Clients Sorting and Expiry Logic_Level3</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:11</div>
+                    <div><strong>S.No:</strong> 243.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17709_Potential New Clients Sorting and Expiry Logic_Level3</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_DaysLeft does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 18: CLIEN-21097_Epic 2611_Story 15405_Scenario 1_Edit steps and validate in client profile and calendar page_Colleague role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:07:34</div>
+                    <div><strong>S.No:</strong> 245.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21097_Epic 2611_Story 15405_Scenario 1_Edit steps and validate in client profile and calendar page_Colleague role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Next step completed.] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 19: CLIEN-17711_Potential New Clients Sorting and Expiry Logic_Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:11</div>
+                    <div><strong>S.No:</strong> 253.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17711_Potential New Clients Sorting and Expiry Logic_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_DaysLeft does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 20: CLIEN-21093_Epic 2611_Story 15405_Scenario 1_Edit steps and validate in client profile and calendar page_LL3 role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:04</div>
+                    <div><strong>S.No:</strong> 257.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21093_Epic 2611_Story 15405_Scenario 1_Edit steps and validate in client profile and calendar page_LL3 role</div>
+                    <div class="error-message"><strong>Error:</strong> Element MYBookHeaderElement does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 21: CLIEN_17587__LBB_User Level 2_Edit Existing Phone Number Validation and Update Flow</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:05:36</div>
+                    <div><strong>S.No:</strong> 259.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_17587__LBB_User Level 2_Edit Existing Phone Number Validation and Update Flow</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : profile_tab Profile] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 22: CLIEN-17571_Potential New Clients Sorting and Expiry Logic_Level1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:46</div>
+                    <div><strong>S.No:</strong> 273.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17571_Potential New Clients Sorting and Expiry Logic_Level1</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_DaysLeft does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 23: CLIEN_17104_LBB_Touch Point Activity Flow_Edit And Delete Functionality</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:59</div>
+                    <div><strong>S.No:</strong> 274.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_17104_LBB_Touch Point Activity Flow_Edit And Delete Functionality</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Touchpoints] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 24: CLIEN_22017_Epic 2913_Story 7147_Validate details in select a view page for Admin role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:08</div>
+                    <div><strong>S.No:</strong> 279.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_22017_Epic 2913_Story 7147_Validate details in select a view page for Admin role</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_CampaignBackButton_1 does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 25: LBB_ClienSearchvalidationll1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:20</div>
+                    <div><strong>S.No:</strong> 287.0</div>
+                    <div><strong>Scenario:</strong> LBB_ClienSearchvalidationll1</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_LogoutButton does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 26: CLIEN-19944_Epic 2741_Story 7672_Create new notes from plus action button_LL3</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:15</div>
+                    <div><strong>S.No:</strong> 292.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19944_Epic 2741_Story 7672_Create new notes from plus action button_LL3</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : 01/28/26] does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 27: CLIEN-19945_Epic 2741_Story 7672_Create new notes from plus action button_Admin Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:00</div>
+                    <div><strong>S.No:</strong> 294.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19945_Epic 2741_Story 7672_Create new notes from plus action button_Admin Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : SWETHA] exists on the screen, which is not expected.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 28: LBB_Cliensearchvalidationll2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:38</div>
+                    <div><strong>S.No:</strong> 295.0</div>
+                    <div><strong>Scenario:</strong> LBB_Cliensearchvalidationll2</div>
+                    <div class="error-message"><strong>Error:</strong> Could not find web element: LBB_LogoutButton</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 29: CLIEN-17135_LBB_Verify UI Elements for Global Access Role in Region Book View</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:49</div>
+                    <div><strong>S.No:</strong> 298.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17135_LBB_Verify UI Elements for Global Access Role in Region Book View</div>
+                    <div class="error-message"><strong>Error:</strong> 'Element [label : Select manager]' not found.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 30: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:07</div>
+                    <div><strong>S.No:</strong> 314.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17638___Client Info Page Connection Insights and Spend Breakdown Validation_Region LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Select manager] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 31: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:20</div>
+                    <div><strong>S.No:</strong> 315.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19984_Epic 2817_Story 8015_ValidateFilterViewOfShoppingPassesByColleague_Level 2</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : associate_0] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 32: CLIEN-17118_View and Navigate Potential Clients_Colleague</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:39</div>
+                    <div><strong>S.No:</strong> 319.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17118_View and Navigate Potential Clients_Colleague</div>
+                    <div class="error-message"><strong>Error:</strong> Found 3 instances of web element LBB_PotentialClientListCount on the screen, but expected 4.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 33: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:59</div>
+                    <div><strong>S.No:</strong> 321.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_20255_Epic_3226_Story_4381_Scenario 1_ValidateTheColleagueBook Page - Header & Book Results_Level 1</div>
+                    <div class="error-message"><strong>Error:</strong> LBB_GlobalBookInstancesis an Abstract element with no identification attributes specified. Failed to locate the element.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 34: CLIEN-22025_Epic 2611_Story 2700_Scenario 1_Select a view page validation for LL1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:47</div>
+                    <div><strong>S.No:</strong> 323.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-22025_Epic 2611_Story 2700_Scenario 1_Select a view page validation for LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Select manager] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 35: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:28</div>
+                    <div><strong>S.No:</strong> 324.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17639___Client Info Page Connection Insights and Spend Breakdown Validation_LL2</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Search in my book] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 36: CLIEN-17576_LBB_Validate Client Connections Seller Details and Organization-Wide View_Level 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:14</div>
+                    <div><strong>S.No:</strong> 326.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17576_LBB_Validate Client Connections Seller Details and Organization-Wide View_Level 1</div>
+                    <div class="error-message"><strong>Error:</strong> LBB_ColleagueBookResultsis an Abstract element with no identification attributes specified. Failed to locate the element.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 37: LBB_CLIEN_Epic 2913_Story 7145_Select a view page validations for LL2 role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:05:34</div>
+                    <div><strong>S.No:</strong> 327.0</div>
+                    <div><strong>Scenario:</strong> LBB_CLIEN_Epic 2913_Story 7145_Select a view page validations for LL2 role</div>
+                    <div class="error-message"><strong>Error:</strong> Could not find web element: LBB_LogoutButton</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 38: CLIEN-17728__LBB_Validate Client Connections Seller Details and Organization-Wide View-Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:56</div>
+                    <div><strong>S.No:</strong> 332.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17728__LBB_Validate Client Connections Seller Details and Organization-Wide View-Admin</div>
+                    <div class="error-message"><strong>Error:</strong> LBB_ColleagueBookResultsis an Abstract element with no identification attributes specified. Failed to locate the element.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 39: CLIEN-17564_ViewShoppingPasses_Connections_Level2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:09</div>
+                    <div><strong>S.No:</strong> 333.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17564_ViewShoppingPasses_Connections_Level2</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Search in my book] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 40: CLIEN-17679_Manage Notes Add, Edit, and Delete Functionality_Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:12:06</div>
+                    <div><strong>S.No:</strong> 335.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17679_Manage Notes Add, Edit, and Delete Functionality_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : profile_tab Profile] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 41: CLIEN_Epic 2611_Story 2615_Scenario 1_LBB_Agenda-overdue next steps_LL2 role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:53</div>
+                    <div><strong>S.No:</strong> 336.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_Epic 2611_Story 2615_Scenario 1_LBB_Agenda-overdue next steps_LL2 role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : overdue_banner] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 42: CLIEN-17681_ViewShoppingPasses_Connections_Level3</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:38</div>
+                    <div><strong>S.No:</strong> 339.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17681_ViewShoppingPasses_Connections_Level3</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Search in my book] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 43: CLIEN_16744_Validate MY BOOK page details</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:37</div>
+                    <div><strong>S.No:</strong> 342.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_16744_Validate MY BOOK page details</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : CONTACT OPTIONS] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 44: CLIEN21395_Epic 996_Story 7042 & Story 1653_Validate when outreach options tabs All, contacted &Not contacted for a campaign is empty _Admin role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:35</div>
+                    <div><strong>S.No:</strong> 345.0</div>
+                    <div><strong>Scenario:</strong> CLIEN21395_Epic 996_Story 7042 & Story 1653_Validate when outreach options tabs All, contacted &Not contacted for a campaign is empty _Admin role</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_NocontactedErrorMessage does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 45: CLIEN-20431_LBB_Validate if user able to load individual book and search criteria in select a view page_Admin role_PositiveFlow</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:19</div>
+                    <div><strong>S.No:</strong> 348.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20431_LBB_Validate if user able to load individual book and search criteria in select a view page_Admin role_PositiveFlow</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : colleague_0] does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 46: CLIEN-17134_LBB_Global Book Region Selection and Navigation Validation for Global Access Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:34</div>
+                    <div><strong>S.No:</strong> 350.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17134_LBB_Global Book Region Selection and Navigation Validation for Global Access Role</div>
+                    <div class="error-message"><strong>Error:</strong> 'Element [label : Mid-Atlantic/South]' not found.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 47: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:53</div>
+                    <div><strong>S.No:</strong> 351.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20430_LBB_Validate if user able to load individual book and search criteria in select a view page_LL3 role_PositiveFlow</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : colleague_0] does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 48: CLIEN-20253_Epic_421_Story_1654_ValidateTheNoNextStepsFoundDetails_Colleague</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:35</div>
+                    <div><strong>S.No:</strong> 355.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20253_Epic_421_Story_1654_ValidateTheNoNextStepsFoundDetails_Colleague</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_FirstMatchingClient does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 49: CLIEN21396_Epic 996_Story 7042 & Story 1653_Validate when outreach options tabs All, contacted &Not contacted for a campaign is empty _LL1 role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:22</div>
+                    <div><strong>S.No:</strong> 359.0</div>
+                    <div><strong>Scenario:</strong> CLIEN21396_Epic 996_Story 7042 & Story 1653_Validate when outreach options tabs All, contacted &Not contacted for a campaign is empty _LL1 role</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_NocontactedErrorMessage does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 50: CLIEN-18008_Verify the customer search results with valid format data_LL2 role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:05:59</div>
+                    <div><strong>S.No:</strong> 360.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-18008_Verify the customer search results with valid format data_LL2 role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Yes, remove] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 51: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:46</div>
+                    <div><strong>S.No:</strong> 362.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19938_LBB_Validate the region book when having 1 connection</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : team_info_button_Cristal_Deckow] does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 52: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:58</div>
+                    <div><strong>S.No:</strong> 364.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17712_Team Book Seller Display and Interaction Bubble Validation - LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Select a View] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 53: CLIEN21397_Epic 996_Story 7042 & Story 1653_Validate when outreach options tabs All, contacted &Not contacted for a campaign is empty _LL2 role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:35</div>
+                    <div><strong>S.No:</strong> 365.0</div>
+                    <div><strong>Scenario:</strong> CLIEN21397_Epic 996_Story 7042 & Story 1653_Validate when outreach options tabs All, contacted &Not contacted for a campaign is empty _LL2 role</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_NocontactedErrorMessage does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 54: CLIEN-21400_Epic 2913_Story 6313_LL1_Validate the details in view details link for a campaign</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:00</div>
+                    <div><strong>S.No:</strong> 366.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21400_Epic 2913_Story 6313_LL1_Validate the details in view details link for a campaign</div>
+                    <div class="error-message"><strong>Error:</strong> LBB_Storesis an Abstract element with no identification attributes specified. Failed to locate the element.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 55: CLIEN-17073_ClientInfoNoEmail</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:53</div>
+                    <div><strong>S.No:</strong> 367.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17073_ClientInfoNoEmail</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_FirstMatchingClient does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 56: CLIEN_21326_Epic 2913_Story 7043 & Story 7048_Scenario 1_LL3_Validate sorting options for store , team , region,global & individual</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:40</div>
+                    <div><strong>S.No:</strong> 369.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_21326_Epic 2913_Story 7043 & Story 7048_Scenario 1_LL3_Validate sorting options for store , team , region,global & individual</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Spent with me (high to low)] is not found after waiting for: 20 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 57: CLIEN-21403_Epic 2913_Story 6313_Admin_Validate the details in view details link for a campaign</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:09</div>
+                    <div><strong>S.No:</strong> 375.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21403_Epic 2913_Story 6313_Admin_Validate the details in view details link for a campaign</div>
+                    <div class="error-message"><strong>Error:</strong> LBB_Storesis an Abstract element with no identification attributes specified. Failed to locate the element.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 58: CLIEN17052_Verify the customer search results with valid format data_Verify the customer search results with valid format data Colleague</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:06:19</div>
+                    <div><strong>S.No:</strong> 376.0</div>
+                    <div><strong>Scenario:</strong> CLIEN17052_Verify the customer search results with valid format data_Verify the customer search results with valid format data Colleague</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Yes, remove] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 59: CLIEN_21327_Epic 2913_Story 7043 & Story 7048_Scenario 1_Seller role_Validate sorting options for store , team , region,global & individual</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:27</div>
+                    <div><strong>S.No:</strong> 379.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_21327_Epic 2913_Story 7043 & Story 7048_Scenario 1_Seller role_Validate sorting options for store , team , region,global & individual</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Spent with me (high to low)] is not found after waiting for: 20 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 60: CLIEN-21401_Epic 2913_Story 6313_LL2_Validate the details in view details link for a campaign</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:06</div>
+                    <div><strong>S.No:</strong> 381.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21401_Epic 2913_Story 6313_LL2_Validate the details in view details link for a campaign</div>
+                    <div class="error-message"><strong>Error:</strong> LBB_Storesis an Abstract element with no identification attributes specified. Failed to locate the element.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 61: CLIEN-20424_Epic_3227_Story 8003_ValidateClientInfoPage - Team - Top Of Page_Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:21</div>
+                    <div><strong>S.No:</strong> 386.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20424_Epic_3227_Story 8003_ValidateClientInfoPage - Team - Top Of Page_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Neha Goyal] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 62: CLIEN-21377_Epic 2913_Story 7046_Scenario 1_LL2_ Campaigns Home Page and Quick Tiles Validation</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:50</div>
+                    <div><strong>S.No:</strong> 387.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21377_Epic 2913_Story 7046_Scenario 1_LL2_ Campaigns Home Page and Quick Tiles Validation</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : CAMPAIGN] does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 63: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:45</div>
+                    <div><strong>S.No:</strong> 392.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20425_Epic_3227_Story 8003_ValidateClientInfoPage - Team - Top Of Page_LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Select manager] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 64: CLIEN-17585_No Matching Colleague Found with Invalid Search Input_LL1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:39</div>
+                    <div><strong>S.No:</strong> 403.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17585_No Matching Colleague Found with Invalid Search Input_LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Top clients] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 65: CLIEN_22342_Epic 2913_Story 7126_Scenario 1_Admin_Region level view in campaign page</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:57</div>
+                    <div><strong>S.No:</strong> 404.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_22342_Epic 2913_Story 7126_Scenario 1_Admin_Region level view in campaign page</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_LogoutButton does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 66: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:55</div>
+                    <div><strong>S.No:</strong> 406.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21994-Validate My book details against API -LL1 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_NoClientAvilablewithfilter does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 67: CLIEN-17717_LBB_Team Book Seller Display and Interaction Bubble Validation - LL2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:27</div>
+                    <div><strong>S.No:</strong> 408.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17717_LBB_Team Book Seller Display and Interaction Bubble Validation - LL2</div>
+                    <div class="error-message"><strong>Error:</strong> LBB_ColleagueBookResultsis an Abstract element with no identification attributes specified. Failed to locate the element.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 68: CLIEN-17703_Select a view validation for LL1 role_Agenda section</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:59</div>
+                    <div><strong>S.No:</strong> 410.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17703_Select a view validation for LL1 role_Agenda section</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 69: CLIEN-18009_Verify the customer search results with valid format data_Adminrole_</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:55</div>
+                    <div><strong>S.No:</strong> 412.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-18009_Verify the customer search results with valid format data_Adminrole_</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Yes, remove] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 70: CLIEN-17127_LBB_Team Book Seller Display and Interaction Bubble Validation_One Connection - LL2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:45</div>
+                    <div><strong>S.No:</strong> 417.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17127_LBB_Team Book Seller Display and Interaction Bubble Validation_One Connection - LL2</div>
+                    <div class="error-message"><strong>Error:</strong> LBB_ColleagueBookResultsis an Abstract element with no identification attributes specified. Failed to locate the element.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 71: copy of CLien Agenda_LL2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:33</div>
+                    <div><strong>S.No:</strong> 419.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17705_Select a view validation for LL2 role_Agenda section</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 72: CLIEN-18968_Manage Notes Add, Edit_Different Combinations_LL3</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:06:30</div>
+                    <div><strong>S.No:</strong> 421.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-18968_Manage Notes Add, Edit_Different Combinations_LL3</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : profile_tab Profile] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 73: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:52</div>
+                    <div><strong>S.No:</strong> 422.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21991_Epic 3226_Story_7246_Scenario 4_Validate the individual book for LL3 Role-Validate My Book Details -LL3</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_NoClientAvilablewithfilter does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 74: CLIEN-17704_View and Navigate Potential Clients_Level2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:26</div>
+                    <div><strong>S.No:</strong> 424.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17704_View and Navigate Potential Clients_Level2</div>
+                    <div class="error-message"><strong>Error:</strong> Found 1 instances of web element LBB_PotentialClientListCount on the screen, but expected 2.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 75: CLIEN-18969_Manage Notes Add, Edit_Different Combinations_Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:06</div>
+                    <div><strong>S.No:</strong> 426.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-18969_Manage Notes Add, Edit_Different Combinations_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Swetha] exists on the screen, which is not expected.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 76: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:50</div>
+                    <div><strong>S.No:</strong> 429.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20530-ColleaguBookPage_Sort_Level_1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : colleague_0] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 77: CLIEN_19426_LBB_Validate when no notes is present under All notes & My most recent notes section_Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:29</div>
+                    <div><strong>S.No:</strong> 437.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_19426_LBB_Validate when no notes is present under All notes & My most recent notes section_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : ALL NOTES] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 78: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:34</div>
+                    <div><strong>S.No:</strong> 443.0</div>
+                    <div><strong>Scenario:</strong> LBB_CLIEN-17695___Add Connections Validation, Tagging, and Messaging Flow_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : edit_connections_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 79: CLIEN_17106_LBB_Validate the data in Client profile totals spend, spend with me and Visit</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:27</div>
+                    <div><strong>S.No:</strong> 444.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_17106_LBB_Validate the data in Client profile totals spend, spend with me and Visit</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : LY: 0.0%] does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 80: CLIEN-17685___Wallet Section No Access to Shopping Passes_Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:56</div>
+                    <div><strong>S.No:</strong> 456.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17685___Wallet Section No Access to Shopping Passes_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : associate_0] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 81: CLIEN-19509_LL2_Add email_Unable to save changes popup when user tries to save the existing data again</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:43</div>
+                    <div><strong>S.No:</strong> 457.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19509_LL2_Add email_Unable to save changes popup when user tries to save the existing data again</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_UnabletoSaveChanges does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 82: CLIEN-19508_LL1_Add email_Unable to save changes popup when user tries to save the existing data again</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:08</div>
+                    <div><strong>S.No:</strong> 458.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19508_LL1_Add email_Unable to save changes popup when user tries to save the existing data again</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_UnabletoSaveChanges does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 83: CLIEN-17565___Wallet Section No Access to Shopping Passes_Store</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:14</div>
+                    <div><strong>S.No:</strong> 459.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17565___Wallet Section No Access to Shopping Passes_Store</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : $ Balance (0)] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 84: CLIEN-19510_LL3_Add email_Unable to save changes popup when user tries to save the existing data again</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:44</div>
+                    <div><strong>S.No:</strong> 460.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19510_LL3_Add email_Unable to save changes popup when user tries to save the existing data again</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_UnabletoSaveChanges does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 85: CLIEN-19511_Admin_Add email_Unable to save changes popup when user tries to save the existing data again</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:50</div>
+                    <div><strong>S.No:</strong> 462.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19511_Admin_Add email_Unable to save changes popup when user tries to save the existing data again</div>
+                    <div class="error-message"><strong>Error:</strong> Element LBB_UnabletoSaveChanges does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 86: CLIEN-19866_LBB_Add Filter option for transaction and clear for date selection_With all available options and validate the details</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:44</div>
+                    <div><strong>S.No:</strong> 470.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19866_LBB_Add Filter option for transaction and clear for date selection_With all available options and validate the details</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Clear filters] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 87: CLIEN-17055_LBB_Display Wallet Summary on Overview Page_Validate offers tab data</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:18</div>
+                    <div><strong>S.No:</strong> 471.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17055_LBB_Display Wallet Summary on Overview Page_Validate offers tab data</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : BLM-Generic-TestOffer-Fixed points for any purchase: get X points after any purchase-Create Offer] does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 88: CLIEN-17573_Potential New Clients Filter, Count, and Navigation Validation_Level1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:03</div>
+                    <div><strong>S.No:</strong> 478.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17573_Potential New Clients Filter, Count, and Navigation Validation_Level1</div>
+                    <div class="error-message"><strong>Error:</strong> Found 3 instances of web element LBB_PotentialClientListCount on the screen, but expected 4.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 89: CLIEN-21379_Epic 2913_Story 7142_Scenario 1_LL1_ Campaigns Home Page and Quick Tiles Validation</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:01</div>
+                    <div><strong>S.No:</strong> 479.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21379_Epic 2913_Story 7142_Scenario 1_LL1_ Campaigns Home Page and Quick Tiles Validation</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : CAMPAIGN] does not exist.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 90: CLIEN-17072___View contact method MYBook Amperity</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:37</div>
+                    <div><strong>S.No:</strong> 482.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17072___View contact method MYBook Amperity</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Loyallist] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 91: CLIEN-16747_LBB_Validate tabs in MY BOOK_NEW</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:37</div>
+                    <div><strong>S.No:</strong> 485.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-16747_LBB_Validate tabs in MY BOOK_NEW</div>
+                    <div class="error-message"><strong>Error:</strong> 'Element [label : Clear filters]' not found.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 92: CLIEN-17745_Campaigns_selectaview_searchvalidation_ll2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:50</div>
+                    <div><strong>S.No:</strong> 486.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17745_Campaigns_selectaview_searchvalidation_ll2</div>
+                    <div class="error-message"><strong>Error:</strong> Could not find web element: LBB_LogoutButton</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 93: CLIEN-17050_Verify the customer search results with valid format data_Admin role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:08:34</div>
+                    <div><strong>S.No:</strong> 492.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17050_Verify the customer search results with valid format data_Admin role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : Yes, remove] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 94: CLIEN-21402_Epic 2913_Story 6313_LL3_Validate the details in view details link for a campaign</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:55</div>
+                    <div><strong>S.No:</strong> 495.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21402_Epic 2913_Story 6313_LL3_Validate the details in view details link for a campaign</div>
+                    <div class="error-message"><strong>Error:</strong> LBB_Storesis an Abstract element with no identification attributes specified. Failed to locate the element.</div>
+                </div>
+            </div>
+        </div>
+        <div class="cluster">
+            <div class="cluster-header" onclick="toggleCluster(this)">
+                <strong>🚨 Element Not Found - add_connections_button (5 failures)</strong>
+                <span class="expand-btn">▼</span>
+            </div>
+            <div class="cluster-content">
+                <h4>Root Cause Analysis:</h4>
+                <p><strong>Category:</strong> UI/Automation Framework - Connection button locator instability</p>
+                <p><strong>Impact:</strong> Low Impact - 1.0% of total test execution affected</p>
+                <p><strong>Recommendation:</strong> Conduct detailed analysis and implement targeted solutions</p>
+                
+                <h4>Failed Test Cases:</h4>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 1: CLIEN_20413_Epic_2815_Story 8042_AddsRemovesAndManagesPotentialColleaguesInConnections_Level1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:52</div>
+                    <div><strong>S.No:</strong> 432.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_20413_Epic_2815_Story 8042_AddsRemovesAndManagesPotentialColleaguesInConnections_Level1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : add_connections_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 2: CLIEN_20414_Epic_2815_Story 8042_AddsRemovesAndManagesPotentialColleaguesInConnections_Level2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:52</div>
+                    <div><strong>S.No:</strong> 436.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_20414_Epic_2815_Story 8042_AddsRemovesAndManagesPotentialColleaguesInConnections_Level2</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : add_connections_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 3: CLIEN-20415_Epic_2815_Story 8042_AddsRemovesAndManagesPotentialColleaguesInConnections_Level3</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:03</div>
+                    <div><strong>S.No:</strong> 439.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20415_Epic_2815_Story 8042_AddsRemovesAndManagesPotentialColleaguesInConnections_Level3</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : add_connections_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 4: CLIEN-20416_Epic_2815_Story 8042_AddsRemovesAndManagesPotentialColleaguesInConnections_Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:53</div>
+                    <div><strong>S.No:</strong> 440.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20416_Epic_2815_Story 8042_AddsRemovesAndManagesPotentialColleaguesInConnections_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : add_connections_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 5: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:42</div>
+                    <div><strong>S.No:</strong> 454.0</div>
+                    <div><strong>Scenario:</strong> LBB_CLIEN-17736___Manage Connections Multi-Select, Role-Based Visibility, and Removal Flow-Global</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : add_connections_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+            </div>
+        </div>
+        <div class="cluster">
+            <div class="cluster-header" onclick="toggleCluster(this)">
+                <strong>🚨 Element Not Found - back_button (8 failures)</strong>
+                <span class="expand-btn">▼</span>
+            </div>
+            <div class="cluster-content">
+                <h4>Root Cause Analysis:</h4>
+                <p><strong>Category:</strong> UI/Automation Framework - Navigation button locator instability</p>
+                <p><strong>Impact:</strong> Low Impact - 1.6% of total test execution affected</p>
+                <p><strong>Recommendation:</strong> Conduct detailed analysis and implement targeted solutions</p>
+                
+                <h4>Failed Test Cases:</h4>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 1: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:14:21</div>
+                    <div><strong>S.No:</strong> 228.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17701_store book_API validation for top filters for LL2 role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : back_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 2: CLIEN-20029_TC02_Epic 3226_Story_8001_Scenario 1_ValidateTheClientCardInColleagueBook_Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:51</div>
+                    <div><strong>S.No:</strong> 288.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20029_TC02_Epic 3226_Story_8001_Scenario 1_ValidateTheClientCardInColleagueBook_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : back_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 3: CLIEN_20258_Epic_3226_Story__4381_Scenario 1_Validate the Colleague Book Page - Header & Book Results_Admin</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:02</div>
+                    <div><strong>S.No:</strong> 316.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_20258_Epic_3226_Story__4381_Scenario 1_Validate the Colleague Book Page - Header & Book Results_Admin</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : back_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 4: NewClientCreationWithPerferredMethodAsEmail</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:07:18</div>
+                    <div><strong>S.No:</strong> 414.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-22272_Add a new customer functionality _With phone number_LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : back_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 5: NewClientCreationWithPerferredMethodAsEmail</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:07:10</div>
+                    <div><strong>S.No:</strong> 441.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-22277_Add a new customer functionality _With phone number_LL2 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : back_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 6: NewClientCreationWithPerferredMethodAsEmail</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:07:15</div>
+                    <div><strong>S.No:</strong> 449.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-22278_Add a new customer functionality _With phone number_LL3 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : back_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 7: CLIEN-17107_TranscationHistoryValidation</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:07:35</div>
+                    <div><strong>S.No:</strong> 451.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17107_TranscationHistoryValidation</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : back_button Cancel] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 8: NewClientCreationWithPerferredMethodAsEmail</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:07:06</div>
+                    <div><strong>S.No:</strong> 461.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-22279_Add a new customer functionality _With phone number_Admin Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : back_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+            </div>
+        </div>
+        <div class="cluster">
+            <div class="cluster-header" onclick="toggleCluster(this)">
+                <strong>🚨 Element Not Found - select_view_button (27 failures)</strong>
+                <span class="expand-btn">▼</span>
+            </div>
+            <div class="cluster-content">
+                <h4>Root Cause Analysis:</h4>
+                <p><strong>Category:</strong> UI/Automation Framework - View selection button locator instability</p>
+                <p><strong>Impact:</strong> Low Impact - 5.4% of total test execution affected</p>
+                <p><strong>Recommendation:</strong> Conduct detailed analysis and implement targeted solutions</p>
+                
+                <h4>Failed Test Cases:</h4>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 1: CLIEN-17126_LBB_Team Book Seller Display and Interaction Bubble Validation_One Connection - LL1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:07:18</div>
+                    <div><strong>S.No:</strong> 196.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17126_LBB_Team Book Seller Display and Interaction Bubble Validation_One Connection - LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 2: CLIEN-17116_Client not found message check_My Book for LL2 Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:05:13</div>
+                    <div><strong>S.No:</strong> 197.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17116_Client not found message check_My Book for LL2 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 3: CLIEN-17129_Client not found message check_My Book for LL3 Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:50</div>
+                    <div><strong>S.No:</strong> 203.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17129_Client not found message check_My Book for LL3 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 4: CLIEN-20522_LBB_Validate the search results for colleague book_LL2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:59</div>
+                    <div><strong>S.No:</strong> 213.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20522_LBB_Validate the search results for colleague book_LL2</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 5: CLIEN-20523_LBB_Validate the search results for colleague book_LL3</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:48</div>
+                    <div><strong>S.No:</strong> 222.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20523_LBB_Validate the search results for colleague book_LL3</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 6: CLIEN-19954_LBB_Validate if user able to load individual book and search criteria in select a view page_LL1 role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:32</div>
+                    <div><strong>S.No:</strong> 242.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19954_LBB_Validate if user able to load individual book and search criteria in select a view page_LL1 role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 7: CLIEN_19955_LBB_Validate if user able to load individual book and search criteria in select a view page_LL2 role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:42</div>
+                    <div><strong>S.No:</strong> 244.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_19955_LBB_Validate if user able to load individual book and search criteria in select a view page_LL2 role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 8: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:47</div>
+                    <div><strong>S.No:</strong> 248.0</div>
+                    <div><strong>Scenario:</strong> LBB_CLIEN-17694___Add Connections Validation, Tagging, and Messaging Flow_LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 9: CLIEN-19956_LBB_Validate if user able to load individual book and search criteria in select a view page_LL3 role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:05:32</div>
+                    <div><strong>S.No:</strong> 249.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-19956_LBB_Validate if user able to load individual book and search criteria in select a view page_LL3 role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 10: CLIEN-17726__Add Connections Visibility and Selection Validation_Level2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:14</div>
+                    <div><strong>S.No:</strong> 256.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17726__Add Connections Visibility and Selection Validation_Level2</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 11: CLIEN__20031_Epic 3226_Story_8001_Scenario 1_ValidateClientCardConnections_LL3</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:30</div>
+                    <div><strong>S.No:</strong> 299.0</div>
+                    <div><strong>Scenario:</strong> CLIEN__20031_Epic 3226_Story_8001_Scenario 1_ValidateClientCardConnections_LL3</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 12: CLIEN_20028_Epic 3226_Story_8001_ColleagueBookPage _Client Card_Connections_LL1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:26</div>
+                    <div><strong>S.No:</strong> 306.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_20028_Epic 3226_Story_8001_ColleagueBookPage _Client Card_Connections_LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 13: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:11</div>
+                    <div><strong>S.No:</strong> 311.0</div>
+                    <div><strong>Scenario:</strong> LBB_CLIEN-17692___Add Connections Validation, Tagging, and Messaging Flow_LL2</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 14: CLIEN__20030_Epic 3226_Story_8001_ColleagueBookPage_ClientCard_Connections_LL2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:49</div>
+                    <div><strong>S.No:</strong> 312.0</div>
+                    <div><strong>Scenario:</strong> CLIEN__20030_Epic 3226_Story_8001_ColleagueBookPage_ClientCard_Connections_LL2</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 15: LBB_CLIEN_Epic 2913_Story 7146_Select a view page validations for LL1 role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:51</div>
+                    <div><strong>S.No:</strong> 318.0</div>
+                    <div><strong>Scenario:</strong> LBB_CLIEN_Epic 2913_Story 7146_Select a view page validations for LL1 role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 16: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:48</div>
+                    <div><strong>S.No:</strong> 329.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-22002_Validate store book against API for LL1 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 17: LBB_CLIEN-17716___Client Book Search Icon Functionality Validation- LL2 Roles</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:35</div>
+                    <div><strong>S.No:</strong> 338.0</div>
+                    <div><strong>Scenario:</strong> LBB_CLIEN-17716___Client Book Search Icon Functionality Validation- LL2 Roles</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 18: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:39</div>
+                    <div><strong>S.No:</strong> 343.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17680_Wallet page connections check_Region</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 19: CLIEN-17568___Connections Validation Flow_LL1 against API</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:27</div>
+                    <div><strong>S.No:</strong> 346.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17568___Connections Validation Flow_LL1 against API</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 20: CLIEN-22026_Epic 2611_Story 2700_Scenario 1_Select a view page validation for LL2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:38</div>
+                    <div><strong>S.No:</strong> 354.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-22026_Epic 2611_Story 2700_Scenario 1_Select a view page validation for LL2</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 21: CLIEN-17734___Colleague Selection Based on Role and Hierarchy_Global</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:27</div>
+                    <div><strong>S.No:</strong> 384.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17734___Colleague Selection Based on Role and Hierarchy_Global</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 22: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:34</div>
+                    <div><strong>S.No:</strong> 391.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-22373_ValidationOfIndividual book view _LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 23: CLIEN-17733_Colleague Selection Based on Role and Hierarchy_Region</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:54</div>
+                    <div><strong>S.No:</strong> 394.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17733_Colleague Selection Based on Role and Hierarchy_Region</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 24: CLIEN-17139_Select a view validation in agenda section for admin role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:38</div>
+                    <div><strong>S.No:</strong> 399.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17139_Select a view validation in agenda section for admin role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 30 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 25: LBB_CLIEN-17585_No Matching Colleague Found with Invalid Search Input_LL2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:19</div>
+                    <div><strong>S.No:</strong> 413.0</div>
+                    <div><strong>Scenario:</strong> LBB_CLIEN-17585_No Matching Colleague Found with Invalid Search Input_LL2</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 26: CLIEN-20521_LBB_Validate the search results for colleague book_LL1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:45</div>
+                    <div><strong>S.No:</strong> 420.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-20521_LBB_Validate the search results for colleague book_LL1</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 27: CLIEN- Team Book Top Filter Pills_ StoreAccess Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:31</div>
+                    <div><strong>S.No:</strong> 427.0</div>
+                    <div><strong>Scenario:</strong> CLIEN- 22371_Team Book Top Filter Pills_ StoreAccess Role</div>
+                    <div class="error-message"><strong>Error:</strong> Element [label : select_view_button] is not found after waiting for: 160 seconds.</div>
+                </div>
+            </div>
+        </div>
+        <div class="cluster">
+            <div class="cluster-header" onclick="toggleCluster(this)">
+                <strong>🚨 API/Backend - Connection Issues (2 failures)</strong>
+                <span class="expand-btn">▼</span>
+            </div>
+            <div class="cluster-content">
+                <h4>Root Cause Analysis:</h4>
+                <p><strong>Category:</strong> Backend Service Integration - Client connection matching failures</p>
+                <p><strong>Impact:</strong> Low Impact - 0.4% of total test execution affected</p>
+                <p><strong>Recommendation:</strong> Conduct detailed analysis and implement targeted solutions</p>
+                
+                <h4>Failed Test Cases:</h4>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 1: CLIEN_19965_Epic 3287_Story_7939_Scenario 2_Validate the region book when having 1 connection</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:46</div>
+                    <div><strong>S.No:</strong> 227.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_19965_Epic 3287_Story_7939_Scenario 2_Validate the region book when having 1 connection</div>
+                    <div class="error-message"><strong>Error:</strong> Logical Abort: 'No Matching client Connection found'. Status to override with: 'Fail'. Scope: Current Test case</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 2: CLIEN_19966_Epic 3287_Story_7939_Scenario 1_Validate the region book when having more than 1 connections</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:49</div>
+                    <div><strong>S.No:</strong> 238.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_19966_Epic 3287_Story_7939_Scenario 1_Validate the region book when having more than 1 connections</div>
+                    <div class="error-message"><strong>Error:</strong> Logical Abort: 'No Matching client Connection found'. Status to override with: 'Fail'. Scope: Current Test case</div>
+                </div>
+            </div>
+        </div>
+        <div class="cluster">
+            <div class="cluster-header" onclick="toggleCluster(this)">
+                <strong>🚨 API/Backend - Data Mismatch (11 failures)</strong>
+                <span class="expand-btn">▼</span>
+            </div>
+            <div class="cluster-content">
+                <h4>Root Cause Analysis:</h4>
+                <p><strong>Category:</strong> Backend Service Integration - API vs UI data inconsistency</p>
+                <p><strong>Impact:</strong> Low Impact - 2.2% of total test execution affected</p>
+                <p><strong>Recommendation:</strong> Conduct detailed analysis and implement targeted solutions</p>
+                
+                <h4>Failed Test Cases:</h4>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 1: CLIEN-22370 Team Book Top Filter Pills_ Global Access Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:54</div>
+                    <div><strong>S.No:</strong> 293.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-22370 Team Book Top Filter Pills_ Global Access Role</div>
+                    <div class="error-message"><strong>Error:</strong> Error: Actual Lapsed Clients is not matching with SFDC</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 2: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:50</div>
+                    <div><strong>S.No:</strong> 334.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17560___Validate storebook against API for LL2 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Error: LastName from API is not matching with UI Record</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 3: CLIEN-17050_Verify the customer search results with valid format data_LL1 role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:05:43</div>
+                    <div><strong>S.No:</strong> 337.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17050_Verify the customer search results with valid format data_LL1 role</div>
+                    <div class="error-message"><strong>Error:</strong> ReST Response status code verification failed for 'LBB_SREGetQueryByAppAPI'. Expected: 200, actual: 503.</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 4: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:28</div>
+                    <div><strong>S.No:</strong> 411.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17675_Region book validation for LL1 role against API</div>
+                    <div class="error-message"><strong>Error:</strong> Error: LastName from API is not matching with UI Record</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 5: CLIEN-17676_Validate region book against API for Admin role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:23</div>
+                    <div><strong>S.No:</strong> 428.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17676_Validate region book against API for Admin role</div>
+                    <div class="error-message"><strong>Error:</strong> Error: LastName from API is not matching with UI Record</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 6: CLIEN-17143__Validate Top Filter Pills and Metrics in Book Views -Stores Book LL3</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:16</div>
+                    <div><strong>S.No:</strong> 431.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17143__Validate Top Filter Pills and Metrics in Book Views -Stores Book LL3</div>
+                    <div class="error-message"><strong>Error:</strong> Error: Actual Lapsed Client is not matching with SFDC</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 7: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:32</div>
+                    <div><strong>S.No:</strong> 434.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-22372_ ValidationOfTeam Book Top Filter Pills_ RegionAccessRole</div>
+                    <div class="error-message"><strong>Error:</strong> Error: Actual Lapsed Clients is not matching with SFDC</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 8: CLIEN-17080_Validate teambook against API for admin role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:30</div>
+                    <div><strong>S.No:</strong> 442.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17080_Validate teambook against API for admin role</div>
+                    <div class="error-message"><strong>Error:</strong> Error: LBB_universalCurrency from API is not matching with UI Record</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 9: CLIEN-17558_Validate storebook against API_For Admin role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:23</div>
+                    <div><strong>S.No:</strong> 446.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17558_Validate storebook against API_For Admin role</div>
+                    <div class="error-message"><strong>Error:</strong> Error: LastName from API is not matching with UI Record</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 10: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:03:54</div>
+                    <div><strong>S.No:</strong> 450.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17103_Validate teambook against API for LL1 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Error: LBB_universalCurrency from API is not matching with UI Record</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 11: CLIEN-17696___Validate Top Filter Pills and Metrics in Book Views -Team</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:01</div>
+                    <div><strong>S.No:</strong> 487.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17696___Validate Top Filter Pills and Metrics in Book Views -Team</div>
+                    <div class="error-message"><strong>Error:</strong> Error: Actual Lapsed Client is not matching with SFDC</div>
+                </div>
+            </div>
+        </div>
+        <div class="cluster">
+            <div class="cluster-header" onclick="toggleCluster(this)">
+                <strong>🚨 API/Backend - Service Not Working (4 failures)</strong>
+                <span class="expand-btn">▼</span>
+            </div>
+            <div class="cluster-content">
+                <h4>Root Cause Analysis:</h4>
+                <p><strong>Category:</strong> Backend Service Integration - API service availability issues</p>
+                <p><strong>Impact:</strong> Low Impact - 0.8% of total test execution affected</p>
+                <p><strong>Recommendation:</strong> Conduct detailed analysis and implement targeted solutions</p>
+                
+                <h4>Failed Test Cases:</h4>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 1: Test case 1</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:53</div>
+                    <div><strong>S.No:</strong> 284.0</div>
+                    <div><strong>Scenario:</strong> CLIEN_22016_Epic 2913_Story 7126_Scenario 1_LL1_Region level view in campaign page</div>
+                    <div class="error-message"><strong>Error:</strong> Logical Abort: 'API is Not working'. Status to override with: 'Fail'. Scope: Current Test case</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 2: CLIEN-16857__Validate the contents of have rewards to spend_ColleagueRole</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:00:56</div>
+                    <div><strong>S.No:</strong> 489.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-16857__Validate the contents of have rewards to spend_ColleagueRole</div>
+                    <div class="error-message"><strong>Error:</strong> Logical Abort: 'API is Not working'. Status to override with: 'Fail'. Scope: Current Test case</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 3: CLIEN-__Validate the contents of have not shopped in 90 days_API Validation_ColleagueRole</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:00:55</div>
+                    <div><strong>S.No:</strong> 491.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-16858__Validate the contents of have not shopped in 90 days_API Validation_ColleagueRole</div>
+                    <div class="error-message"><strong>Error:</strong> Logical Abort: 'API is Not working'. Status to override with: 'Fail'. Scope: Current Test case</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 4: CLIEN-16860___Nearly at the next loyalist Tier</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:00:56</div>
+                    <div><strong>S.No:</strong> 496.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-16860___Nearly at the next loyalist Tier</div>
+                    <div class="error-message"><strong>Error:</strong> Logical Abort: 'API is Not working'. Status to override with: 'Fail'. Scope: Current Test case</div>
+                </div>
+            </div>
+        </div>
+        <div class="cluster">
+            <div class="cluster-header" onclick="toggleCluster(this)">
+                <strong>🚨 Logical Abort - Next Step Not Created (5 failures)</strong>
+                <span class="expand-btn">▼</span>
+            </div>
+            <div class="cluster-content">
+                <h4>Root Cause Analysis:</h4>
+                <p><strong>Category:</strong> Business Logic - Next step creation workflow failures</p>
+                <p><strong>Impact:</strong> Low Impact - 1.0% of total test execution affected</p>
+                <p><strong>Recommendation:</strong> Conduct detailed analysis and implement targeted solutions</p>
+                
+                <h4>Failed Test Cases:</h4>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 1: CLIEN-21252_Epic 2611_Story 2614_Scenario 2_Validate client (optional) field search criteria in New next step page_Admin Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:35</div>
+                    <div><strong>S.No:</strong> 218.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21252_Epic 2611_Story 2614_Scenario 2_Validate client (optional) field search criteria in New next step page_Admin Role</div>
+                    <div class="error-message"><strong>Error:</strong> Logical Abort: 'Next Step Not Created'. Status to override with: 'Fail'. Scope: Current Test case</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 2: CLIEN_Epic 2611_Story 2614_Scenario 2_Validate client (optional) field search criteria in New next step page_LL1 Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:05:54</div>
+                    <div><strong>S.No:</strong> 258.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21253_Epic 2611_Story 2614_Scenario 2_Validate client (optional) field search criteria in New next step page_LL1 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Logical Abort: 'Next Step Not Created'. Status to override with: 'Fail'. Scope: Current Test case</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 3: CLIEN_Epic 2611_Story 2614_Scenario 2_Validate client (optional) field search criteria in New next step page_LL3 Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:49</div>
+                    <div><strong>S.No:</strong> 269.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21255_Epic 2611_Story 2614_Scenario 2_Validate client (optional) field search criteria in New next step page_LL3 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Logical Abort: 'Next Step Not Created'. Status to override with: 'Fail'. Scope: Current Test case</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 4: CLIEN_Epic 2611_Story 2614_Scenario 2_Validate client (optional) field search criteria in New next step page_Colleague Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:04:26</div>
+                    <div><strong>S.No:</strong> 276.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21256_Epic 2611_Story 2614_Scenario 2_Validate client (optional) field search criteria in New next step page_Colleague Role</div>
+                    <div class="error-message"><strong>Error:</strong> Logical Abort: 'Next Step Not Created'. Status to override with: 'Fail'. Scope: Current Test case</div>
+                </div>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 5: CLIEN_Epic 2611_Story 2614_Scenario 1_Create next step and validate if next step created_LL3 Role</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:02:08</div>
+                    <div><strong>S.No:</strong> 393.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-21074_Epic 2611_Story 2614_Scenario 1_Create next step and validate if next step created_LL3 Role</div>
+                    <div class="error-message"><strong>Error:</strong> Logical Abort: 'Next Step Not Created'. Status to override with: 'Fail'. Scope: Current Test case</div>
+                </div>
+            </div>
+        </div>
+        <div class="cluster">
+            <div class="cluster-header" onclick="toggleCluster(this)">
+                <strong>🚨 Logical Abort - UI Validation (1 failures)</strong>
+                <span class="expand-btn">▼</span>
+            </div>
+            <div class="cluster-content">
+                <h4>Root Cause Analysis:</h4>
+                <p><strong>Category:</strong> Business Logic - UI state validation failures</p>
+                <p><strong>Impact:</strong> Low Impact - 0.2% of total test execution affected</p>
+                <p><strong>Recommendation:</strong> Conduct detailed analysis and implement targeted solutions</p>
+                
+                <h4>Failed Test Cases:</h4>
+                <div class="test-case">
+                    <div class="test-case-header">Test Case 1: CLIEN-17148__ValidateSelectAView_EntireStore_LL2</div>
+                    <div><strong>Status:</strong> Fail</div>
+                    <div><strong>Execution Time:</strong> 0:01:07</div>
+                    <div><strong>S.No:</strong> 208.0</div>
+                    <div><strong>Scenario:</strong> CLIEN-17148__ValidateSelectAView_EntireStore_LL2</div>
+                    <div class="error-message"><strong>Error:</strong> Logical Abort: 'Entire company exists in the UI'. Status to override with: 'Fail'. Scope: Current Test case</div>
+                </div>
+            </div>
+        </div>
+        <h2>📈 COMMON CHECKPOINTS & PATTERNS</h2>
+        
+        <div class="pattern-list">
+            <h3>Top Error Patterns:</h3>
+            <ol><li><strong>Element not found: LittleBrownBook_Label</strong> (44 occurrences)</li><li><strong>Element [label : select_view_button] is not found after waiting for: 160 seconds.</strong> (20 occurrences)</li><li><strong>Element [label : select_view_button] is not found after waiting for: 30 seconds.</strong> (7 occurrences)</li><li><strong>Element [label : Add a new client] is not found after waiting for: 160 seconds.</strong> (7 occurrences)</li><li><strong>Element [label : back_button] is not found after waiting for: 30 seconds.</strong> (7 occurrences)</li><li><strong>Found 3 instances of web element LBB_PotentialClientListCount on the screen, but expected 4.</strong> (5 occurrences)</li><li><strong>Logical Abort: 'Next Step Not Created'. Status to override with: 'Fail'. Scope: Current Test case</strong> (5 occurrences)</li><li><strong>Element [label : Cancel] is not found after waiting for: 30 seconds.</strong> (5 occurrences)</li><li><strong>Element [label : add_connections_button] is not found after waiting for: 30 seconds.</strong> (5 occurrences)</li><li><strong>Logical Abort: 'API is Not working'. Status to override with: 'Fail'. Scope: Current Test case</strong> (4 occurrences)</li>
+            </ol>
+        </div>
+        
+        <div class="pattern-list">
+            <h3>Module Hot-spots:</h3>
+            <ol><li><strong>Client Management</strong> (46 failures)</li><li><strong>Admin Functions</strong> (35 failures)</li><li><strong>Store Operations</strong> (8 failures)</li><li><strong>Epic_3227_Story_7287</strong> (1 failures)</li><li><strong>Epic_421_Story_1654</strong> (1 failures)</li>
+            </ol>
+        </div>
+        
+        <h2>🎯 KEY TAKEAWAYS & FOCUS AREAS</h2>
+        <div class="recommendations">
+            <h3>Primary Failure Modes:</h3>
+            <ul>
+                <li><strong>Element Locator Instability:</strong> Majority of failures related to UI element identification</li>
+                <li><strong>Application State Inconsistency:</strong> Elements appearing/disappearing unpredictably</li>
+                <li><strong>Test Environment Synchronization:</strong> Timing issues between test execution and application response</li>
+            </ul>
+            
+            <h3>Systemic vs Isolated Analysis:</h3>
+            <ul>
+                <li><strong>Systemic Issues:</strong> Element locator failures are widespread across multiple test scenarios</li>
+                <li><strong>Quality Risk Hotspots:</strong> Client management and Admin functionality modules show highest failure rates</li>
+                <li><strong>Leverage Points:</strong> Improving element locator strategy and wait conditions would have maximum impact</li>
+            </ul>
+        </div>
+        
+        <h2>💡 RECOMMENDATIONS (PRIORITIZED)</h2>
+        
+        <h3>🚀 Quick Wins (High Impact, Low Effort)</h3><div class="quick-win">• Implement explicit waits instead of implicit waits for element identification</div><div class="quick-win">• Review and update element locators using more robust strategies (data-testid, CSS selectors)</div><div class="quick-win">• Add element existence checks before performing actions</div><div class="quick-win">• Implement retry mechanisms for flaky element interactions</div>
+        <h3>📋 Next Sprint Focus</h3><div class="strategic">• Conduct comprehensive element locator audit across all test scripts</div><div class="strategic">• Implement Page Object Model pattern for better maintainability</div><div class="strategic">• Establish baseline performance thresholds for test execution times</div><div class="strategic">• Set up automated test environment health checks</div>
+        <h3>🏗️ Medium-term Improvements</h3><div class="strategic">• Implement visual regression testing to catch UI changes proactively</div><div class="strategic">• Establish continuous test execution monitoring with real-time alerting</div><div class="strategic">• Develop self-healing test automation capabilities</div><div class="strategic">• Create comprehensive test data management strategy</div>
+        <h2>📋 EVIDENCE POINTERS</h2>
+        <div class="evidence">
+            <h3>Data Sources Used:</h3>
+            <ul>
+                <li><strong>Primary Source:</strong> accelQ-Report-Test Suite - LBB_CustomerCreationFlow - Job61666 (1).xlsx</li>
+                <li><strong>Test Cases Analyzed:</strong> 497 total execution records</li>
+                <li><strong>Failure Data Points:</strong> 236 failed test cases with detailed error analysis</li>
+                <li><strong>Analysis Coverage:</strong> 100% of provided test execution data</li>
+            </ul>
+            
+            <h3>Analysis Methods:</h3>
+            <ul>
+                <li><strong>Pattern Recognition:</strong> Automated clustering of similar error messages and failure types</li>
+                <li><strong>Statistical Analysis:</strong> Frequency analysis of error patterns and affected modules</li>
+                <li><strong>Root Cause Inference:</strong> Evidence-based categorization using error message content analysis</li>
+            </ul>
+            
+            <h3>Confidence Levels:</h3>
+            <ul>
+                <li><strong>High Confidence:</strong> Element locator failures (direct error message evidence)</li>
+                <li><strong>Medium Confidence:</strong> Module-specific patterns (based on test naming conventions)</li>
+                <li><strong>Requires Validation:</strong> Performance-related issues (limited timing data available)</li>
+            </ul>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 5px;">
+            <h3>📊 Analysis Complete</h3>
+            <p>This report provides evidence-based insights for immediate action and strategic improvement planning.<br>
+            <strong>Next Step:</strong> Review recommendations with development and QA teams for implementation planning.</p>
+        </div>
+    </div>
+</body>
+</html>

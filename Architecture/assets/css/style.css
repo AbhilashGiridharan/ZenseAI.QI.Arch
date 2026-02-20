@@ -1,0 +1,76 @@
+/* QI Offerings – Architecture Docs – Custom Styles */
+
+:root {
+  --color-primary: #0969da;
+  --color-bg: #ffffff;
+  --color-text: #1f2328;
+  --color-muted: #656d76;
+  --color-border: #d0d7de;
+}
+
+/* Mermaid diagram containers */
+.mermaid {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+/* Tables – full width, clean borders */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+th, td {
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+th {
+  background: #f6f8fa;
+  font-weight: 600;
+}
+
+/* Hero image */
+img[alt*="Solution overview"] {
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Code blocks */
+pre {
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+}
+
+/* TOC styling */
+ul#markdown-toc {
+  background: #f6f8fa;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 1rem 1rem 1rem 2rem;
+  margin: 1rem 0;
+}
+
+ul#markdown-toc li {
+  margin: 0.25rem 0;
+}
+
+/* Blockquote (intro callout) */
+blockquote {
+  border-left: 4px solid var(--color-primary);
+  padding: 0.5rem 1rem;
+  color: var(--color-muted);
+  background: #f6f8fa;
+  border-radius: 0 6px 6px 0;
+  margin: 1rem 0;
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+}

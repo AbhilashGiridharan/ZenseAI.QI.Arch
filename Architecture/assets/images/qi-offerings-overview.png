@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#155799;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#159957;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg)" rx="12"/>
+  <text x="600" y="160" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="48" font-weight="700">
+    QI Offerings
+  </text>
+  <text x="600" y="220" text-anchor="middle" fill="#ffffffcc" font-family="system-ui,sans-serif" font-size="24">
+    End-to-End Architecture · LLM + RAG
+  </text>
+  <text x="600" y="280" text-anchor="middle" fill="#ffffff99" font-family="system-ui,sans-serif" font-size="16">
+    UI/UX · Backend · AI Integration · Security · Observability · Deployment
+  </text>
+  <!-- Decorative nodes -->
+  <circle cx="200" cy="340" r="8" fill="#ffffff33"/>
+  <circle cx="400" cy="350" r="6" fill="#ffffff33"/>
+  <circle cx="600" cy="340" r="10" fill="#ffffff33"/>
+  <circle cx="800" cy="350" r="6" fill="#ffffff33"/>
+  <circle cx="1000" cy="340" r="8" fill="#ffffff33"/>
+  <line x1="200" y1="340" x2="400" y2="350" stroke="#ffffff22" stroke-width="2"/>
+  <line x1="400" y1="350" x2="600" y2="340" stroke="#ffffff22" stroke-width="2"/>
+  <line x1="600" y1="340" x2="800" y2="350" stroke="#ffffff22" stroke-width="2"/>
+  <line x1="800" y1="350" x2="1000" y2="340" stroke="#ffffff22" stroke-width="2"/>
+</svg>

@@ -1,0 +1,37 @@
+# ──────────────────────────────────────────────
+# QI Offerings – GitHub Pages / Jekyll Config
+# ──────────────────────────────────────────────
+title: "QI Offerings – Architecture"
+description: >-
+  End-to-end architecture documentation for QI Offerings
+  with LLM + RAG, UI/UX, Backend, Security, DevOps, and Observability.
+baseurl: "/Architecture"        # subpath on GitHub Pages
+url: ""                          # set to https://<org>.github.io in prod
+
+# Theme
+remote_theme: pages-themes/cayman@v0.2.0
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+
+# Kramdown (GitHub-compatible Markdown renderer)
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  toc_levels: "2..4"
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Exclude dev files from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules
+  - vendor

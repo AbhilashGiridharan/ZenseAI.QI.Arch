@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0e4a86;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a7f5a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg)" rx="12"/>
+
+  <text x="600" y="100" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="36" font-weight="700">
+    Retrieval Pipeline
+  </text>
+  <text x="600" y="140" text-anchor="middle" fill="#ffffffaa" font-family="system-ui,sans-serif" font-size="18">
+    Hybrid Search · Vector + BM25 · Re-ranking
+  </text>
+
+  <!-- Pipeline nodes -->
+  <!-- 1. Query -->
+  <rect x="40" y="200" width="140" height="60" rx="8" fill="#ffffff22" stroke="#ffffff55" stroke-width="1.5"/>
+  <text x="110" y="225" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="600">User Query</text>
+  <text x="110" y="245" text-anchor="middle" fill="#ffffffaa" font-family="system-ui,sans-serif" font-size="11">Natural language</text>
+
+  <!-- Arrow 1→2 -->
+  <line x1="180" y1="230" x2="220" y2="230" stroke="#ffffff88" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- 2. Embed -->
+  <rect x="220" y="200" width="140" height="60" rx="8" fill="#ffffff22" stroke="#ffffff55" stroke-width="1.5"/>
+  <text x="290" y="225" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="600">Embed Query</text>
+  <text x="290" y="245" text-anchor="middle" fill="#ffffffaa" font-family="system-ui,sans-serif" font-size="11">text-embedding-3-large</text>
+
+  <!-- Arrow 2→3 -->
+  <line x1="360" y1="230" x2="400" y2="230" stroke="#ffffff88" stroke-width="2"/>
+
+  <!-- 3. Hybrid Search -->
+  <rect x="400" y="200" width="160" height="60" rx="8" fill="#ffffff33" stroke="#ffffffaa" stroke-width="2"/>
+  <text x="480" y="225" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Hybrid Search</text>
+  <text x="480" y="245" text-anchor="middle" fill="#ffffffaa" font-family="system-ui,sans-serif" font-size="11">Vector + BM25 (RRF)</text>
+
+  <!-- Arrow 3→4 -->
+  <line x1="560" y1="230" x2="600" y2="230" stroke="#ffffff88" stroke-width="2"/>
+
+  <!-- 4. Filter -->
+  <rect x="600" y="200" width="140" height="60" rx="8" fill="#ffffff22" stroke="#ffffff55" stroke-width="1.5"/>
+  <text x="670" y="225" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="600">Filter + Top-K</text>
+  <text x="670" y="245" text-anchor="middle" fill="#ffffffaa" font-family="system-ui,sans-serif" font-size="11">Metadata · K=5</text>
+
+  <!-- Arrow 4→5 -->
+  <line x1="740" y1="230" x2="780" y2="230" stroke="#ffffff88" stroke-width="2"/>
+
+  <!-- 5. Re-rank -->
+  <rect x="780" y="200" width="140" height="60" rx="8" fill="#ffffff22" stroke="#ffffff55" stroke-width="1.5"/>
+  <text x="850" y="225" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="600">Re-rank</text>
+  <text x="850" y="245" text-anchor="middle" fill="#ffffffaa" font-family="system-ui,sans-serif" font-size="11">Cross-encoder</text>
+
+  <!-- Arrow 5→6 -->
+  <line x1="920" y1="230" x2="960" y2="230" stroke="#ffffff88" stroke-width="2"/>
+
+  <!-- 6. LLM -->
+  <rect x="960" y="200" width="160" height="60" rx="8" fill="#ffffff33" stroke="#ffffffaa" stroke-width="2"/>
+  <text x="1040" y="225" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">LLM Generate</text>
+  <text x="1040" y="245" text-anchor="middle" fill="#ffffffaa" font-family="system-ui,sans-serif" font-size="11">GPT-4.1 + citations</text>
+
+  <!-- Bottom labels -->
+  <text x="600" y="330" text-anchor="middle" fill="#ffffff66" font-family="system-ui,sans-serif" font-size="14">
+    Azure AI Search (HNSW) → Azure OpenAI (gpt-4.1)
+  </text>
+
+  <!-- Decorative dots -->
+  <circle cx="110" cy="350" r="4" fill="#ffffff22"/>
+  <circle cx="290" cy="360" r="3" fill="#ffffff22"/>
+  <circle cx="480" cy="355" r="5" fill="#ffffff22"/>
+  <circle cx="670" cy="360" r="3" fill="#ffffff22"/>
+  <circle cx="850" cy="350" r="4" fill="#ffffff22"/>
+  <circle cx="1040" cy="360" r="3" fill="#ffffff22"/>
+</svg>

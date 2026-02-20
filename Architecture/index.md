@@ -7,7 +7,7 @@ permalink: "/"
 ---
 
 <!-- Hero Image -->
-<img src="{{ '/assets/images/qi-offerings-overview.png' | relative_url }}"
+<img src="{{ '/assets/images/qi-offerings-overview.svg' | relative_url }}"
      alt="Solution overview – QI Offerings"
      width="100%"
      style="border-radius: 6px; margin-bottom: 1.5rem;" />

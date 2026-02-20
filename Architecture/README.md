@@ -53,7 +53,7 @@ bundle exec jekyll serve --livereload
 
 ## Hero Image
 
-Drop your hero image into `assets/images/qi-offerings-overview.png` before deploying.
+Replace the placeholder hero image at `assets/images/qi-offerings-overview.svg` with your own before deploying.
 
 ## Key Sections
 

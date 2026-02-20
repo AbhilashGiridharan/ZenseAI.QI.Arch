@@ -7,7 +7,7 @@ permalink: "/architecture/"
 ---
 
 <!-- Hero Image -->
-<img src="{{ '/assets/images/qi-offerings-overview.svg' | relative_url }}"
+<img src="assets/images/qi-offerings-overview.svg"
      alt="Solution overview – QI Offerings"
      width="100%"
      style="border-radius: 6px; margin-bottom: 1.5rem;" />
@@ -794,7 +794,7 @@ APPLICATIONINSIGHTS_CONNECTION_STRING=<connection-string>
 **Local image (relative path for GitHub Pages):**
 
 ```html
-<img src="{{ '/assets/images/qi-offerings-overview.svg' | relative_url }}"
+<img src="assets/images/qi-offerings-overview.svg"
      alt="Solution overview – QI Offerings"
      width="100%" />
 ```
@@ -810,7 +810,7 @@ APPLICATIONINSIGHTS_CONNECTION_STRING=<connection-string>
 **Markdown with caption:**
 
 ```markdown
-![Retrieval pipeline detail]({{ '/assets/images/retrieval-pipeline.svg' | relative_url }})
+![Retrieval pipeline detail](assets/images/retrieval-pipeline.svg)
 *Figure 2 – Retrieval pipeline showing hybrid search and re-ranking.*
 ```
 

@@ -6,7 +6,7 @@ description: "High-level context diagram showing actors, UI, gateway, backend, A
 permalink: "/docs/architecture-at-a-glance/"
 ---
 
-[← Back to Architecture Hub]({{ '/' | relative_url }})
+[← Back to Architecture Hub](../index.md)
 {: .fs-3 }
 
 # 2. Architecture at a Glance
@@ -82,4 +82,4 @@ flowchart TB
 
 ---
 
-**Previous:** [← Overview]({{ '/docs/overview/' | relative_url }}) · **Next:** [AI Integration →]({{ '/docs/ai-integration/' | relative_url }})
+**Previous:** [← Overview](01-overview.md) · **Next:** [AI Integration →](03-ai-integration.md)

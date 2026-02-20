@@ -6,7 +6,7 @@ description: "Performance targets, availability, RTO/RPO, scalability, and cost 
 permalink: "/docs/nfr/"
 ---
 
-[← Back to Architecture Hub]({{ '/' | relative_url }})
+[← Back to Architecture Hub](../index.md)
 {: .fs-3 }
 
 # 10. Non-Functional Requirements
@@ -52,4 +52,4 @@ permalink: "/docs/nfr/"
 
 ---
 
-**Previous:** [← Deployment & Environments]({{ '/docs/deployment/' | relative_url }}) · **Next:** [Appendix →]({{ '/docs/appendix/' | relative_url }})
+**Previous:** [← Deployment & Environments](09-deployment.md) · **Next:** [Appendix →](11-appendix.md)

@@ -6,7 +6,7 @@ description: "Problem statement, success criteria, non-goals, constraints, and c
 permalink: "/docs/overview/"
 ---
 
-[← Back to Architecture Hub]({{ '/' | relative_url }})
+[← Back to Architecture Hub](../index.md)
 {: .fs-3 }
 
 # 1. Overview
@@ -57,4 +57,4 @@ Teams spend excessive time manually searching, interpreting, and cross-referenci
 
 ---
 
-**Next:** [Architecture at a Glance →]({{ '/docs/architecture-at-a-glance/' | relative_url }})
+**Next:** [Architecture at a Glance →](02-architecture-at-a-glance.md)

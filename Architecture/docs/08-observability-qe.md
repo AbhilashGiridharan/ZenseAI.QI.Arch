@@ -6,7 +6,7 @@ description: "Logging, tracing, metrics, synthetic tests, and AI test automation
 permalink: "/docs/observability-qe/"
 ---
 
-[← Back to Architecture Hub]({{ '/' | relative_url }})
+[← Back to Architecture Hub](../index.md)
 {: .fs-3 }
 
 # 8. Observability & Quality Engineering (QE)
@@ -68,4 +68,4 @@ sequenceDiagram
 
 ---
 
-**Previous:** [← Security & Compliance]({{ '/docs/security-compliance/' | relative_url }}) · **Next:** [Deployment & Environments →]({{ '/docs/deployment/' | relative_url }})
+**Previous:** [← Security & Compliance](07-security-compliance.md) · **Next:** [Deployment & Environments →](09-deployment.md)

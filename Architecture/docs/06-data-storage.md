@@ -6,7 +6,7 @@ description: "Vector DB, primary database, object store, and entity-relationship
 permalink: "/docs/data-storage/"
 ---
 
-[← Back to Architecture Hub]({{ '/' | relative_url }})
+[← Back to Architecture Hub](../index.md)
 {: .fs-3 }
 
 # 6. Data & Storage
@@ -102,4 +102,4 @@ erDiagram
 
 ---
 
-**Previous:** [← Backend & APIs]({{ '/docs/backend-apis/' | relative_url }}) · **Next:** [Security & Compliance →]({{ '/docs/security-compliance/' | relative_url }})
+**Previous:** [← Backend & APIs](05-backend-apis.md) · **Next:** [Security & Compliance →](07-security-compliance.md)

@@ -6,7 +6,7 @@ description: "API gateway, FastAPI service decomposition, async processing, and 
 permalink: "/docs/backend-apis/"
 ---
 
-[← Back to Architecture Hub]({{ '/' | relative_url }})
+[← Back to Architecture Hub](../index.md)
 {: .fs-3 }
 
 # 5. Backend & APIs
@@ -118,4 +118,4 @@ flowchart LR
 
 ---
 
-**Previous:** [← UI/UX]({{ '/docs/ui-ux/' | relative_url }}) · **Next:** [Data & Storage →]({{ '/docs/data-storage/' | relative_url }})
+**Previous:** [← UI/UX](04-ui-ux.md) · **Next:** [Data & Storage →](06-data-storage.md)

@@ -6,7 +6,7 @@ description: "API contracts, prompt templates, configuration examples, and image
 permalink: "/docs/appendix/"
 ---
 
-[← Back to Architecture Hub]({{ '/' | relative_url }})
+[← Back to Architecture Hub](../index.md)
 {: .fs-3 }
 
 # 11. Appendix
@@ -159,7 +159,7 @@ APPLICATIONINSIGHTS_CONNECTION_STRING=<connection-string>
 **Local image (relative path for GitHub Pages):**
 
 ```html
-<img src="{{ '/assets/images/qi-offerings-overview.svg' | relative_url }}"
+<img src="../assets/images/qi-offerings-overview.svg"
      alt="Solution overview – QI Offerings"
      width="100%" />
 ```
@@ -175,13 +175,13 @@ APPLICATIONINSIGHTS_CONNECTION_STRING=<connection-string>
 **Markdown with caption:**
 
 ```markdown
-![Retrieval pipeline detail]({{ '/assets/images/retrieval-pipeline.svg' | relative_url }})
+![Retrieval pipeline detail](../assets/images/retrieval-pipeline.svg)
 *Figure 2 – Retrieval pipeline showing hybrid search and re-ranking.*
 ```
 
 ---
 
-**Previous:** [← Non-Functional Requirements]({{ '/docs/nfr/' | relative_url }})
+**Previous:** [← Non-Functional Requirements](10-nfr.md)
 
 ---
 

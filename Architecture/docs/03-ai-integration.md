@@ -6,7 +6,7 @@ description: "LLM providers, embeddings, vector store, chunking, retrieval pipel
 permalink: "/docs/ai-integration/"
 ---
 
-[← Back to Architecture Hub]({{ '/' | relative_url }})
+[← Back to Architecture Hub](../index.md)
 {: .fs-3 }
 
 # 3. AI Integration (LLM + RAG)
@@ -124,4 +124,4 @@ sequenceDiagram
 
 ---
 
-**Previous:** [← Architecture at a Glance]({{ '/docs/architecture-at-a-glance/' | relative_url }}) · **Next:** [UI/UX →]({{ '/docs/ui-ux/' | relative_url }})
+**Previous:** [← Architecture at a Glance](02-architecture-at-a-glance.md) · **Next:** [UI/UX →](04-ui-ux.md)

@@ -6,7 +6,7 @@ description: "Frontend tech stack, key screens, RAG-specific UX patterns, and la
 permalink: "/docs/ui-ux/"
 ---
 
-[← Back to Architecture Hub]({{ '/' | relative_url }})
+[← Back to Architecture Hub](../index.md)
 {: .fs-3 }
 
 # 4. UI/UX
@@ -55,4 +55,4 @@ permalink: "/docs/ui-ux/"
 
 ---
 
-**Previous:** [← AI Integration]({{ '/docs/ai-integration/' | relative_url }}) · **Next:** [Backend & APIs →]({{ '/docs/backend-apis/' | relative_url }})
+**Previous:** [← AI Integration](03-ai-integration.md) · **Next:** [Backend & APIs →](05-backend-apis.md)

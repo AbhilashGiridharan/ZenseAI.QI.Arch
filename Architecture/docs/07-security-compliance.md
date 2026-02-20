@@ -6,7 +6,7 @@ description: "Identity, network controls, data security, and LLM safety measures
 permalink: "/docs/security-compliance/"
 ---
 
-[← Back to Architecture Hub]({{ '/' | relative_url }})
+[← Back to Architecture Hub](../index.md)
 {: .fs-3 }
 
 # 7. Security & Compliance
@@ -65,4 +65,4 @@ permalink: "/docs/security-compliance/"
 
 ---
 
-**Previous:** [← Data & Storage]({{ '/docs/data-storage/' | relative_url }}) · **Next:** [Observability & QE →]({{ '/docs/observability-qe/' | relative_url }})
+**Previous:** [← Data & Storage](06-data-storage.md) · **Next:** [Observability & QE →](08-observability-qe.md)

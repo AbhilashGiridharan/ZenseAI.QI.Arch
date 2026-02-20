@@ -6,7 +6,7 @@ description: "Containers, AKS, CI/CD with GitHub Actions, Bicep IaC, and deploym
 permalink: "/docs/deployment/"
 ---
 
-[← Back to Architecture Hub]({{ '/' | relative_url }})
+[← Back to Architecture Hub](../index.md)
 {: .fs-3 }
 
 # 9. Deployment & Environments
@@ -112,4 +112,4 @@ flowchart TD
 
 ---
 
-**Previous:** [← Observability & QE]({{ '/docs/observability-qe/' | relative_url }}) · **Next:** [Non-Functional Requirements →]({{ '/docs/nfr/' | relative_url }})
+**Previous:** [← Observability & QE](08-observability-qe.md) · **Next:** [Non-Functional Requirements →](10-nfr.md)

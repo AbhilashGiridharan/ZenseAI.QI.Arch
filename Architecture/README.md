@@ -14,8 +14,20 @@ Architecture/
 │   │   └── style.css        # Custom styles
 │   └── images/
 │       └── qi-offerings-overview.png   # ← Add your hero image here
-├── index.md                 # Landing page
-├── architecture.md          # Full E2E architecture document
+├── docs/
+│   ├── 01-overview.md               # Problem statement, goals, constraints
+│   ├── 02-architecture-at-a-glance.md   # Context diagram
+│   ├── 03-ai-integration.md         # LLM + RAG pipeline
+│   ├── 04-ui-ux.md                  # React / Next.js frontend
+│   ├── 05-backend-apis.md           # FastAPI services & APIs
+│   ├── 06-data-storage.md           # Data stores & ERD
+│   ├── 07-security-compliance.md    # Identity, encryption, LLM safety
+│   ├── 08-observability-qe.md       # Tracing, metrics, test agent
+│   ├── 09-deployment.md             # CI/CD, IaC, environments
+│   ├── 10-nfr.md                    # Non-functional requirements
+│   └── 11-appendix.md              # OpenAPI, prompts, config
+├── index.md                 # Landing page (links to all docs)
+├── architecture.md          # Full E2E architecture (single page)
 ├── Gemfile                  # Ruby dependencies
 ├── .gitignore
 └── README.md                # This file

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e293b"/></linearGradient>
+    <filter id="sh2"><feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.25"/></filter>
+  </defs>
+  <rect width="880" height="440" rx="12" fill="url(#bg2)"/>
+  <text x="440" y="32" text-anchor="middle" fill="#22d3ee" font-size="18" font-weight="bold">Agent ↔ Solution ↔ Model Provider Mapping</text>
+
+  <!-- Headers -->
+  <text x="100" y="65" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">Solution</text>
+  <text x="380" y="65" text-anchor="middle" fill="#f472b6" font-size="13" font-weight="bold">AI Agent</text>
+  <text x="700" y="65" text-anchor="middle" fill="#facc15" font-size="13" font-weight="bold">Primary Model</text>
+
+  <!-- Row 1 -->
+  <rect x="20" y="80" width="165" height="28" rx="5" fill="#0e7490" filter="url(#sh2)"/><text x="102" y="99" text-anchor="middle" fill="#fff" font-size="11">DeepSpeci</text>
+  <rect x="260" y="80" width="240" height="28" rx="5" fill="#7e22ce" filter="url(#sh2)"/><text x="380" y="99" text-anchor="middle" fill="#fff" font-size="11">Requirement Evaluator</text>
+  <rect x="610" y="80" width="160" height="28" rx="5" fill="#854d0e" filter="url(#sh2)"/><text x="690" y="99" text-anchor="middle" fill="#fef3c7" font-size="11">Gemini</text>
+  <line x1="185" y1="94" x2="260" y2="94" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/><line x1="500" y1="94" x2="610" y2="94" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- Row 2 -->
+  <rect x="20" y="120" width="165" height="28" rx="5" fill="#0e7490" filter="url(#sh2)"/><text x="102" y="139" text-anchor="middle" fill="#fff" font-size="11">CaseGeni</text>
+  <rect x="260" y="120" width="240" height="28" rx="5" fill="#7e22ce" filter="url(#sh2)"/><text x="380" y="139" text-anchor="middle" fill="#fff" font-size="11">Test Case Generator</text>
+  <rect x="610" y="120" width="160" height="28" rx="5" fill="#854d0e" filter="url(#sh2)"/><text x="690" y="139" text-anchor="middle" fill="#fef3c7" font-size="11">Gemini</text>
+  <line x1="185" y1="134" x2="260" y2="134" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/><line x1="500" y1="134" x2="610" y2="134" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- Row 3 -->
+  <rect x="20" y="160" width="165" height="28" rx="5" fill="#0e7490" filter="url(#sh2)"/><text x="102" y="179" text-anchor="middle" fill="#fff" font-size="11">DataGeni</text>
+  <rect x="260" y="160" width="240" height="28" rx="5" fill="#7e22ce" filter="url(#sh2)"/><text x="380" y="179" text-anchor="middle" fill="#fff" font-size="11">Test Data Generator</text>
+  <rect x="610" y="160" width="160" height="28" rx="5" fill="#854d0e" filter="url(#sh2)"/><text x="690" y="179" text-anchor="middle" fill="#fef3c7" font-size="11">Claude</text>
+  <line x1="185" y1="174" x2="260" y2="174" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/><line x1="500" y1="174" x2="610" y2="174" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- Row 4 -->
+  <rect x="20" y="200" width="165" height="28" rx="5" fill="#0e7490" filter="url(#sh2)"/><text x="102" y="219" text-anchor="middle" fill="#fff" font-size="11">Auto-PlayPilot</text>
+  <rect x="260" y="200" width="240" height="28" rx="5" fill="#7e22ce" filter="url(#sh2)"/><text x="380" y="219" text-anchor="middle" fill="#fff" font-size="11">Playwright MCP</text>
+  <rect x="610" y="200" width="160" height="28" rx="5" fill="#854d0e" filter="url(#sh2)"/><text x="690" y="219" text-anchor="middle" fill="#fef3c7" font-size="11">OpenAI</text>
+  <line x1="185" y1="214" x2="260" y2="214" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/><line x1="500" y1="214" x2="610" y2="214" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- Row 5 -->
+  <rect x="20" y="240" width="165" height="28" rx="5" fill="#0e7490" filter="url(#sh2)"/><text x="102" y="259" text-anchor="middle" fill="#fff" font-size="11">Insights360</text>
+  <rect x="260" y="240" width="240" height="28" rx="5" fill="#7e22ce" filter="url(#sh2)"/><text x="380" y="259" text-anchor="middle" fill="#fff" font-size="11">Report Agent</text>
+  <rect x="610" y="240" width="160" height="28" rx="5" fill="#854d0e" filter="url(#sh2)"/><text x="690" y="259" text-anchor="middle" fill="#fef3c7" font-size="11">Gemini</text>
+  <line x1="185" y1="254" x2="260" y2="254" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/><line x1="500" y1="254" x2="610" y2="254" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- Row 6 -->
+  <rect x="20" y="280" width="165" height="28" rx="5" fill="#0e7490" filter="url(#sh2)"/><text x="102" y="299" text-anchor="middle" fill="#fff" font-size="11">Perf-Xi</text>
+  <rect x="260" y="280" width="240" height="28" rx="5" fill="#7e22ce" filter="url(#sh2)"/><text x="380" y="299" text-anchor="middle" fill="#fff" font-size="11">Performance Agent</text>
+  <rect x="610" y="280" width="160" height="28" rx="5" fill="#854d0e" filter="url(#sh2)"/><text x="690" y="299" text-anchor="middle" fill="#fef3c7" font-size="11">Claude</text>
+  <line x1="185" y1="294" x2="260" y2="294" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/><line x1="500" y1="294" x2="610" y2="294" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- Row 7 -->
+  <rect x="20" y="320" width="165" height="28" rx="5" fill="#0e7490" filter="url(#sh2)"/><text x="102" y="339" text-anchor="middle" fill="#fff" font-size="11">Secure-Xi</text>
+  <rect x="260" y="320" width="240" height="28" rx="5" fill="#7e22ce" filter="url(#sh2)"/><text x="380" y="339" text-anchor="middle" fill="#fff" font-size="11">Security Agent</text>
+  <rect x="610" y="320" width="160" height="28" rx="5" fill="#854d0e" filter="url(#sh2)"/><text x="690" y="339" text-anchor="middle" fill="#fef3c7" font-size="11">Claude</text>
+  <line x1="185" y1="334" x2="260" y2="334" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/><line x1="500" y1="334" x2="610" y2="334" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- Legend -->
+  <rect x="20" y="370" width="840" height="55" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="40" y="392" fill="#94a3b8" font-size="11" font-weight="bold">Legend:</text>
+  <rect x="100" y="381" width="14" height="14" rx="2" fill="#0e7490"/><text x="120" y="393" fill="#e2e8f0" font-size="10">Solution</text>
+  <rect x="200" y="381" width="14" height="14" rx="2" fill="#7e22ce"/><text x="220" y="393" fill="#e2e8f0" font-size="10">AI Agent</text>
+  <rect x="300" y="381" width="14" height="14" rx="2" fill="#854d0e"/><text x="320" y="393" fill="#e2e8f0" font-size="10">Model Provider</text>
+  <text x="40" y="415" fill="#64748b" font-size="9">All agents support fallback to alternate model providers. Primary selection based on task fit, cost, and latency.</text>
+</svg>

@@ -70,6 +70,61 @@ Welcome to the **QI Offerings** architecture documentation site. This hub provid
 
 ---
 
+## 🚀 ZenseAI.Qi Platform
+
+The **ZenseAI.Qi** platform builds on the QI Offerings architecture above, delivering 7 AI-powered solutions, 7 specialised agents, and an integrated QE workspace.
+
+<!-- ZenseAI.Qi Platform Architecture -->
+<img src="assets/images/zenseai-qi-platform.svg" alt="ZenseAI.Qi Platform Architecture" width="100%" style="border-radius:6px; margin-bottom:1.5rem;" />
+
+### Architecture & Roles
+
+| Document | Description |
+|---|---|
+| [**Platform Architecture**](docs/architecture.md) | Mermaid architecture diagram + solution-agent-provider mapping |
+| [**Roles & Personas**](docs/roles.md) | Stakeholders, skilled users, RACI matrix, human-in-the-loop |
+
+### AI Agent Design Specs
+
+| Agent | Primary Solution | Document |
+|---|---|---|
+| Requirement Evaluator | DeepSpeci | [Design Spec](docs/agents/requirement-evaluator.md) |
+| Test Case Generator | CaseGeni | [Design Spec](docs/agents/test-case-generator.md) |
+| Test Data Generator | DataGeni | [Design Spec](docs/agents/test-data-generator.md) |
+| Playwright MCP | Auto-PlayPilot | [Design Spec](docs/agents/playwright-mcp.md) |
+| Report Agent | Insights360 | [Design Spec](docs/agents/report-agent.md) |
+| Performance Agent | Perf-Xi | [Design Spec](docs/agents/performance-agent.md) |
+| Security Agent | Secure-Xi | [Design Spec](docs/agents/security-agent.md) |
+
+### Solution Requirement Specs
+
+| Solution | QE Work Lane | Document |
+|---|---|---|
+| DeepSpeci | Requirements interpretation & validation | [Requirements](docs/solutions/deepspeci.md) |
+| CaseGeni | AI-assisted test automation workflows | [Requirements](docs/solutions/casegeni.md) |
+| DataGeni | AI-assisted test automation workflows | [Requirements](docs/solutions/datageni.md) |
+| Auto-PlayPilot | Create/optimise test libraries | [Requirements](docs/solutions/auto-playpilot.md) |
+| Insights360 | Consolidated reporting & analytics | [Requirements](docs/solutions/insights360.md) |
+| Perf-Xi | Performance test coordination & observability | [Requirements](docs/solutions/perf-xi.md) |
+| Secure-Xi | Vulnerability scanning & threat analysis | [Requirements](docs/solutions/secure-xi.md) |
+
+### Specifications
+
+| Spec | Description | Document |
+|---|---|---|
+| Requirements Register | Consolidated FR/NFR across all solutions | [Register](specs/requirements/requirements-register.md) |
+| Test Strategy | Test pyramid, traceability, coverage targets | [Strategy](specs/tests/test-strategy.md) |
+| Security | Threat model, auth, data protection, guardrails | [Security](specs/security/security-spec.md) |
+| Performance | SLIs/SLOs, budgets, capacity planning, runbooks | [Performance](specs/performance/performance-spec.md) |
+
+### Roadmap
+
+| Document | Description |
+|---|---|
+| [**Product Roadmap**](docs/roadmap/roadmap.md) | 5-phase delivery plan (Mar → Jul) with weekly milestones |
+
+---
+
 <p style="text-align:center; color:#888; font-size:0.85rem;">
-QI Offerings · Architecture Docs · 2026
+QI Offerings · ZenseAI.Qi · Architecture Docs · 2026
 </p>

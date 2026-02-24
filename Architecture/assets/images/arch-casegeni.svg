@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 400" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e293b"/></linearGradient>
+    <filter id="sh"><feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.25"/></filter>
+  </defs>
+  <rect width="860" height="400" rx="12" fill="url(#bg)"/>
+  <text x="430" y="30" text-anchor="middle" fill="#818cf8" font-size="18" font-weight="bold">CaseGeni — Solution Architecture</text>
+
+  <!-- Upstream -->
+  <rect x="20" y="80" width="140" height="45" rx="8" fill="#065f46" filter="url(#sh)"/>
+  <text x="90" y="100" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="bold">DeepSpeci</text>
+  <text x="90" y="115" text-anchor="middle" fill="#86efac" font-size="9">Validated Reqs</text>
+
+  <!-- Users -->
+  <rect x="20" y="155" width="140" height="100" rx="8" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1.5" filter="url(#sh)"/>
+  <text x="90" y="175" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="bold">Users</text>
+  <text x="35" y="195" fill="#e2e8f0" font-size="10">🔧 Automation Eng</text>
+  <text x="35" y="213" fill="#e2e8f0" font-size="10">👤 Technical Mgr</text>
+  <text x="35" y="231" fill="#e2e8f0" font-size="10">👤 Developer</text>
+
+  <!-- CaseGeni UI -->
+  <rect x="210" y="80" width="155" height="50" rx="8" fill="#0e7490" filter="url(#sh)"/>
+  <text x="287" y="102" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">CaseGeni UI</text>
+  <text x="287" y="118" text-anchor="middle" fill="#cffafe" font-size="9">Generate · Review · Approve</text>
+
+  <!-- CaseGeni API -->
+  <rect x="210" y="155" width="155" height="40" rx="8" fill="#155e75" filter="url(#sh)"/>
+  <text x="287" y="180" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">CaseGeni API</text>
+
+  <!-- Test Case Generator -->
+  <rect x="420" y="100" width="200" height="55" rx="8" fill="#7e22ce" filter="url(#sh)"/>
+  <text x="520" y="122" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Test Case Generator</text>
+  <text x="520" y="140" text-anchor="middle" fill="#e9d5ff" font-size="9">Gherkin · BVA · Edge · Dedup</text>
+
+  <!-- Model Providers -->
+  <rect x="680" y="80" width="155" height="85" rx="8" fill="#1a2744" stroke="#facc15" stroke-width="1.5" filter="url(#sh)"/>
+  <text x="757" y="100" text-anchor="middle" fill="#facc15" font-size="11" font-weight="bold">Model Providers</text>
+  <rect x="695" y="108" width="125" height="18" rx="3" fill="#854d0e"/><text x="757" y="121" text-anchor="middle" fill="#fef3c7" font-size="9">Gemini (primary)</text>
+  <rect x="695" y="132" width="125" height="18" rx="3" fill="#854d0e"/><text x="757" y="145" text-anchor="middle" fill="#fef3c7" font-size="9">Claude · OpenAI</text>
+
+  <!-- Test Cases Output -->
+  <rect x="420" y="210" width="200" height="45" rx="8" fill="#065f46" filter="url(#sh)"/>
+  <text x="520" y="228" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="bold">Test Case Library</text>
+  <text x="520" y="244" text-anchor="middle" fill="#86efac" font-size="9">Gherkin · Priority · Coverage</text>
+
+  <!-- Downstream -->
+  <rect x="120" y="310" width="130" height="35" rx="6" fill="#0e7490" filter="url(#sh)"/>
+  <text x="185" y="332" text-anchor="middle" fill="#fff" font-size="10">→ Auto-PlayPilot</text>
+  <rect x="280" y="310" width="130" height="35" rx="6" fill="#0e7490" filter="url(#sh)"/>
+  <text x="345" y="332" text-anchor="middle" fill="#fff" font-size="10">→ DataGeni</text>
+  <rect x="440" y="310" width="130" height="35" rx="6" fill="#0e7490" filter="url(#sh)"/>
+  <text x="505" y="332" text-anchor="middle" fill="#fff" font-size="10">→ Insights360</text>
+  <rect x="600" y="310" width="130" height="35" rx="6" fill="#334155" filter="url(#sh)"/>
+  <text x="665" y="332" text-anchor="middle" fill="#94a3b8" font-size="10">→ Export (Xray)</text>
+
+  <!-- Storage -->
+  <rect x="680" y="210" width="155" height="45" rx="8" fill="#1a2744" stroke="#4ade80" stroke-width="1.5" filter="url(#sh)"/>
+  <text x="757" y="228" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold">PostgreSQL</text>
+  <text x="757" y="244" text-anchor="middle" fill="#94a3b8" font-size="9">Cases · Versions · Matrix</text>
+
+  <!-- Arrows -->
+  <line x1="160" y1="102" x2="210" y2="102" stroke="#4ade80" stroke-width="1.5"/>
+  <line x1="160" y1="200" x2="210" y2="175" stroke="#38bdf8" stroke-width="1.5"/>
+  <line x1="287" y1="130" x2="287" y2="155" stroke="#38bdf8" stroke-width="1.5"/>
+  <line x1="365" y1="175" x2="420" y2="130" stroke="#a78bfa" stroke-width="1.5"/>
+  <line x1="620" y1="127" x2="680" y2="120" stroke="#facc15" stroke-width="1"/>
+  <line x1="520" y1="155" x2="520" y2="210" stroke="#4ade80" stroke-width="1.5"/>
+  <line x1="620" y1="140" x2="680" y2="230" stroke="#4ade80" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="430" y1="255" x2="185" y2="310" stroke="#38bdf8" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="480" y1="255" x2="345" y2="310" stroke="#38bdf8" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="540" y1="255" x2="505" y2="310" stroke="#38bdf8" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="580" y1="255" x2="665" y2="310" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- Legend -->
+  <rect x="20" y="362" width="820" height="28" rx="4" fill="#0f172a" stroke="#334155"/>
+  <rect x="35" y="369" width="10" height="10" rx="2" fill="#065f46"/><text x="50" y="378" fill="#e2e8f0" font-size="9">Upstream</text>
+  <rect x="120" y="369" width="10" height="10" rx="2" fill="#0e7490"/><text x="135" y="378" fill="#e2e8f0" font-size="9">UI/API</text>
+  <rect x="190" y="369" width="10" height="10" rx="2" fill="#7e22ce"/><text x="205" y="378" fill="#e2e8f0" font-size="9">Agent</text>
+  <rect x="260" y="369" width="10" height="10" rx="2" fill="#854d0e"/><text x="275" y="378" fill="#e2e8f0" font-size="9">Model</text>
+</svg>

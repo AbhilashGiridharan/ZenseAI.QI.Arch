@@ -44,10 +44,13 @@ Welcome to the **QI Offerings** architecture documentation site. This hub provid
 
 | Persona | Start Here |
 |---|---|
-| **Stakeholders** | [Overview](docs/01-overview.md) → [NFR](docs/10-nfr.md) |
+| **Stakeholders / Managers** | [Overview](docs/01-overview.md) → [NFR](docs/10-nfr.md) → [Roles & Personas](docs/roles.md) → [Insights360](docs/solutions/insights360.md) |
 | **Developers** | [Backend](docs/05-backend-apis.md) → [AI Integration](docs/03-ai-integration.md) → [Appendix](docs/11-appendix.md) |
-| **QE Engineers** | [Observability & QE](docs/08-observability-qe.md) → [Deployment](docs/09-deployment.md) |
-| **Security Engineers** | [Security](docs/07-security-compliance.md) → [Data](docs/06-data-storage.md) |
+| **QE Engineers** | [Observability & QE](docs/08-observability-qe.md) → [Test Strategy](specs/tests/test-strategy.md) → [CaseGeni](docs/solutions/casegeni.md) |
+| **Automation Engineers** | [Auto-PlayPilot](docs/solutions/auto-playpilot.md) → [Playwright MCP Agent](docs/agents/playwright-mcp.md) → [DataGeni](docs/solutions/datageni.md) |
+| **Security Engineers** | [Security Spec](specs/security/security-spec.md) → [Secure-Xi](docs/solutions/secure-xi.md) → [Security Agent](docs/agents/security-agent.md) |
+| **Performance Engineers** | [Performance Spec](specs/performance/performance-spec.md) → [Perf-Xi](docs/solutions/perf-xi.md) → [Performance Agent](docs/agents/performance-agent.md) |
+| **SMEs / Non-Technical** | [Roles & Personas](docs/roles.md) → [DeepSpeci](docs/solutions/deepspeci.md) → [Roadmap](docs/roadmap/roadmap.md) |
 
 ---
 
@@ -83,6 +86,18 @@ The **ZenseAI.Qi** platform builds on the QI Offerings architecture above, deliv
 |---|---|
 | [**Platform Architecture**](docs/architecture.md) | Mermaid architecture diagram + solution-agent-provider mapping |
 | [**Roles & Personas**](docs/roles.md) | Stakeholders, skilled users, RACI matrix, human-in-the-loop |
+
+### Solution Architectures
+
+| # | Solution | Architecture | Agent | Model |
+|---|---|---|---|---|
+| 1 | DeepSpeci | [Architecture](docs/architecture.md#1-deepspeci-architecture) | Requirement Evaluator | Gemini |
+| 2 | CaseGeni | [Architecture](docs/architecture.md#2-casegeni-architecture) | Test Case Generator | Gemini |
+| 3 | DataGeni | [Architecture](docs/architecture.md#3-datageni-architecture) | Test Data Generator | Claude |
+| 4 | Auto-PlayPilot | [Architecture](docs/architecture.md#4-auto-playpilot-architecture) | Playwright MCP | OpenAI |
+| 5 | Insights360 | [Architecture](docs/architecture.md#5-insights360-architecture) | Report Agent | Gemini |
+| 6 | Perf-Xi | [Architecture](docs/architecture.md#6-perf-xi-architecture) | Performance Agent | Claude |
+| 7 | Secure-Xi | [Architecture](docs/architecture.md#7-secure-xi-architecture) | Security Agent | Claude |
 
 ### AI Agent Design Specs
 
@@ -122,6 +137,34 @@ The **ZenseAI.Qi** platform builds on the QI Offerings architecture above, deliv
 | Document | Description |
 |---|---|
 | [**Product Roadmap**](docs/roadmap/roadmap.md) | 5-phase delivery plan (Mar → Jul) with weekly milestones |
+
+<!-- Agent ↔ Solution ↔ Model Provider Mapping -->
+<img src="assets/images/zenseai-qi-agent-mapping.svg" alt="Agent ↔ Solution ↔ Model Provider Mapping" width="100%" style="border-radius:6px; margin:1.5rem 0;" />
+
+---
+
+## 🗂️ Architecture Diagrams Gallery
+
+| Diagram | Preview |
+|---|---|
+| [Platform Overview](assets/images/01-platform-overview.svg) | QI Offerings end-to-end architecture |
+| [AI & RAG Pipeline](assets/images/02-ai-rag-pipeline.svg) | LLM providers, embeddings, vector store |
+| [UI/UX Architecture](assets/images/03-ui-ux-architecture.svg) | React / Next.js front-end layers |
+| [Backend Services](assets/images/04-backend-services.svg) | FastAPI microservices component view |
+| [Data & Storage](assets/images/05-data-storage.svg) | PostgreSQL, blob, vector store ERD |
+| [Security Architecture](assets/images/06-security-architecture.svg) | Defence-in-depth layers |
+| [Observability & QE](assets/images/07-observability-qe.svg) | OpenTelemetry, metrics, tracing |
+| [Deployment Topology](assets/images/08-deployment-topology.svg) | AKS, CI/CD, blue/green |
+| [ZenseAI.Qi Platform](assets/images/zenseai-qi-platform.svg) | Solutions, agents, providers, data layer |
+| [Agent ↔ Solution Mapping](assets/images/zenseai-qi-agent-mapping.svg) | 7 agents mapped to solutions & models |
+| [Roadmap Timeline](assets/images/zenseai-qi-roadmap.svg) | 5-phase delivery Mar → Jul |
+| [DeepSpeci Architecture](assets/images/arch-deepspeci.svg) | Requirement ingestion, evaluation, validation |
+| [CaseGeni Architecture](assets/images/arch-casegeni.svg) | Test case generation, dedup, coverage matrix |
+| [DataGeni Architecture](assets/images/arch-datageni.svg) | Synthetic data, PII scan, FK integrity |
+| [Auto-PlayPilot Architecture](assets/images/arch-auto-playpilot.svg) | Playwright codegen, POM, troubleshoot |
+| [Insights360 Architecture](assets/images/arch-insights360.svg) | Aggregation, AI narrative, dashboards |
+| [Perf-Xi Architecture](assets/images/arch-perf-xi.svg) | k6 generation, SLI/SLO, capacity planning |
+| [Secure-Xi Architecture](assets/images/arch-secure-xi.svg) | SAST/DAST/SCA, threat model, CI gate |
 
 ---
 

@@ -1,70 +1,254 @@
-# QI Offerings – Architecture Documentation
+# ZenseAI.Qi — Architecture Documentation
 
-GitHub Pages site for the **QI Offerings** end-to-end architecture (LLM + RAG).
+> **AI-Powered Quality Intelligence Platform** — 7 solutions, 7 AI agents, 3 model providers, unified QE workspace.
 
-## Structure
+[![GitHub Pages](https://img.shields.io/badge/Docs-GitHub%20Pages-blue?logo=github)](https://abhilashgiridharan.github.io/ZenseAI.QI.Arch/)
+[![Jekyll](https://img.shields.io/badge/Built%20with-Jekyll-cc0000?logo=jekyll)](https://jekyllrb.com)
+[![Mermaid](https://img.shields.io/badge/Diagrams-Mermaid.js-ff3670?logo=mermaid)](https://mermaid.js.org)
+
+---
+
+## 🏠 Start Here
+
+| Page | Description |
+|---|---|
+| [**Architecture Hub** (index.md)](index.md) | Landing page — full navigation to every document, persona-based start guides |
+| [**Full Architecture (single page)**](architecture.md) | Complete E2E architecture reference in one document |
+
+---
+
+## 📚 Documentation Map
+
+### Platform-Level
+
+| Document | Path | Description |
+|---|---|---|
+| [Platform Architecture](docs/architecture.md) | `docs/architecture.md` | Mermaid E2E diagram, agent-solution-provider mapping, QE work lanes |
+| [Roles & Personas](docs/roles.md) | `docs/roles.md` | Stakeholders, skilled users, RACI matrix, human-in-the-loop |
+| [Product Roadmap](docs/roadmap/roadmap.md) | `docs/roadmap/roadmap.md` | 5-phase delivery plan (Mar → Jul) with weekly milestones |
+
+### QI Offerings Foundation (11 docs)
+
+| # | Document | Path | Description |
+|---|---|---|---|
+| 1 | [Overview](docs/01-overview.md) | `docs/01-overview.md` | Problem statement, success criteria, constraints, capability map |
+| 2 | [Architecture at a Glance](docs/02-architecture-at-a-glance.md) | `docs/02-architecture-at-a-glance.md` | High-level context diagram (Mermaid) |
+| 3 | [AI Integration (LLM + RAG)](docs/03-ai-integration.md) | `docs/03-ai-integration.md` | LLM providers, embeddings, vector store, retrieval pipeline |
+| 4 | [UI/UX](docs/04-ui-ux.md) | `docs/04-ui-ux.md` | React / Next.js 15 stack, key screens, RAG UX patterns |
+| 5 | [Backend & APIs](docs/05-backend-apis.md) | `docs/05-backend-apis.md` | FastAPI services, API gateway, async processing |
+| 6 | [Data & Storage](docs/06-data-storage.md) | `docs/06-data-storage.md` | PostgreSQL, Azure AI Search, Blob Storage, ERD |
+| 7 | [Security & Compliance](docs/07-security-compliance.md) | `docs/07-security-compliance.md` | Entra ID, network controls, encryption, LLM safety |
+| 8 | [Observability & QE](docs/08-observability-qe.md) | `docs/08-observability-qe.md` | OpenTelemetry, metrics, tracing, test automation agent |
+| 9 | [Deployment](docs/09-deployment.md) | `docs/09-deployment.md` | AKS, CI/CD (GitHub Actions), Bicep IaC, blue/green |
+| 10 | [Non-Functional Requirements](docs/10-nfr.md) | `docs/10-nfr.md` | SLAs, latency targets, scalability, resilience |
+| 11 | [Appendix](docs/11-appendix.md) | `docs/11-appendix.md` | OpenAPI spec, prompt templates, config examples |
+
+---
+
+## 🚀 Solution Architectures (7 solutions)
+
+Each solution has a **dedicated architecture & implementation** document covering: Architecture Overview (SVG + Mermaid), Component Breakdown, Tech Stack, API Contracts, Data Model (ER diagram), Integration Patterns, Deployment Config (K8s), Folder Structure, Security, Performance Targets, and Implementation Roadmap.
+
+| # | Solution | Architecture & Implementation | Requirements Spec | Agent Design |
+|---|---|---|---|---|
+| 1 | **DeepSpeci** | [📐 Architecture](docs/architecture/deepspeci.md) | [📄 Requirements](docs/solutions/deepspeci.md) | [🤖 Requirement Evaluator](docs/agents/requirement-evaluator.md) |
+| 2 | **CaseGeni** | [📐 Architecture](docs/architecture/casegeni.md) | [📄 Requirements](docs/solutions/casegeni.md) | [🤖 Test Case Generator](docs/agents/test-case-generator.md) |
+| 3 | **DataGeni** | [📐 Architecture](docs/architecture/datageni.md) | [📄 Requirements](docs/solutions/datageni.md) | [🤖 Test Data Generator](docs/agents/test-data-generator.md) |
+| 4 | **Auto-PlayPilot** | [📐 Architecture](docs/architecture/auto-playpilot.md) | [📄 Requirements](docs/solutions/auto-playpilot.md) | [🤖 Playwright MCP](docs/agents/playwright-mcp.md) |
+| 5 | **Insights360** | [📐 Architecture](docs/architecture/insights360.md) | [📄 Requirements](docs/solutions/insights360.md) | [🤖 Report Agent](docs/agents/report-agent.md) |
+| 6 | **Perf-Xi** | [📐 Architecture](docs/architecture/perf-xi.md) | [📄 Requirements](docs/solutions/perf-xi.md) | [🤖 Performance Agent](docs/agents/performance-agent.md) |
+| 7 | **Secure-Xi** | [📐 Architecture](docs/architecture/secure-xi.md) | [📄 Requirements](docs/solutions/secure-xi.md) | [🤖 Security Agent](docs/agents/security-agent.md) |
+
+---
+
+## 📋 Specifications
+
+| Spec | Path | Description |
+|---|---|---|
+| [Requirements Register](specs/requirements/requirements-register.md) | `specs/requirements/` | Consolidated FR/NFR across all 7 solutions |
+| [Test Strategy](specs/tests/test-strategy.md) | `specs/tests/` | Test pyramid, traceability, coverage targets |
+| [Security Specification](specs/security/security-spec.md) | `specs/security/` | Threat model, auth, data protection, guardrails |
+| [Performance Specification](specs/performance/performance-spec.md) | `specs/performance/` | SLIs/SLOs, budgets, capacity planning, runbooks |
+
+---
+
+## 🗂️ Architecture Diagrams (20 SVGs)
+
+All diagrams are in [`assets/images/`](assets/images/).
+
+| Diagram | File | Description |
+|---|---|---|
+| Platform Overview | `01-platform-overview.svg` | QI Offerings end-to-end architecture |
+| AI & RAG Pipeline | `02-ai-rag-pipeline.svg` | LLM providers, embeddings, vector store |
+| UI/UX Architecture | `03-ui-ux-architecture.svg` | React / Next.js front-end layers |
+| Backend Services | `04-backend-services.svg` | FastAPI microservices component view |
+| Data & Storage | `05-data-storage.svg` | PostgreSQL, blob, vector store ERD |
+| Security Architecture | `06-security-architecture.svg` | Defence-in-depth layers |
+| Observability & QE | `07-observability-qe.svg` | OpenTelemetry, metrics, tracing |
+| Deployment Topology | `08-deployment-topology.svg` | AKS, CI/CD, blue/green |
+| QI Offerings Overview | `qi-offerings-overview.svg` | Solution overview hero image |
+| Retrieval Pipeline | `retrieval-pipeline.svg` | RAG retrieval flow detail |
+| ZenseAI.Qi Platform | `zenseai-qi-platform.svg` | Solutions, agents, providers, data layer |
+| Agent ↔ Solution Mapping | `zenseai-qi-agent-mapping.svg` | 7 agents mapped to solutions & models |
+| Roadmap Timeline | `zenseai-qi-roadmap.svg` | 5-phase delivery Mar → Jul |
+| DeepSpeci Architecture | `arch-deepspeci.svg` | Requirement ingestion, evaluation, validation |
+| CaseGeni Architecture | `arch-casegeni.svg` | Test case generation, dedup, coverage |
+| DataGeni Architecture | `arch-datageni.svg` | Synthetic data, PII scan, FK integrity |
+| Auto-PlayPilot Architecture | `arch-auto-playpilot.svg` | Playwright codegen, POM, troubleshoot |
+| Insights360 Architecture | `arch-insights360.svg` | Aggregation, AI narrative, dashboards |
+| Perf-Xi Architecture | `arch-perf-xi.svg` | k6 generation, SLI/SLO, capacity |
+| Secure-Xi Architecture | `arch-secure-xi.svg` | SAST/DAST/SCA, threat model, CI gate |
+
+---
+
+## 👤 Persona Quick-Start
+
+| Persona | Recommended Reading Path |
+|---|---|
+| **Stakeholders / Managers** | [Overview](docs/01-overview.md) → [Roles](docs/roles.md) → [Insights360](docs/architecture/insights360.md) → [Roadmap](docs/roadmap/roadmap.md) |
+| **Developers** | [Backend](docs/05-backend-apis.md) → [AI Integration](docs/03-ai-integration.md) → [DeepSpeci Arch](docs/architecture/deepspeci.md) → [Appendix](docs/11-appendix.md) |
+| **QE Engineers** | [Observability](docs/08-observability-qe.md) → [Test Strategy](specs/tests/test-strategy.md) → [CaseGeni Arch](docs/architecture/casegeni.md) |
+| **Automation Engineers** | [Auto-PlayPilot Arch](docs/architecture/auto-playpilot.md) → [Playwright MCP](docs/agents/playwright-mcp.md) → [DataGeni Arch](docs/architecture/datageni.md) |
+| **Security Engineers** | [Security Spec](specs/security/security-spec.md) → [Secure-Xi Arch](docs/architecture/secure-xi.md) → [Security Agent](docs/agents/security-agent.md) |
+| **Performance Engineers** | [Performance Spec](specs/performance/performance-spec.md) → [Perf-Xi Arch](docs/architecture/perf-xi.md) → [Performance Agent](docs/agents/performance-agent.md) |
+| **SMEs / Non-Technical** | [Roles](docs/roles.md) → [DeepSpeci Req](docs/solutions/deepspeci.md) → [Insights360 Req](docs/solutions/insights360.md) |
+
+---
+
+## 🏗️ Tech Stack
+
+```
+Frontend        React 18 / Next.js 15 · Tailwind CSS · Recharts · Monaco Editor
+Backend         Python 3.12 · FastAPI · Node.js 22 (Auto-PlayPilot)
+AI Agents       LangChain / LangGraph · Presidio PII
+LLM Providers   Gemini · Claude · OpenAI
+Data Stores     PostgreSQL 16 · pgvector · TimescaleDB · Redis 7
+Object Storage  Azure Blob / S3
+Testing         Playwright · k6 · semgrep · OWASP ZAP · Snyk / Trivy
+Infrastructure  Docker · Kubernetes (AKS) · GitHub Actions · Bicep IaC
+Docs Site       Jekyll · Kramdown · Mermaid.js · GitHub Pages
+```
+
+---
+
+## 📁 Repository Structure
 
 ```
 Architecture/
-├── _config.yml              # Jekyll configuration
+├── _config.yml                         # Jekyll configuration
 ├── _layouts/
-│   └── default.html         # Page layout with Mermaid support
+│   └── default.html                    # Page layout with Mermaid.js support
+├── index.md                            # 🏠 Architecture Hub (landing page)
+├── architecture.md                     # Full E2E architecture (single page)
+├── docs/
+│   ├── architecture.md                 # Platform architecture + Mermaid diagrams
+│   ├── roles.md                        # Roles, personas, RACI matrix
+│   ├── 01-overview.md                  # QI Offerings overview
+│   ├── 02-architecture-at-a-glance.md  # Context diagram
+│   ├── 03-ai-integration.md            # LLM + RAG pipeline
+│   ├── 04-ui-ux.md                     # Frontend architecture
+│   ├── 05-backend-apis.md              # Backend services & APIs
+│   ├── 06-data-storage.md              # Data stores & ERD
+│   ├── 07-security-compliance.md       # Security & compliance
+│   ├── 08-observability-qe.md          # Observability & QE
+│   ├── 09-deployment.md                # Deployment & CI/CD
+│   ├── 10-nfr.md                       # Non-functional requirements
+│   ├── 11-appendix.md                  # Appendix
+│   ├── architecture/                   # 📐 Solution Architecture & Implementation
+│   │   ├── deepspeci.md
+│   │   ├── casegeni.md
+│   │   ├── datageni.md
+│   │   ├── auto-playpilot.md
+│   │   ├── insights360.md
+│   │   ├── perf-xi.md
+│   │   └── secure-xi.md
+│   ├── solutions/                      # 📄 Solution Requirement Specs
+│   │   ├── deepspeci.md
+│   │   ├── casegeni.md
+│   │   ├── datageni.md
+│   │   ├── auto-playpilot.md
+│   │   ├── insights360.md
+│   │   ├── perf-xi.md
+│   │   └── secure-xi.md
+│   ├── agents/                         # 🤖 AI Agent Design Specs
+│   │   ├── requirement-evaluator.md
+│   │   ├── test-case-generator.md
+│   │   ├── test-data-generator.md
+│   │   ├── playwright-mcp.md
+│   │   ├── report-agent.md
+│   │   ├── performance-agent.md
+│   │   └── security-agent.md
+│   └── roadmap/
+│       └── roadmap.md                  # 5-phase product roadmap
+├── specs/
+│   ├── requirements/
+│   │   └── requirements-register.md    # Consolidated FR/NFR register
+│   ├── tests/
+│   │   └── test-strategy.md            # Test strategy & pyramid
+│   ├── security/
+│   │   └── security-spec.md            # Security specification
+│   └── performance/
+│       └── performance-spec.md         # Performance SLI/SLO spec
 ├── assets/
 │   ├── css/
-│   │   └── style.css        # Custom styles
-│   └── images/
-│       └── qi-offerings-overview.png   # ← Add your hero image here
-├── docs/
-│   ├── 01-overview.md               # Problem statement, goals, constraints
-│   ├── 02-architecture-at-a-glance.md   # Context diagram
-│   ├── 03-ai-integration.md         # LLM + RAG pipeline
-│   ├── 04-ui-ux.md                  # React / Next.js frontend
-│   ├── 05-backend-apis.md           # FastAPI services & APIs
-│   ├── 06-data-storage.md           # Data stores & ERD
-│   ├── 07-security-compliance.md    # Identity, encryption, LLM safety
-│   ├── 08-observability-qe.md       # Tracing, metrics, test agent
-│   ├── 09-deployment.md             # CI/CD, IaC, environments
-│   ├── 10-nfr.md                    # Non-functional requirements
-│   └── 11-appendix.md              # OpenAPI, prompts, config
-├── index.md                 # Landing page (links to all docs)
-├── architecture.md          # Full E2E architecture (single page)
-├── Gemfile                  # Ruby dependencies
+│   │   └── style.css                   # Custom styles
+│   └── images/                         # 20 SVG architecture diagrams
+│       ├── 01-platform-overview.svg
+│       ├── 02-ai-rag-pipeline.svg
+│       ├── ...
+│       ├── arch-deepspeci.svg
+│       ├── arch-casegeni.svg
+│       ├── ...
+│       ├── zenseai-qi-platform.svg
+│       ├── zenseai-qi-agent-mapping.svg
+│       └── zenseai-qi-roadmap.svg
+├── Gemfile                             # Ruby / Jekyll dependencies
 ├── .gitignore
-└── README.md                # This file
+└── README.md                           # This file
 ```
 
-## Local Development
+**Total:** 40+ Markdown documents · 20 SVG diagrams · 7 solution architectures · 7 agent specs · 7 requirement specs · 4 specification documents
+
+---
+
+## 🖥️ Local Development
 
 ```bash
-# Install dependencies (requires Ruby ≥ 3.0)
+# Prerequisites: Ruby ≥ 3.0, Bundler
 bundle install
 
-# Serve locally
+# Serve locally with live reload
 bundle exec jekyll serve --livereload
 
-# Open http://localhost:4000/Architecture/
+# Open in browser
+open http://localhost:4000/Architecture/
 ```
 
-## Deploy to GitHub Pages
+---
 
-1. Push this folder to a GitHub repository.
-2. Go to **Settings → Pages → Source** and select the branch/folder.
-3. The site will be available at `https://<org>.github.io/<repo>/Architecture/`.
+## 🚀 Deploy to GitHub Pages
 
-## Hero Image
+1. Push to GitHub: `git push arch main`
+2. Go to **Settings → Pages → Source** → select `main` branch
+3. Site available at: `https://abhilashgiridharan.github.io/ZenseAI.QI.Arch/`
 
-Replace the placeholder hero image at `assets/images/qi-offerings-overview.svg` with your own before deploying.
+---
 
-## Key Sections
+## 📊 Document Statistics
 
-- Overview & capability map
-- Architecture context diagram (Mermaid)
-- AI Integration (LLM + RAG pipeline)
-- UI/UX (React / Next.js)
-- Backend & APIs (FastAPI)
-- Data & Storage (ERD)
-- Security & Compliance
-- Observability & QE
-- Deployment & CI/CD
-- Non-Functional Requirements
-- Appendix (OpenAPI, prompts, config)
+| Category | Count |
+|---|---|
+| Platform-level docs | 14 |
+| Solution architecture & implementation docs | 7 |
+| Solution requirement specs | 7 |
+| AI agent design specs | 7 |
+| Specification documents | 4 |
+| SVG architecture diagrams | 20 |
+| Mermaid inline diagrams | 30+ |
+| **Total pages** | **40+** |
+
+---
+
+<p align="center">
+  <strong>ZenseAI.Qi</strong> · QI Offerings · Architecture Documentation · 2026
+</p>

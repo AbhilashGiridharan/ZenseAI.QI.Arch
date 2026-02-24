@@ -89,15 +89,15 @@ The **ZenseAI.Qi** platform builds on the QI Offerings architecture above, deliv
 
 ### Solution Architectures
 
-| # | Solution | Architecture | Agent | Model |
+| # | Solution | Architecture & Implementation | Agent | Model |
 |---|---|---|---|---|
-| 1 | DeepSpeci | [Architecture](docs/architecture.md#1-deepspeci-architecture) | Requirement Evaluator | Gemini |
-| 2 | CaseGeni | [Architecture](docs/architecture.md#2-casegeni-architecture) | Test Case Generator | Gemini |
-| 3 | DataGeni | [Architecture](docs/architecture.md#3-datageni-architecture) | Test Data Generator | Claude |
-| 4 | Auto-PlayPilot | [Architecture](docs/architecture.md#4-auto-playpilot-architecture) | Playwright MCP | OpenAI |
-| 5 | Insights360 | [Architecture](docs/architecture.md#5-insights360-architecture) | Report Agent | Gemini |
-| 6 | Perf-Xi | [Architecture](docs/architecture.md#6-perf-xi-architecture) | Performance Agent | Claude |
-| 7 | Secure-Xi | [Architecture](docs/architecture.md#7-secure-xi-architecture) | Security Agent | Claude |
+| 1 | DeepSpeci | [📐 Architecture](docs/architecture/deepspeci.md) | Requirement Evaluator | Gemini |
+| 2 | CaseGeni | [📐 Architecture](docs/architecture/casegeni.md) | Test Case Generator | Gemini |
+| 3 | DataGeni | [📐 Architecture](docs/architecture/datageni.md) | Test Data Generator | Claude |
+| 4 | Auto-PlayPilot | [📐 Architecture](docs/architecture/auto-playpilot.md) | Playwright MCP | OpenAI |
+| 5 | Insights360 | [📐 Architecture](docs/architecture/insights360.md) | Report Agent | Gemini |
+| 6 | Perf-Xi | [📐 Architecture](docs/architecture/perf-xi.md) | Performance Agent | Claude |
+| 7 | Secure-Xi | [📐 Architecture](docs/architecture/secure-xi.md) | Security Agent | Claude |
 
 ### AI Agent Design Specs
 

@@ -13,6 +13,12 @@ permalink: "/docs/overview/"
 
 ---
 
+## Platform Overview
+
+![QI Offerings — Platform Overview](../assets/images/01-platform-overview.svg)
+
+---
+
 ## Problem Statement
 
 Teams spend excessive time manually searching, interpreting, and cross-referencing large document corpora to answer domain-specific questions. Existing keyword search yields low-precision results and provides no contextual synthesis.

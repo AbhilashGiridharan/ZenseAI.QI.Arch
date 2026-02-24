@@ -13,6 +13,12 @@ permalink: "/docs/security-compliance/"
 
 ---
 
+## Architecture Diagram
+
+![Security & Compliance — Architecture](../assets/images/06-security-architecture.svg)
+
+---
+
 ## Identity & Access
 
 - **Microsoft Entra ID** (formerly Azure AD) for SSO and RBAC.

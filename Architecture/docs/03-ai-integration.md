@@ -13,6 +13,12 @@ permalink: "/docs/ai-integration/"
 
 ---
 
+## Architecture Diagram
+
+![AI Integration — RAG Pipeline Architecture](../assets/images/02-ai-rag-pipeline.svg)
+
+---
+
 ## LLM Providers
 
 | Capability | Service | Model |

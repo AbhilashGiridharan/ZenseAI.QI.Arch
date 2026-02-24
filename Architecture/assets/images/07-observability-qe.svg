@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="hd7" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#004d40"/><stop offset="100%" stop-color="#00695c"/>
+    </linearGradient>
+    <filter id="s7" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="1" dy="2" stdDeviation="3" flood-opacity="0.12"/>
+    </filter>
+    <marker id="a7" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#546e7a"/>
+    </marker>
+    <marker id="a7t" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#00897b"/>
+    </marker>
+  </defs>
+
+  <rect width="1100" height="720" rx="12" fill="#fafafa"/>
+  <rect x="0" y="0" width="1100" height="56" rx="12" fill="url(#hd7)"/>
+  <rect x="0" y="20" width="1100" height="36" fill="url(#hd7)"/>
+  <text x="550" y="37" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">Observability &amp; Quality Engineering — Architecture</text>
+
+  <!-- ===== APPLICATION LAYER (sources) ===== -->
+  <rect x="40" y="78" width="1020" height="65" rx="10" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5" filter="url(#s7)"/>
+  <text x="550" y="100" text-anchor="middle" fill="#1b5e20" font-size="14" font-weight="700">Application Layer — FastAPI Services (OpenTelemetry SDK Instrumented)</text>
+  <text x="550" y="120" text-anchor="middle" fill="#546e7a" font-size="10">Auth · Retrieval · Orchestration · Reporting · Ingestion  |  Correlation ID propagated end-to-end</text>
+
+  <!-- Arrows down -->
+  <line x1="250" y1="143" x2="250" y2="175" stroke="#00897b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#a7t)"/>
+  <line x1="550" y1="143" x2="550" y2="175" stroke="#00897b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#a7t)"/>
+  <line x1="850" y1="143" x2="850" y2="175" stroke="#00897b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#a7t)"/>
+  <text x="380" y="163" fill="#00897b" font-size="9">traces</text>
+  <text x="680" y="163" fill="#00897b" font-size="9">metrics</text>
+  <text x="935" y="163" fill="#00897b" font-size="9">logs</text>
+
+  <!-- ===== OTEL COLLECTOR ===== -->
+  <rect x="40" y="180" width="1020" height="55" rx="10" fill="#e0f7fa" stroke="#00897b" stroke-width="2" filter="url(#s7)"/>
+  <text x="550" y="205" text-anchor="middle" fill="#004d40" font-size="15" font-weight="700">📡 OpenTelemetry Collector</text>
+  <text x="550" y="222" text-anchor="middle" fill="#37474f" font-size="10">W3C Trace Context · OTLP export · Batch processing · Tail sampling</text>
+
+  <!-- Arrows to 3 pillars -->
+  <line x1="250" y1="235" x2="200" y2="270" stroke="#546e7a" stroke-width="1.5" marker-end="url(#a7)"/>
+  <line x1="550" y1="235" x2="550" y2="270" stroke="#546e7a" stroke-width="1.5" marker-end="url(#a7)"/>
+  <line x1="850" y1="235" x2="900" y2="270" stroke="#546e7a" stroke-width="1.5" marker-end="url(#a7)"/>
+
+  <!-- ===== THREE PILLARS ===== -->
+  <!-- Traces -->
+  <rect x="40" y="275" width="310" height="130" rx="10" fill="#e8eaf6" stroke="#5c6bc0" stroke-width="1.5" filter="url(#s7)"/>
+  <text x="195" y="300" text-anchor="middle" fill="#283593" font-size="14" font-weight="700">📍 Distributed Tracing</text>
+  <text x="195" y="318" text-anchor="middle" fill="#3949ab" font-size="10">Application Insights</text>
+  <g fill="#37474f" font-size="10">
+    <text x="55" y="340">• End-to-end request traces</text>
+    <text x="55" y="358">• Dependency mapping</text>
+    <text x="55" y="376">• Latency breakdown per span</text>
+    <text x="55" y="394">• Cross-service correlation</text>
+  </g>
+
+  <!-- Metrics -->
+  <rect x="395" y="275" width="310" height="130" rx="10" fill="#fff3e0" stroke="#fb8c00" stroke-width="1.5" filter="url(#s7)"/>
+  <text x="550" y="300" text-anchor="middle" fill="#e65100" font-size="14" font-weight="700">📊 Metrics</text>
+  <text x="550" y="318" text-anchor="middle" fill="#ef6c00" font-size="10">Azure Monitor + Grafana</text>
+  <g fill="#37474f" font-size="10">
+    <text x="410" y="340">• E2E latency p50/p95</text>
+    <text x="410" y="358">• Token usage (prompt + completion)</text>
+    <text x="410" y="376">• Error rate (5xx &lt; 0.5%)</text>
+    <text x="410" y="394">• Ingestion throughput (≥100/hr)</text>
+  </g>
+
+  <!-- Logs -->
+  <rect x="750" y="275" width="310" height="130" rx="10" fill="#fce4ec" stroke="#e53935" stroke-width="1.5" filter="url(#s7)"/>
+  <text x="905" y="300" text-anchor="middle" fill="#b71c1c" font-size="14" font-weight="700">📝 Structured Logs</text>
+  <text x="905" y="318" text-anchor="middle" fill="#c62828" font-size="10">Azure Log Analytics</text>
+  <g fill="#37474f" font-size="10">
+    <text x="765" y="340">• JSON structured format</text>
+    <text x="765" y="358">• Prompt + completion audit</text>
+    <text x="765" y="376">• 90-day retention</text>
+    <text x="765" y="394">• KQL query support</text>
+  </g>
+
+  <!-- Arrow down to Dashboards -->
+  <line x1="550" y1="405" x2="550" y2="435" stroke="#546e7a" stroke-width="1.5" marker-end="url(#a7)"/>
+
+  <!-- ===== DASHBOARDS & ALERTS ===== -->
+  <rect x="40" y="440" width="1020" height="65" rx="10" fill="#f1f8e9" stroke="#7cb342" stroke-width="1.5" filter="url(#s7)"/>
+  <text x="550" y="465" text-anchor="middle" fill="#33691e" font-size="14" font-weight="700">📈 Dashboards &amp; Alerting</text>
+  <text x="550" y="487" text-anchor="middle" fill="#37474f" font-size="10">Grafana dashboards · Azure Monitor Workbooks · Alert rules → PagerDuty / Teams · DLQ depth alerts (threshold &gt; 10)</text>
+
+  <!-- ===== QE SECTION ===== -->
+  <rect x="40" y="530" width="1020" height="165" rx="12" fill="#e0f2f1" stroke="#00897b" stroke-width="2" filter="url(#s7)"/>
+  <text x="550" y="555" text-anchor="middle" fill="#004d40" font-size="15" font-weight="700">🧪 Quality Engineering (QE)</text>
+
+  <!-- QE boxes -->
+  <rect x="60" y="572" width="225" height="105" rx="8" fill="#fff" stroke="#4db6ac" stroke-width="1"/>
+  <text x="172" y="592" text-anchor="middle" fill="#004d40" font-size="11" font-weight="700">🎭 Synthetic E2E Tests</text>
+  <text x="72" y="612" fill="#37474f" font-size="10">Playwright test suite</text>
+  <text x="72" y="628" fill="#37474f" font-size="10">Nightly against staging</text>
+  <text x="72" y="644" fill="#37474f" font-size="10">Full user journey coverage</text>
+  <text x="72" y="662" fill="#78909c" font-size="9">Parallel browser execution</text>
+
+  <rect x="305" y="572" width="225" height="105" rx="8" fill="#fff" stroke="#4db6ac" stroke-width="1"/>
+  <text x="417" y="592" text-anchor="middle" fill="#004d40" font-size="11" font-weight="700">🤖 AI Test-Data Agent</text>
+  <text x="317" y="612" fill="#37474f" font-size="10">Generate question variants</text>
+  <text x="317" y="628" fill="#37474f" font-size="10">from 200 golden Q&amp;A pairs</text>
+  <text x="317" y="644" fill="#37474f" font-size="10">using GPT-4.1</text>
+  <text x="317" y="662" fill="#78909c" font-size="9">BLEU · Semantic similarity</text>
+
+  <rect x="550" y="572" width="225" height="105" rx="8" fill="#fff" stroke="#4db6ac" stroke-width="1"/>
+  <text x="662" y="592" text-anchor="middle" fill="#004d40" font-size="11" font-weight="700">⚡ Performance Tests</text>
+  <text x="562" y="612" fill="#37474f" font-size="10">k6 load testing</text>
+  <text x="562" y="628" fill="#37474f" font-size="10">200 concurrent users</text>
+  <text x="562" y="644" fill="#37474f" font-size="10">Pre-deploy gate</text>
+  <text x="562" y="662" fill="#78909c" font-size="9">p95 ≤ 3 s threshold</text>
+
+  <rect x="795" y="572" width="245" height="105" rx="8" fill="#fff" stroke="#4db6ac" stroke-width="1"/>
+  <text x="917" y="592" text-anchor="middle" fill="#004d40" font-size="11" font-weight="700">🔬 Retrieval Regression</text>
+  <text x="807" y="612" fill="#37474f" font-size="10">Weekly precision/recall baseline</text>
+  <text x="807" y="628" fill="#37474f" font-size="10">Precision@5 ≥ 0.85 target</text>
+  <text x="807" y="644" fill="#37474f" font-size="10">Confidence mean ≥ 0.75</text>
+  <text x="807" y="662" fill="#78909c" font-size="9">Automated regression alerts</text>
+
+  <text x="1080" y="714" text-anchor="end" fill="#b0bec5" font-size="9">QI Offerings — Observability &amp; QE v1.0</text>
+</svg>

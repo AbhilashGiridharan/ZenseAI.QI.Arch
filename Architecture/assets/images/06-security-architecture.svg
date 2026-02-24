@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="hd6" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#bf360c"/><stop offset="100%" stop-color="#e65100"/>
+    </linearGradient>
+    <filter id="s6" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="1" dy="2" stdDeviation="3" flood-opacity="0.12"/>
+    </filter>
+    <marker id="a6" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#546e7a"/>
+    </marker>
+  </defs>
+
+  <rect width="1100" height="720" rx="12" fill="#fafafa"/>
+  <rect x="0" y="0" width="1100" height="56" rx="12" fill="url(#hd6)"/>
+  <rect x="0" y="20" width="1100" height="36" fill="url(#hd6)"/>
+  <text x="550" y="37" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">Security &amp; Compliance — Architecture</text>
+
+  <!-- ===== PERIMETER: INTERNET ===== -->
+  <rect x="40" y="78" width="1020" height="60" rx="10" fill="#ffebee" stroke="#e53935" stroke-width="2" filter="url(#s6)"/>
+  <text x="550" y="100" text-anchor="middle" fill="#b71c1c" font-size="14" font-weight="700">🌐 Internet / External Traffic</text>
+  <text x="550" y="120" text-anchor="middle" fill="#546e7a" font-size="10">Untrusted zone — all traffic must pass through security layers below</text>
+
+  <line x1="550" y1="138" x2="550" y2="165" stroke="#546e7a" stroke-width="1.5" marker-end="url(#a6)"/>
+
+  <!-- ===== LAYER 1: EDGE SECURITY ===== -->
+  <rect x="40" y="170" width="1020" height="80" rx="10" fill="#fff3e0" stroke="#fb8c00" stroke-width="1.5" filter="url(#s6)"/>
+  <text x="60" y="195" fill="#e65100" font-size="14" font-weight="700">Layer 1 — Edge Security</text>
+  <g fill="#37474f" font-size="11">
+    <text x="60" y="218">🛡 Azure Front Door + CDN</text>
+    <text x="300" y="218">🔥 WAF v2 (OWASP 3.2 rule set)</text>
+    <text x="600" y="218">🚫 DDoS Protection Standard</text>
+    <text x="850" y="218">📍 IP Allowlist (admin)</text>
+  </g>
+
+  <line x1="550" y1="250" x2="550" y2="275" stroke="#546e7a" stroke-width="1.5" marker-end="url(#a6)"/>
+
+  <!-- ===== LAYER 2: IDENTITY ===== -->
+  <rect x="40" y="280" width="1020" height="90" rx="10" fill="#e3f2fd" stroke="#1e88e5" stroke-width="1.5" filter="url(#s6)"/>
+  <text x="60" y="305" fill="#0d47a1" font-size="14" font-weight="700">Layer 2 — Identity &amp; Access (Microsoft Entra ID)</text>
+
+  <rect x="60" y="318" width="220" height="40" rx="6" fill="#fff" stroke="#64b5f6" stroke-width="1"/>
+  <text x="170" y="343" text-anchor="middle" fill="#37474f" font-size="10">🔑 OAuth 2.0 + PKCE (SPA)</text>
+
+  <rect x="300" y="318" width="220" height="40" rx="6" fill="#fff" stroke="#64b5f6" stroke-width="1"/>
+  <text x="410" y="343" text-anchor="middle" fill="#37474f" font-size="10">🤖 Client Credentials (S2S)</text>
+
+  <rect x="540" y="318" width="160" height="40" rx="6" fill="#fff" stroke="#64b5f6" stroke-width="1"/>
+  <text x="620" y="343" text-anchor="middle" fill="#37474f" font-size="10">👥 RBAC Roles</text>
+
+  <rect x="720" y="318" width="320" height="40" rx="6" fill="#fff" stroke="#64b5f6" stroke-width="1"/>
+  <text x="880" y="338" text-anchor="middle" fill="#37474f" font-size="10">Reader · Contributor · Admin</text>
+  <text x="880" y="352" text-anchor="middle" fill="#78909c" font-size="9">Token: 1 h access / 24 h refresh</text>
+
+  <line x1="550" y1="370" x2="550" y2="395" stroke="#546e7a" stroke-width="1.5" marker-end="url(#a6)"/>
+
+  <!-- ===== LAYER 3: API GATEWAY ===== -->
+  <rect x="40" y="400" width="500" height="75" rx="10" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5" filter="url(#s6)"/>
+  <text x="60" y="425" fill="#1b5e20" font-size="14" font-weight="700">Layer 3 — API Gateway Security</text>
+  <g fill="#37474f" font-size="11">
+    <text x="60" y="448">🔐 JWT Validation (Entra tokens)</text>
+    <text x="310" y="448">⏱ Rate Limit: 60 req/min/user</text>
+    <text x="60" y="466">📝 Request/Response Logging</text>
+    <text x="310" y="466">💾 Response Caching (15 min)</text>
+  </g>
+
+  <!-- ===== LAYER 3b: NETWORK ===== -->
+  <rect x="560" y="400" width="500" height="75" rx="10" fill="#f3e5f5" stroke="#8e24aa" stroke-width="1.5" filter="url(#s6)"/>
+  <text x="580" y="425" fill="#4a148c" font-size="14" font-weight="700">Layer 3 — Network Controls</text>
+  <g fill="#37474f" font-size="11">
+    <text x="580" y="448">🔒 VNet-Integrated Subnets</text>
+    <text x="820" y="448">🏠 Private Endpoints (all stores)</text>
+    <text x="580" y="466">No public access to data plane</text>
+    <text x="820" y="466">NSG rules per subnet</text>
+  </g>
+
+  <line x1="550" y1="475" x2="550" y2="500" stroke="#546e7a" stroke-width="1.5" marker-end="url(#a6)"/>
+
+  <!-- ===== LAYER 4: DATA SECURITY ===== -->
+  <rect x="40" y="505" width="1020" height="90" rx="10" fill="#e0f7fa" stroke="#00897b" stroke-width="1.5" filter="url(#s6)"/>
+  <text x="60" y="530" fill="#004d40" font-size="14" font-weight="700">Layer 4 — Data Security</text>
+
+  <rect x="60" y="543" width="190" height="40" rx="6" fill="#fff" stroke="#80cbc4" stroke-width="1"/>
+  <text x="155" y="568" text-anchor="middle" fill="#37474f" font-size="10">🔐 AES-256 at rest</text>
+
+  <rect x="270" y="543" width="150" height="40" rx="6" fill="#fff" stroke="#80cbc4" stroke-width="1"/>
+  <text x="345" y="568" text-anchor="middle" fill="#37474f" font-size="10">🔒 TLS 1.3 in transit</text>
+
+  <rect x="440" y="543" width="180" height="40" rx="6" fill="#fff" stroke="#80cbc4" stroke-width="1"/>
+  <text x="530" y="568" text-anchor="middle" fill="#37474f" font-size="10">🕵️ PII Redaction (Presidio)</text>
+
+  <rect x="640" y="543" width="190" height="40" rx="6" fill="#fff" stroke="#80cbc4" stroke-width="1"/>
+  <text x="735" y="568" text-anchor="middle" fill="#37474f" font-size="10">🗝 Azure Key Vault (CMK)</text>
+
+  <rect x="850" y="543" width="190" height="40" rx="6" fill="#fff" stroke="#80cbc4" stroke-width="1"/>
+  <text x="945" y="568" text-anchor="middle" fill="#37474f" font-size="10">🚫 Zero Secrets in Code</text>
+
+  <!-- ===== LAYER 5: LLM SAFETY ===== -->
+  <rect x="40" y="610" width="1020" height="80" rx="10" fill="#fce4ec" stroke="#e53935" stroke-width="1.5" filter="url(#s6)"/>
+  <text x="60" y="635" fill="#b71c1c" font-size="14" font-weight="700">Layer 5 — LLM Safety &amp; Audit</text>
+  <g fill="#37474f" font-size="11">
+    <text x="60" y="658">🛡 Azure OpenAI Content Filters</text>
+    <text x="320" y="658">🧱 Prompt Injection Defence</text>
+    <text x="570" y="658">📊 Per-user Token Rate Limits</text>
+    <text x="830" y="658">📝 Audit Log (90 d retention)</text>
+  </g>
+  <text x="60" y="678" fill="#78909c" font-size="10">Severity threshold: medium · Input delimiter tokens · Instruction hierarchy · Full prompt + completion logging in Log Analytics</text>
+
+  <text x="1080" y="714" text-anchor="end" fill="#b0bec5" font-size="9">QI Offerings — Security &amp; Compliance v1.0</text>
+</svg>

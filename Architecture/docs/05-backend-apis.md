@@ -13,6 +13,12 @@ permalink: "/docs/backend-apis/"
 
 ---
 
+## Architecture Diagram
+
+![Backend & API Services — Architecture](../assets/images/04-backend-services.svg)
+
+---
+
 ## API Gateway – Azure API Management
 
 - JWT validation (Entra ID tokens).

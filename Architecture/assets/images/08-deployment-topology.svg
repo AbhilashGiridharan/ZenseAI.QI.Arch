@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 780" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="hd8" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0d47a1"/><stop offset="100%" stop-color="#1565c0"/>
+    </linearGradient>
+    <filter id="s8" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="1" dy="2" stdDeviation="3" flood-opacity="0.12"/>
+    </filter>
+    <marker id="a8" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#546e7a"/>
+    </marker>
+    <marker id="a8b" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#1565c0"/>
+    </marker>
+  </defs>
+
+  <rect width="1100" height="780" rx="12" fill="#fafafa"/>
+  <rect x="0" y="0" width="1100" height="56" rx="12" fill="url(#hd8)"/>
+  <rect x="0" y="20" width="1100" height="36" fill="url(#hd8)"/>
+  <text x="550" y="37" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">Deployment &amp; CI/CD — Architecture</text>
+
+  <!-- ===== CI/CD PIPELINE ===== -->
+  <rect x="40" y="78" width="1020" height="110" rx="12" fill="#e3f2fd" stroke="#1e88e5" stroke-width="2" filter="url(#s8)"/>
+  <text x="60" y="102" fill="#0d47a1" font-size="15" font-weight="700">GitHub Actions — CI/CD Pipeline</text>
+
+  <!-- Pipeline steps -->
+  <rect x="60" y="115" width="130" height="55" rx="6" fill="#fff" stroke="#64b5f6" stroke-width="1"/>
+  <text x="125" y="138" text-anchor="middle" fill="#0d47a1" font-size="10" font-weight="700">1. Code Push</text>
+  <text x="125" y="155" text-anchor="middle" fill="#546e7a" font-size="9">main branch</text>
+
+  <line x1="190" y1="142" x2="220" y2="142" stroke="#1565c0" stroke-width="1.5" marker-end="url(#a8b)"/>
+
+  <rect x="225" y="115" width="130" height="55" rx="6" fill="#fff" stroke="#64b5f6" stroke-width="1"/>
+  <text x="290" y="138" text-anchor="middle" fill="#0d47a1" font-size="10" font-weight="700">2. Lint + Test</text>
+  <text x="290" y="155" text-anchor="middle" fill="#546e7a" font-size="9">Trivy · CodeQL</text>
+
+  <line x1="355" y1="142" x2="385" y2="142" stroke="#1565c0" stroke-width="1.5" marker-end="url(#a8b)"/>
+
+  <rect x="390" y="115" width="130" height="55" rx="6" fill="#fff" stroke="#64b5f6" stroke-width="1"/>
+  <text x="455" y="138" text-anchor="middle" fill="#0d47a1" font-size="10" font-weight="700">3. Docker Build</text>
+  <text x="455" y="155" text-anchor="middle" fill="#546e7a" font-size="9">Multi-stage · Slim</text>
+
+  <line x1="520" y1="142" x2="550" y2="142" stroke="#1565c0" stroke-width="1.5" marker-end="url(#a8b)"/>
+
+  <rect x="555" y="115" width="145" height="55" rx="6" fill="#fff" stroke="#64b5f6" stroke-width="1"/>
+  <text x="627" y="138" text-anchor="middle" fill="#0d47a1" font-size="10" font-weight="700">4. Push to ACR</text>
+  <text x="627" y="155" text-anchor="middle" fill="#546e7a" font-size="9">Geo-replicated registry</text>
+
+  <line x1="700" y1="142" x2="730" y2="142" stroke="#1565c0" stroke-width="1.5" marker-end="url(#a8b)"/>
+
+  <rect x="735" y="115" width="145" height="55" rx="6" fill="#fff" stroke="#64b5f6" stroke-width="1"/>
+  <text x="807" y="138" text-anchor="middle" fill="#0d47a1" font-size="10" font-weight="700">5. Deploy AKS</text>
+  <text x="807" y="155" text-anchor="middle" fill="#546e7a" font-size="9">Blue/Green strategy</text>
+
+  <line x1="880" y1="142" x2="910" y2="142" stroke="#1565c0" stroke-width="1.5" marker-end="url(#a8b)"/>
+
+  <rect x="915" y="115" width="130" height="55" rx="6" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5"/>
+  <text x="980" y="138" text-anchor="middle" fill="#1b5e20" font-size="10" font-weight="700">6. Smoke Test</text>
+  <text x="980" y="155" text-anchor="middle" fill="#546e7a" font-size="9">Health + E2E</text>
+
+  <!-- Arrow down to environments -->
+  <line x1="550" y1="188" x2="550" y2="218" stroke="#546e7a" stroke-width="1.5" marker-end="url(#a8)"/>
+
+  <!-- ===== ENVIRONMENTS ===== -->
+  <text x="550" y="240" text-anchor="middle" fill="#37474f" font-size="14" font-weight="700">Environment Topology</text>
+
+  <!-- Dev -->
+  <rect x="40" y="255" width="310" height="75" rx="10" fill="#fff8e1" stroke="#f9a825" stroke-width="1.5" filter="url(#s8)"/>
+  <text x="195" y="278" text-anchor="middle" fill="#f57f17" font-size="13" font-weight="700">🧑‍💻 Development</text>
+  <text x="55" y="298" fill="#37474f" font-size="10">Single-node AKS · Shared DB</text>
+  <text x="55" y="314" fill="#78909c" font-size="10">Rapid iteration · Feature branches</text>
+
+  <!-- Staging -->
+  <rect x="395" y="255" width="310" height="75" rx="10" fill="#fff3e0" stroke="#fb8c00" stroke-width="1.5" filter="url(#s8)"/>
+  <text x="550" y="278" text-anchor="middle" fill="#e65100" font-size="13" font-weight="700">🧪 Staging</text>
+  <text x="410" y="298" fill="#37474f" font-size="10">Multi-node AKS · Isolated DB</text>
+  <text x="410" y="314" fill="#78909c" font-size="10">QE · Integration · Performance tests</text>
+
+  <!-- Production -->
+  <rect x="750" y="255" width="310" height="75" rx="10" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5" filter="url(#s8)"/>
+  <text x="905" y="278" text-anchor="middle" fill="#1b5e20" font-size="13" font-weight="700">🚀 Production</text>
+  <text x="765" y="298" fill="#37474f" font-size="10">Multi-node AKS (3 AZs) · HA DB</text>
+  <text x="765" y="314" fill="#78909c" font-size="10">Live traffic · Blue/Green deploy</text>
+
+  <!-- Arrows between envs -->
+  <line x1="350" y1="292" x2="395" y2="292" stroke="#546e7a" stroke-width="1.5" marker-end="url(#a8)"/>
+  <line x1="705" y1="292" x2="750" y2="292" stroke="#546e7a" stroke-width="1.5" marker-end="url(#a8)"/>
+
+  <!-- ===== PRODUCTION ARCHITECTURE ===== -->
+  <rect x="40" y="360" width="1020" height="345" rx="12" fill="#e8eaf6" stroke="#5c6bc0" stroke-width="2" filter="url(#s8)"/>
+  <text x="550" y="385" text-anchor="middle" fill="#283593" font-size="15" font-weight="700">Production Deployment Topology</text>
+
+  <!-- Edge -->
+  <rect x="60" y="400" width="240" height="50" rx="8" fill="#fff" stroke="#7986cb" stroke-width="1"/>
+  <text x="180" y="420" text-anchor="middle" fill="#283593" font-size="11" font-weight="600">🌐 Azure Front Door + CDN</text>
+  <text x="180" y="438" text-anchor="middle" fill="#546e7a" font-size="9">Edge caching · TLS termination</text>
+
+  <line x1="300" y1="425" x2="340" y2="425" stroke="#546e7a" stroke-width="1.5" marker-end="url(#a8)"/>
+
+  <!-- WAF -->
+  <rect x="345" y="400" width="140" height="50" rx="8" fill="#ffebee" stroke="#e53935" stroke-width="1"/>
+  <text x="415" y="420" text-anchor="middle" fill="#c62828" font-size="11" font-weight="600">🔥 WAF v2</text>
+  <text x="415" y="438" text-anchor="middle" fill="#546e7a" font-size="9">OWASP 3.2</text>
+
+  <line x1="485" y1="425" x2="525" y2="425" stroke="#546e7a" stroke-width="1.5" marker-end="url(#a8)"/>
+
+  <!-- APIM -->
+  <rect x="530" y="400" width="180" height="50" rx="8" fill="#fff3e0" stroke="#fb8c00" stroke-width="1"/>
+  <text x="620" y="420" text-anchor="middle" fill="#e65100" font-size="11" font-weight="600">⚙️ API Management</text>
+  <text x="620" y="438" text-anchor="middle" fill="#546e7a" font-size="9">JWT · Rate-limit · Cache</text>
+
+  <line x1="710" y1="425" x2="750" y2="425" stroke="#546e7a" stroke-width="1.5" marker-end="url(#a8)"/>
+
+  <!-- NGINX Ingress -->
+  <rect x="755" y="400" width="160" height="50" rx="8" fill="#e0f2f1" stroke="#00897b" stroke-width="1"/>
+  <text x="835" y="420" text-anchor="middle" fill="#004d40" font-size="11" font-weight="600">NGINX Ingress</text>
+  <text x="835" y="438" text-anchor="middle" fill="#546e7a" font-size="9">TLS · Load Balance</text>
+
+  <!-- AKS Cluster -->
+  <rect x="60" y="470" width="855" height="120" rx="10" fill="#e3f2fd" stroke="#1e88e5" stroke-width="1.5"/>
+  <text x="487" y="492" text-anchor="middle" fill="#0d47a1" font-size="13" font-weight="700">AKS Cluster (3 Availability Zones)</text>
+
+  <!-- Pods -->
+  <rect x="80" y="505" width="145" height="72" rx="6" fill="#fff" stroke="#90caf9" stroke-width="1"/>
+  <text x="152" y="525" text-anchor="middle" fill="#0d47a1" font-size="10" font-weight="600">Auth Pod</text>
+  <text x="152" y="541" text-anchor="middle" fill="#78909c" font-size="8">HPA: 2-20 replicas</text>
+  <text x="152" y="557" text-anchor="middle" fill="#78909c" font-size="8">CPU + queue depth</text>
+  <text x="152" y="570" text-anchor="middle" fill="#43a047" font-size="8">● liveness ● readiness</text>
+
+  <rect x="240" y="505" width="145" height="72" rx="6" fill="#fff" stroke="#90caf9" stroke-width="1"/>
+  <text x="312" y="525" text-anchor="middle" fill="#0d47a1" font-size="10" font-weight="600">Retrieval Pod</text>
+  <text x="312" y="541" text-anchor="middle" fill="#78909c" font-size="8">HPA: 2-20 replicas</text>
+  <text x="312" y="557" text-anchor="middle" fill="#78909c" font-size="8">CPU + queue depth</text>
+  <text x="312" y="570" text-anchor="middle" fill="#43a047" font-size="8">● liveness ● readiness</text>
+
+  <rect x="400" y="505" width="155" height="72" rx="6" fill="#fff" stroke="#90caf9" stroke-width="1"/>
+  <text x="477" y="525" text-anchor="middle" fill="#0d47a1" font-size="10" font-weight="600">Orchestration Pod</text>
+  <text x="477" y="541" text-anchor="middle" fill="#78909c" font-size="8">HPA: 2-20 replicas</text>
+  <text x="477" y="557" text-anchor="middle" fill="#78909c" font-size="8">CPU + queue depth</text>
+  <text x="477" y="570" text-anchor="middle" fill="#43a047" font-size="8">● liveness ● readiness</text>
+
+  <rect x="570" y="505" width="145" height="72" rx="6" fill="#fff" stroke="#90caf9" stroke-width="1"/>
+  <text x="642" y="525" text-anchor="middle" fill="#0d47a1" font-size="10" font-weight="600">Reporting Pod</text>
+  <text x="642" y="541" text-anchor="middle" fill="#78909c" font-size="8">HPA: 2-20 replicas</text>
+  <text x="642" y="557" text-anchor="middle" fill="#78909c" font-size="8">CPU + queue depth</text>
+  <text x="642" y="570" text-anchor="middle" fill="#43a047" font-size="8">● liveness ● readiness</text>
+
+  <rect x="730" y="505" width="170" height="72" rx="6" fill="#fff" stroke="#90caf9" stroke-width="1"/>
+  <text x="815" y="525" text-anchor="middle" fill="#0d47a1" font-size="10" font-weight="600">Ingestion Worker</text>
+  <text x="815" y="541" text-anchor="middle" fill="#78909c" font-size="8">Celery async · Service Bus</text>
+  <text x="815" y="557" text-anchor="middle" fill="#78909c" font-size="8">Cluster autoscaler: 3-10 nodes</text>
+  <text x="815" y="570" text-anchor="middle" fill="#43a047" font-size="8">● liveness ● readiness</text>
+
+  <!-- IaC -->
+  <rect x="930" y="400" width="120" height="190" rx="10" fill="#f3e5f5" stroke="#8e24aa" stroke-width="1.5" filter="url(#s8)"/>
+  <text x="990" y="425" text-anchor="middle" fill="#4a148c" font-size="12" font-weight="700">IaC</text>
+  <text x="990" y="443" text-anchor="middle" fill="#6a1b9a" font-size="10">Bicep</text>
+  <g fill="#37474f" font-size="9">
+    <text x="942" y="465">network.bicep</text>
+    <text x="942" y="480">aks.bicep</text>
+    <text x="942" y="495">ai-search.bicep</text>
+    <text x="942" y="510">openai.bicep</text>
+    <text x="942" y="525">postgres.bicep</text>
+    <text x="942" y="540">monitoring.bicep</text>
+    <text x="942" y="560" fill="#78909c">dev.bicepparam</text>
+    <text x="942" y="575" fill="#78909c">staging.bicepparam</text>
+    <text x="942" y="590" fill="#78909c">prod.bicepparam</text>
+  </g>
+
+  <!-- ===== DOWNSTREAM SERVICES ===== -->
+  <rect x="60" y="612" width="200" height="45" rx="8" fill="#fce4ec" stroke="#e53935" stroke-width="1"/>
+  <text x="160" y="635" text-anchor="middle" fill="#c62828" font-size="10" font-weight="600">Azure OpenAI · AI Search</text>
+  <text x="160" y="650" text-anchor="middle" fill="#78909c" font-size="8">Private Endpoints</text>
+
+  <rect x="280" y="612" width="200" height="45" rx="8" fill="#e8eaf6" stroke="#5c6bc0" stroke-width="1"/>
+  <text x="380" y="635" text-anchor="middle" fill="#283593" font-size="10" font-weight="600">PostgreSQL Flexible</text>
+  <text x="380" y="650" text-anchor="middle" fill="#78909c" font-size="8">Private Endpoint · HA</text>
+
+  <rect x="500" y="612" width="180" height="45" rx="8" fill="#fff3e0" stroke="#fb8c00" stroke-width="1"/>
+  <text x="590" y="635" text-anchor="middle" fill="#e65100" font-size="10" font-weight="600">Blob Storage</text>
+  <text x="590" y="650" text-anchor="middle" fill="#78909c" font-size="8">Private Endpoint</text>
+
+  <rect x="700" y="612" width="180" height="45" rx="8" fill="#e0f7fa" stroke="#00897b" stroke-width="1"/>
+  <text x="790" y="635" text-anchor="middle" fill="#004d40" font-size="10" font-weight="600">OTel → Monitor → Grafana</text>
+  <text x="790" y="650" text-anchor="middle" fill="#78909c" font-size="8">Observability stack</text>
+
+  <!-- Connection lines from AKS to downstream -->
+  <line x1="200" y1="590" x2="160" y2="612" stroke="#e53935" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="400" y1="590" x2="380" y2="612" stroke="#5c6bc0" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="600" y1="590" x2="590" y2="612" stroke="#fb8c00" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="800" y1="590" x2="790" y2="612" stroke="#00897b" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- ===== RESILIENCE BAR ===== -->
+  <rect x="40" y="680" width="1020" height="45" rx="10" fill="#fff8e1" stroke="#f9a825" stroke-width="1.5"/>
+  <text x="550" y="700" text-anchor="middle" fill="#e65100" font-size="12" font-weight="700">🔄 Resilience — Circuit Breaker · Exponential Backoff (3 retries) · Health Probes · Multi-AZ · Cold Start ≤ 10 s</text>
+  <text x="550" y="717" text-anchor="middle" fill="#78909c" font-size="10">SLA 99.9% · RTO ≤ 1 h · RPO ≤ 15 min · 500 concurrent users sustained</text>
+
+  <text x="1080" y="774" text-anchor="end" fill="#b0bec5" font-size="9">QI Offerings — Deployment &amp; CI/CD v1.0</text>
+</svg>

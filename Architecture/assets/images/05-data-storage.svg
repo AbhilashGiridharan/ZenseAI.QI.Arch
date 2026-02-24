@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 700" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="hd5" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4a148c"/><stop offset="100%" stop-color="#6a1b9a"/>
+    </linearGradient>
+    <filter id="s5" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="1" dy="2" stdDeviation="3" flood-opacity="0.12"/>
+    </filter>
+    <marker id="a5" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#546e7a"/>
+    </marker>
+    <marker id="a5p" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#7b1fa2"/>
+    </marker>
+  </defs>
+
+  <rect width="1100" height="700" rx="12" fill="#fafafa"/>
+  <rect x="0" y="0" width="1100" height="56" rx="12" fill="url(#hd5)"/>
+  <rect x="0" y="20" width="1100" height="36" fill="url(#hd5)"/>
+  <text x="550" y="37" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">Data &amp; Storage — Architecture</text>
+
+  <!-- ===== BACKEND SERVICES (source) ===== -->
+  <rect x="350" y="78" width="400" height="50" rx="10" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5" filter="url(#s5)"/>
+  <text x="550" y="108" text-anchor="middle" fill="#1b5e20" font-size="14" font-weight="700">FastAPI Backend Services</text>
+
+  <!-- Arrows down -->
+  <line x1="250" y1="128" x2="180" y2="165" stroke="#7b1fa2" stroke-width="1.5" marker-end="url(#a5p)"/>
+  <line x1="550" y1="128" x2="550" y2="165" stroke="#7b1fa2" stroke-width="1.5" marker-end="url(#a5p)"/>
+  <line x1="850" y1="128" x2="900" y2="165" stroke="#7b1fa2" stroke-width="1.5" marker-end="url(#a5p)"/>
+
+  <!-- ===== AZURE AI SEARCH (Vector) ===== -->
+  <rect x="40" y="170" width="310" height="200" rx="12" fill="#fce4ec" stroke="#e53935" stroke-width="1.5" filter="url(#s5)"/>
+  <text x="195" y="195" text-anchor="middle" fill="#b71c1c" font-size="15" font-weight="700">Azure AI Search</text>
+  <text x="195" y="215" text-anchor="middle" fill="#c62828" font-size="10">Vector Store (S1 — ≤ 50 GB)</text>
+
+  <rect x="60" y="230" width="270" height="55" rx="6" fill="#fff" stroke="#ef9a9a" stroke-width="1"/>
+  <text x="70" y="250" fill="#37474f" font-size="11" font-weight="600">HNSW Index</text>
+  <text x="70" y="268" fill="#546e7a" font-size="10">Cosine similarity · 3 072 dimensions</text>
+  <text x="70" y="282" fill="#546e7a" font-size="10">text-embedding-3-large vectors</text>
+
+  <rect x="60" y="295" width="270" height="55" rx="6" fill="#fff" stroke="#ef9a9a" stroke-width="1"/>
+  <text x="70" y="315" fill="#37474f" font-size="11" font-weight="600">Hybrid Retrieval</text>
+  <text x="70" y="333" fill="#546e7a" font-size="10">BM25 lexical + Vector → RRF fusion</text>
+  <text x="70" y="347" fill="#546e7a" font-size="10">Filters: source, docType, confidentiality</text>
+
+  <!-- ===== POSTGRESQL ===== -->
+  <rect x="390" y="170" width="320" height="200" rx="12" fill="#e8eaf6" stroke="#5c6bc0" stroke-width="1.5" filter="url(#s5)"/>
+  <text x="550" y="195" text-anchor="middle" fill="#283593" font-size="15" font-weight="700">PostgreSQL 16</text>
+  <text x="550" y="215" text-anchor="middle" fill="#3949ab" font-size="10">Azure Flexible Server · ACID · jsonb</text>
+
+  <!-- Tables -->
+  <rect x="410" y="228" width="130" height="38" rx="4" fill="#fff" stroke="#7986cb" stroke-width="1"/>
+  <text x="475" y="245" text-anchor="middle" fill="#283593" font-size="10" font-weight="600">👤 users</text>
+  <text x="475" y="260" text-anchor="middle" fill="#78909c" font-size="8">id · name · email · role</text>
+
+  <rect x="560" y="228" width="130" height="38" rx="4" fill="#fff" stroke="#7986cb" stroke-width="1"/>
+  <text x="625" y="245" text-anchor="middle" fill="#283593" font-size="10" font-weight="600">💬 sessions</text>
+  <text x="625" y="260" text-anchor="middle" fill="#78909c" font-size="8">id · user_id · created</text>
+
+  <rect x="410" y="278" width="130" height="38" rx="4" fill="#fff" stroke="#7986cb" stroke-width="1"/>
+  <text x="475" y="295" text-anchor="middle" fill="#283593" font-size="10" font-weight="600">❓ queries</text>
+  <text x="475" y="310" text-anchor="middle" fill="#78909c" font-size="8">id · session_id · text</text>
+
+  <rect x="560" y="278" width="130" height="38" rx="4" fill="#fff" stroke="#7986cb" stroke-width="1"/>
+  <text x="625" y="295" text-anchor="middle" fill="#283593" font-size="10" font-weight="600">✅ responses</text>
+  <text x="625" y="310" text-anchor="middle" fill="#78909c" font-size="8">id · answer · confidence</text>
+
+  <rect x="410" y="328" width="130" height="28" rx="4" fill="#fff" stroke="#7986cb" stroke-width="1"/>
+  <text x="475" y="347" text-anchor="middle" fill="#283593" font-size="10" font-weight="600">📎 citations</text>
+
+  <rect x="560" y="328" width="130" height="28" rx="4" fill="#fff" stroke="#7986cb" stroke-width="1"/>
+  <text x="625" y="347" text-anchor="middle" fill="#283593" font-size="10" font-weight="600">📄 documents</text>
+
+  <!-- ===== BLOB STORAGE ===== -->
+  <rect x="750" y="170" width="310" height="200" rx="12" fill="#fff3e0" stroke="#fb8c00" stroke-width="1.5" filter="url(#s5)"/>
+  <text x="905" y="195" text-anchor="middle" fill="#e65100" font-size="15" font-weight="700">Azure Blob Storage</text>
+  <text x="905" y="215" text-anchor="middle" fill="#ef6c00" font-size="10">Hot Tier — Raw Document Store</text>
+
+  <rect x="770" y="232" width="270" height="50" rx="6" fill="#fff" stroke="#ffcc80" stroke-width="1"/>
+  <text x="780" y="252" fill="#37474f" font-size="11" font-weight="600">Containers</text>
+  <text x="780" y="270" fill="#546e7a" font-size="10">📁 documents/ — PDF, DOCX, HTML originals</text>
+
+  <rect x="770" y="292" width="270" height="60" rx="6" fill="#fff" stroke="#ffcc80" stroke-width="1"/>
+  <text x="780" y="312" fill="#37474f" font-size="11" font-weight="600">Features</text>
+  <text x="780" y="330" fill="#546e7a" font-size="10">Immutable blobs · Soft delete 30 d</text>
+  <text x="780" y="346" fill="#546e7a" font-size="10">SAS token access · Lifecycle policies</text>
+
+  <!-- ===== ER DIAGRAM OVERVIEW ===== -->
+  <rect x="40" y="400" width="1020" height="200" rx="12" fill="#f3e5f5" stroke="#8e24aa" stroke-width="1.5" filter="url(#s5)"/>
+  <text x="550" y="428" text-anchor="middle" fill="#4a148c" font-size="15" font-weight="700">Entity Relationships</text>
+
+  <!-- Entity boxes -->
+  <rect x="70" y="448" width="120" height="55" rx="6" fill="#fff" stroke="#ce93d8" stroke-width="1"/>
+  <text x="130" y="468" text-anchor="middle" fill="#6a1b9a" font-size="11" font-weight="600">DOCUMENT</text>
+  <text x="130" y="488" text-anchor="middle" fill="#78909c" font-size="9">id · title · blob_path</text>
+
+  <rect x="240" y="448" width="120" height="55" rx="6" fill="#fff" stroke="#ce93d8" stroke-width="1"/>
+  <text x="300" y="468" text-anchor="middle" fill="#6a1b9a" font-size="11" font-weight="600">CHUNK</text>
+  <text x="300" y="488" text-anchor="middle" fill="#78909c" font-size="9">id · doc_id · content</text>
+
+  <rect x="410" y="448" width="120" height="55" rx="6" fill="#fff" stroke="#ce93d8" stroke-width="1"/>
+  <text x="470" y="468" text-anchor="middle" fill="#6a1b9a" font-size="11" font-weight="600">CITATION</text>
+  <text x="470" y="488" text-anchor="middle" fill="#78909c" font-size="9">id · chunk_id · score</text>
+
+  <rect x="580" y="448" width="120" height="55" rx="6" fill="#fff" stroke="#ce93d8" stroke-width="1"/>
+  <text x="640" y="468" text-anchor="middle" fill="#6a1b9a" font-size="11" font-weight="600">RESPONSE</text>
+  <text x="640" y="488" text-anchor="middle" fill="#78909c" font-size="9">id · answer · conf</text>
+
+  <rect x="750" y="448" width="120" height="55" rx="6" fill="#fff" stroke="#ce93d8" stroke-width="1"/>
+  <text x="810" y="468" text-anchor="middle" fill="#6a1b9a" font-size="11" font-weight="600">QUERY</text>
+  <text x="810" y="488" text-anchor="middle" fill="#78909c" font-size="9">id · text · filters</text>
+
+  <rect x="920" y="448" width="120" height="55" rx="6" fill="#fff" stroke="#ce93d8" stroke-width="1"/>
+  <text x="980" y="468" text-anchor="middle" fill="#6a1b9a" font-size="11" font-weight="600">SESSION</text>
+  <text x="980" y="488" text-anchor="middle" fill="#78909c" font-size="9">id · user_id</text>
+
+  <!-- Relationship lines -->
+  <line x1="190" y1="475" x2="240" y2="475" stroke="#8e24aa" stroke-width="1.5"/>
+  <text x="215" y="470" text-anchor="middle" fill="#8e24aa" font-size="8">1:N</text>
+  <line x1="360" y1="475" x2="410" y2="475" stroke="#8e24aa" stroke-width="1.5"/>
+  <text x="385" y="470" text-anchor="middle" fill="#8e24aa" font-size="8">N:1</text>
+  <line x1="530" y1="475" x2="580" y2="475" stroke="#8e24aa" stroke-width="1.5"/>
+  <text x="555" y="470" text-anchor="middle" fill="#8e24aa" font-size="8">N:1</text>
+  <line x1="700" y1="475" x2="750" y2="475" stroke="#8e24aa" stroke-width="1.5"/>
+  <text x="725" y="470" text-anchor="middle" fill="#8e24aa" font-size="8">1:1</text>
+  <line x1="870" y1="475" x2="920" y2="475" stroke="#8e24aa" stroke-width="1.5"/>
+  <text x="895" y="470" text-anchor="middle" fill="#8e24aa" font-size="8">N:1</text>
+
+  <!-- USER entity (below) -->
+  <rect x="890" y="525" width="120" height="45" rx="6" fill="#fff" stroke="#ce93d8" stroke-width="1"/>
+  <text x="950" y="545" text-anchor="middle" fill="#6a1b9a" font-size="11" font-weight="600">USER</text>
+  <text x="950" y="560" text-anchor="middle" fill="#78909c" font-size="9">id · name · role</text>
+
+  <line x1="980" y1="503" x2="960" y2="525" stroke="#8e24aa" stroke-width="1.5"/>
+  <text x="985" y="518" fill="#8e24aa" font-size="8">1:N</text>
+
+  <!-- ===== SECURITY BAR ===== -->
+  <rect x="40" y="625" width="1020" height="50" rx="10" fill="#e0f7fa" stroke="#00897b" stroke-width="1.5" filter="url(#s5)"/>
+  <text x="550" y="648" text-anchor="middle" fill="#004d40" font-size="13" font-weight="700">🔒 Data Security</text>
+  <text x="550" y="666" text-anchor="middle" fill="#37474f" font-size="10">Private Endpoints · AES-256 at rest · TLS 1.3 in transit · PII redaction (Presidio) · Key Vault secrets</text>
+
+  <text x="1080" y="694" text-anchor="end" fill="#b0bec5" font-size="9">QI Offerings — Data &amp; Storage v1.0</text>
+</svg>

@@ -13,6 +13,12 @@ permalink: "/docs/observability-qe/"
 
 ---
 
+## Architecture Diagram
+
+![Observability & QE — Architecture](../assets/images/07-observability-qe.svg)
+
+---
+
 ## Logging & Tracing
 
 - **OpenTelemetry SDK** instrumented in every FastAPI service.

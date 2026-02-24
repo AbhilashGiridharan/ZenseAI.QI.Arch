@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="headerGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a237e"/>
+      <stop offset="100%" stop-color="#283593"/>
+    </linearGradient>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="1" dy="2" stdDeviation="3" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#546e7a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="720" rx="12" fill="#f5f7fa"/>
+
+  <!-- Title -->
+  <rect x="0" y="0" width="1100" height="56" rx="12" fill="url(#headerGrad)"/>
+  <rect x="0" y="20" width="1100" height="36" fill="url(#headerGrad)"/>
+  <text x="550" y="37" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">QI Offerings — End-to-End Platform Architecture</text>
+
+  <!-- ===== ACTORS ===== -->
+  <rect x="30" y="75" width="200" height="120" rx="10" fill="#e8eaf6" stroke="#5c6bc0" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="130" y="96" text-anchor="middle" fill="#283593" font-size="13" font-weight="700">ACTORS</text>
+  <g fill="#37474f" font-size="12">
+    <text x="55" y="118">👤 Stakeholder</text>
+    <text x="55" y="140">👨‍💻 Developer</text>
+    <text x="55" y="162">🧪 QE Engineer</text>
+    <text x="55" y="184">🔧 Admin</text>
+  </g>
+
+  <!-- Arrow: Actors → UI -->
+  <line x1="230" y1="135" x2="280" y2="135" stroke="#546e7a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ===== UI LAYER ===== -->
+  <rect x="285" y="75" width="220" height="120" rx="10" fill="#e3f2fd" stroke="#1e88e5" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="395" y="96" text-anchor="middle" fill="#0d47a1" font-size="13" font-weight="700">UI — React / Next.js 15</text>
+  <g fill="#37474f" font-size="11">
+    <text x="300" y="118">🔍 Search &amp; Ask (Chat)</text>
+    <text x="300" y="138">📊 Reports &amp; Dashboards</text>
+    <text x="300" y="158">⚙️ Admin Console</text>
+    <text x="300" y="178">📎 Citation Cards</text>
+  </g>
+
+  <!-- Arrow: UI → Gateway -->
+  <line x1="505" y1="135" x2="555" y2="135" stroke="#546e7a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="530" y="127" text-anchor="middle" fill="#78909c" font-size="9">HTTPS</text>
+
+  <!-- ===== API GATEWAY ===== -->
+  <rect x="560" y="80" width="160" height="110" rx="10" fill="#fff3e0" stroke="#fb8c00" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="640" y="101" text-anchor="middle" fill="#e65100" font-size="13" font-weight="700">API Gateway</text>
+  <text x="640" y="117" text-anchor="middle" fill="#bf360c" font-size="10">Azure API Management</text>
+  <g fill="#37474f" font-size="11">
+    <text x="575" y="140">🔐 JWT Auth</text>
+    <text x="575" y="158">⏱ Rate Limiting</text>
+    <text x="575" y="176">💾 Response Cache</text>
+  </g>
+
+  <!-- Arrow: Gateway → Backend -->
+  <line x1="640" y1="190" x2="640" y2="240" stroke="#546e7a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ===== BACKEND SERVICES ===== -->
+  <rect x="100" y="245" width="850" height="130" rx="10" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="525" y="268" text-anchor="middle" fill="#1b5e20" font-size="14" font-weight="700">Backend Services — Python FastAPI (AKS Pods)</text>
+  
+  <!-- Service boxes -->
+  <rect x="120" y="282" width="140" height="75" rx="8" fill="#fff" stroke="#66bb6a" stroke-width="1"/>
+  <text x="190" y="302" text-anchor="middle" fill="#2e7d32" font-size="11" font-weight="600">Auth Service</text>
+  <text x="190" y="318" text-anchor="middle" fill="#546e7a" font-size="9">Token · RBAC</text>
+  <text x="190" y="334" text-anchor="middle" fill="#546e7a" font-size="9">Session Mgmt</text>
+
+  <rect x="280" y="282" width="140" height="75" rx="8" fill="#fff" stroke="#66bb6a" stroke-width="1"/>
+  <text x="350" y="302" text-anchor="middle" fill="#2e7d32" font-size="11" font-weight="600">Retrieval Service</text>
+  <text x="350" y="318" text-anchor="middle" fill="#546e7a" font-size="9">Embed · Hybrid Search</text>
+  <text x="350" y="334" text-anchor="middle" fill="#546e7a" font-size="9">Re-ranking</text>
+
+  <rect x="440" y="282" width="140" height="75" rx="8" fill="#fff" stroke="#66bb6a" stroke-width="1"/>
+  <text x="510" y="302" text-anchor="middle" fill="#2e7d32" font-size="11" font-weight="600">Orchestration Svc</text>
+  <text x="510" y="318" text-anchor="middle" fill="#546e7a" font-size="9">Prompt Assembly</text>
+  <text x="510" y="334" text-anchor="middle" fill="#546e7a" font-size="9">LLM · Guardrails</text>
+
+  <rect x="600" y="282" width="140" height="75" rx="8" fill="#fff" stroke="#66bb6a" stroke-width="1"/>
+  <text x="670" y="302" text-anchor="middle" fill="#2e7d32" font-size="11" font-weight="600">Reporting Service</text>
+  <text x="670" y="318" text-anchor="middle" fill="#546e7a" font-size="9">Metrics · Export</text>
+  <text x="670" y="334" text-anchor="middle" fill="#546e7a" font-size="9">Dashboards</text>
+
+  <rect x="760" y="282" width="170" height="75" rx="8" fill="#fff" stroke="#66bb6a" stroke-width="1"/>
+  <text x="845" y="302" text-anchor="middle" fill="#2e7d32" font-size="11" font-weight="600">Ingestion Worker</text>
+  <text x="845" y="318" text-anchor="middle" fill="#546e7a" font-size="9">Parse · Chunk · Index</text>
+  <text x="845" y="334" text-anchor="middle" fill="#546e7a" font-size="9">Celery (async)</text>
+
+  <!-- ===== AI LAYER ===== -->
+  <rect x="100" y="400" width="420" height="120" rx="10" fill="#fce4ec" stroke="#e53935" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="310" y="423" text-anchor="middle" fill="#b71c1c" font-size="14" font-weight="700">AI Integration Layer</text>
+
+  <rect x="120" y="435" width="180" height="70" rx="8" fill="#fff" stroke="#ef5350" stroke-width="1"/>
+  <text x="210" y="458" text-anchor="middle" fill="#c62828" font-size="11" font-weight="600">Azure OpenAI</text>
+  <text x="210" y="475" text-anchor="middle" fill="#546e7a" font-size="9">gpt-4.1 / gpt-4o</text>
+  <text x="210" y="490" text-anchor="middle" fill="#546e7a" font-size="9">text-embedding-3-large</text>
+
+  <rect x="320" y="435" width="180" height="70" rx="8" fill="#fff" stroke="#ef5350" stroke-width="1"/>
+  <text x="410" y="458" text-anchor="middle" fill="#c62828" font-size="11" font-weight="600">Azure AI Search</text>
+  <text x="410" y="475" text-anchor="middle" fill="#546e7a" font-size="9">HNSW + BM25 Hybrid</text>
+  <text x="410" y="490" text-anchor="middle" fill="#546e7a" font-size="9">Vector Store (S1)</text>
+
+  <!-- Arrows: Backend → AI -->
+  <line x1="350" y1="375" x2="310" y2="400" stroke="#e53935" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="510" y1="375" x2="410" y2="400" stroke="#e53935" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ===== DATA STORES ===== -->
+  <rect x="560" y="400" width="390" height="120" rx="10" fill="#f3e5f5" stroke="#8e24aa" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="755" y="423" text-anchor="middle" fill="#4a148c" font-size="14" font-weight="700">Data Stores</text>
+
+  <rect x="580" y="435" width="110" height="70" rx="8" fill="#fff" stroke="#ab47bc" stroke-width="1"/>
+  <text x="635" y="458" text-anchor="middle" fill="#6a1b9a" font-size="11" font-weight="600">PostgreSQL</text>
+  <text x="635" y="475" text-anchor="middle" fill="#546e7a" font-size="9">Users · Sessions</text>
+  <text x="635" y="490" text-anchor="middle" fill="#546e7a" font-size="9">Queries · Audit</text>
+
+  <rect x="710" y="435" width="110" height="70" rx="8" fill="#fff" stroke="#ab47bc" stroke-width="1"/>
+  <text x="765" y="458" text-anchor="middle" fill="#6a1b9a" font-size="11" font-weight="600">Blob Storage</text>
+  <text x="765" y="475" text-anchor="middle" fill="#546e7a" font-size="9">Raw Documents</text>
+  <text x="765" y="490" text-anchor="middle" fill="#546e7a" font-size="9">PDF · DOCX · HTML</text>
+
+  <rect x="840" y="435" width="100" height="70" rx="8" fill="#fff" stroke="#ab47bc" stroke-width="1"/>
+  <text x="890" y="458" text-anchor="middle" fill="#6a1b9a" font-size="11" font-weight="600">Service Bus</text>
+  <text x="890" y="475" text-anchor="middle" fill="#546e7a" font-size="9">Async Jobs</text>
+  <text x="890" y="490" text-anchor="middle" fill="#546e7a" font-size="9">DLQ Alerts</text>
+
+  <!-- Arrows: Backend → Data -->
+  <line x1="670" y1="375" x2="700" y2="400" stroke="#8e24aa" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="845" y1="375" x2="800" y2="400" stroke="#8e24aa" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ===== OBSERVABILITY ===== -->
+  <rect x="100" y="550" width="850" height="75" rx="10" fill="#e0f7fa" stroke="#00897b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="525" y="573" text-anchor="middle" fill="#004d40" font-size="14" font-weight="700">Observability — OpenTelemetry · Azure Monitor · Grafana</text>
+  <g fill="#37474f" font-size="11">
+    <text x="160" y="600">📡 Distributed Tracing (W3C)</text>
+    <text x="390" y="600">📊 Metrics &amp; Dashboards</text>
+    <text x="600" y="600">📝 Structured JSON Logs</text>
+    <text x="800" y="600">🚨 Alerting (PagerDuty)</text>
+  </g>
+
+  <!-- Arrows: Backend → Observability -->
+  <line x1="350" y1="375" x2="350" y2="550" stroke="#00897b" stroke-width="1" stroke-dasharray="6,3"/>
+  <line x1="670" y1="375" x2="670" y2="550" stroke="#00897b" stroke-width="1" stroke-dasharray="6,3"/>
+
+  <!-- ===== SECURITY BANNER ===== -->
+  <rect x="100" y="645" width="850" height="50" rx="10" fill="#fff8e1" stroke="#f9a825" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="525" y="668" text-anchor="middle" fill="#e65100" font-size="13" font-weight="700">🔐 Security — Entra ID SSO · TLS 1.3 · AES-256 · Private Endpoints · WAF v2 · PII Redaction</text>
+  <text x="525" y="685" text-anchor="middle" fill="#78909c" font-size="10">Key Vault · RBAC · Audit Logging (90 d) · Content Filters · Prompt Injection Defence</text>
+
+  <!-- Version label -->
+  <text x="1080" y="714" text-anchor="end" fill="#b0bec5" font-size="9">QI Offerings Architecture v1.0 — Feb 2026</text>
+</svg>

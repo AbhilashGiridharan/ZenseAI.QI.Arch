@@ -13,6 +13,12 @@ permalink: "/docs/data-storage/"
 
 ---
 
+## Architecture Diagram
+
+![Data & Storage — Architecture](../assets/images/05-data-storage.svg)
+
+---
+
 ## Storage Map
 
 | Store | Technology | Purpose |

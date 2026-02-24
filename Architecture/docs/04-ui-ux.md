@@ -13,6 +13,12 @@ permalink: "/docs/ui-ux/"
 
 ---
 
+## Architecture Diagram
+
+![UI/UX — Frontend Architecture](../assets/images/03-ui-ux-architecture.svg)
+
+---
+
 ## Tech Stack
 
 | Layer | Technology |

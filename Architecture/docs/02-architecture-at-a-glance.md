@@ -15,6 +15,12 @@ permalink: "/docs/architecture-at-a-glance/"
 
 ---
 
+## Architecture Overview
+
+![QI Offerings — Platform Architecture](../assets/images/01-platform-overview.svg)
+
+---
+
 ## Context Diagram
 
 ```mermaid

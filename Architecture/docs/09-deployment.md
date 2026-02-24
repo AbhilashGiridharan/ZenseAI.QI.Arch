@@ -13,6 +13,12 @@ permalink: "/docs/deployment/"
 
 ---
 
+## Architecture Diagram
+
+![Deployment & CI/CD — Architecture](../assets/images/08-deployment-topology.svg)
+
+---
+
 ## Environment Topology
 
 | Environment | Purpose | Infra |

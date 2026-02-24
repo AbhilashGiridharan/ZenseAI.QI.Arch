@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 650" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="hd3" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0d47a1"/><stop offset="100%" stop-color="#1565c0"/>
+    </linearGradient>
+    <filter id="s3" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="1" dy="2" stdDeviation="3" flood-opacity="0.12"/>
+    </filter>
+    <marker id="a3" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0,10 3.5,0 7" fill="#546e7a"/>
+    </marker>
+  </defs>
+
+  <rect width="1100" height="650" rx="12" fill="#fafafa"/>
+  <rect x="0" y="0" width="1100" height="56" rx="12" fill="url(#hd3)"/>
+  <rect x="0" y="20" width="1100" height="36" fill="url(#hd3)"/>
+  <text x="550" y="37" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">UI / UX — Frontend Architecture</text>
+
+  <!-- ===== BROWSER ===== -->
+  <rect x="30" y="80" width="200" height="90" rx="10" fill="#e8eaf6" stroke="#5c6bc0" stroke-width="1.5" filter="url(#s3)"/>
+  <text x="130" y="103" text-anchor="middle" fill="#283593" font-size="13" font-weight="700">Browser / Mobile</text>
+  <text x="130" y="122" text-anchor="middle" fill="#546e7a" font-size="10">WCAG 2.2 AA</text>
+  <text x="130" y="138" text-anchor="middle" fill="#546e7a" font-size="10">Responsive PWA</text>
+  <text x="130" y="154" text-anchor="middle" fill="#546e7a" font-size="10">aria-live streaming</text>
+
+  <line x1="230" y1="125" x2="290" y2="125" stroke="#546e7a" stroke-width="1.5" marker-end="url(#a3)"/>
+
+  <!-- ===== NEXT.JS APP ===== -->
+  <rect x="295" y="75" width="475" height="505" rx="12" fill="#e3f2fd" stroke="#1e88e5" stroke-width="2" filter="url(#s3)"/>
+  <text x="532" y="100" text-anchor="middle" fill="#0d47a1" font-size="15" font-weight="700">Next.js 15 — App Router (SSR + RSC)</text>
+
+  <!-- React Server Components -->
+  <rect x="315" y="115" width="215" height="100" rx="8" fill="#fff" stroke="#42a5f5" stroke-width="1"/>
+  <text x="422" y="135" text-anchor="middle" fill="#0d47a1" font-size="12" font-weight="600">React Server Components</text>
+  <text x="325" y="155" fill="#37474f" font-size="10">• Layout / Navigation</text>
+  <text x="325" y="170" fill="#37474f" font-size="10">• Initial Data Fetch (SSR)</text>
+  <text x="325" y="185" fill="#37474f" font-size="10">• SEO Meta / Head</text>
+  <text x="325" y="200" fill="#37474f" font-size="10">• Route Handlers</text>
+
+  <!-- Client Components -->
+  <rect x="545" y="115" width="210" height="100" rx="8" fill="#fff" stroke="#42a5f5" stroke-width="1"/>
+  <text x="650" y="135" text-anchor="middle" fill="#0d47a1" font-size="12" font-weight="600">Client Components</text>
+  <text x="555" y="155" fill="#37474f" font-size="10">• Chat Input / Streaming</text>
+  <text x="555" y="170" fill="#37474f" font-size="10">• Citation Accordion</text>
+  <text x="555" y="185" fill="#37474f" font-size="10">• Confidence Gauge</text>
+  <text x="555" y="200" fill="#37474f" font-size="10">• Abort Controller</text>
+
+  <!-- KEY SCREENS -->
+  <text x="532" y="240" text-anchor="middle" fill="#0d47a1" font-size="12" font-weight="700">Key Screens</text>
+
+  <rect x="315" y="252" width="105" height="70" rx="6" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1"/>
+  <text x="367" y="272" text-anchor="middle" fill="#2e7d32" font-size="10" font-weight="600">🔍 Search</text>
+  <text x="367" y="288" text-anchor="middle" fill="#546e7a" font-size="9">Conversational</text>
+  <text x="367" y="302" text-anchor="middle" fill="#546e7a" font-size="9">Chat + Ask</text>
+  <text x="367" y="316" text-anchor="middle" fill="#546e7a" font-size="9">SSE Streaming</text>
+
+  <rect x="430" y="252" width="105" height="70" rx="6" fill="#fff3e0" stroke="#ffa726" stroke-width="1"/>
+  <text x="482" y="272" text-anchor="middle" fill="#e65100" font-size="10" font-weight="600">📎 Citations</text>
+  <text x="482" y="288" text-anchor="middle" fill="#546e7a" font-size="9">Source Chips</text>
+  <text x="482" y="302" text-anchor="middle" fill="#546e7a" font-size="9">Deep Links</text>
+  <text x="482" y="316" text-anchor="middle" fill="#546e7a" font-size="9">Highlights</text>
+
+  <rect x="545" y="252" width="105" height="70" rx="6" fill="#fce4ec" stroke="#ef5350" stroke-width="1"/>
+  <text x="597" y="272" text-anchor="middle" fill="#c62828" font-size="10" font-weight="600">📊 Reports</text>
+  <text x="597" y="288" text-anchor="middle" fill="#546e7a" font-size="9">Dashboards</text>
+  <text x="597" y="302" text-anchor="middle" fill="#546e7a" font-size="9">Test History</text>
+  <text x="597" y="316" text-anchor="middle" fill="#546e7a" font-size="9">Metrics</text>
+
+  <rect x="660" y="252" width="95" height="70" rx="6" fill="#f3e5f5" stroke="#ab47bc" stroke-width="1"/>
+  <text x="707" y="272" text-anchor="middle" fill="#6a1b9a" font-size="10" font-weight="600">⚙️ Admin</text>
+  <text x="707" y="288" text-anchor="middle" fill="#546e7a" font-size="9">Index Mgmt</text>
+  <text x="707" y="302" text-anchor="middle" fill="#546e7a" font-size="9">Prompt Editor</text>
+  <text x="707" y="316" text-anchor="middle" fill="#546e7a" font-size="9">Roles</text>
+
+  <!-- STATE MANAGEMENT -->
+  <rect x="315" y="340" width="220" height="70" rx="8" fill="#fff" stroke="#42a5f5" stroke-width="1"/>
+  <text x="425" y="360" text-anchor="middle" fill="#0d47a1" font-size="11" font-weight="600">State Management</text>
+  <text x="325" y="378" fill="#37474f" font-size="10">• Zustand (client state)</text>
+  <text x="325" y="394" fill="#37474f" font-size="10">• React Server Components (server)</text>
+
+  <!-- STYLING / DESIGN -->
+  <rect x="545" y="340" width="210" height="70" rx="8" fill="#fff" stroke="#42a5f5" stroke-width="1"/>
+  <text x="650" y="360" text-anchor="middle" fill="#0d47a1" font-size="11" font-weight="600">Styling &amp; Design</text>
+  <text x="555" y="378" fill="#37474f" font-size="10">• Tailwind CSS 4</text>
+  <text x="555" y="394" fill="#37474f" font-size="10">• Radix UI Primitives</text>
+
+  <!-- UX PATTERNS -->
+  <rect x="315" y="425" width="440" height="75" rx="8" fill="#e0f7fa" stroke="#00897b" stroke-width="1"/>
+  <text x="535" y="446" text-anchor="middle" fill="#004d40" font-size="12" font-weight="700">RAG-Specific UX Patterns</text>
+  <g fill="#37474f" font-size="10">
+    <text x="325" y="465">💊 Source Chips [Source N]</text>
+    <text x="530" y="465">📐 Skeleton Loaders (~300 ms)</text>
+    <text x="325" y="482">📊 Confidence Gauge (🟢 ≥0.8 🟡 0.6–0.8 🔴 &lt;0.6)</text>
+    <text x="325" y="498">⚡ SSE Streaming — first token &lt; 800 ms</text>
+  </g>
+
+  <!-- TESTING -->
+  <rect x="315" y="515" width="440" height="50" rx="8" fill="#fff8e1" stroke="#f9a825" stroke-width="1"/>
+  <text x="535" y="536" text-anchor="middle" fill="#e65100" font-size="12" font-weight="700">Testing Stack</text>
+  <text x="325" y="553" fill="#37474f" font-size="10">🎭 Playwright (E2E)  ·  ⚡ Vitest (Unit)  ·  📖 Storybook (Visual)</text>
+
+  <!-- ===== BACKEND CONNECTION ===== -->
+  <rect x="810" y="200" width="250" height="160" rx="10" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5" filter="url(#s3)"/>
+  <text x="935" y="223" text-anchor="middle" fill="#1b5e20" font-size="13" font-weight="700">Backend API</text>
+  <text x="935" y="242" text-anchor="middle" fill="#2e7d32" font-size="10">FastAPI (HTTPS)</text>
+  <g fill="#37474f" font-size="10">
+    <text x="825" y="268">POST /api/ask</text>
+    <text x="825" y="286">GET  /api/sessions</text>
+    <text x="825" y="304">POST /api/documents</text>
+    <text x="825" y="322">GET  /api/reports</text>
+    <text x="825" y="340">SSE  /api/ask/stream</text>
+  </g>
+
+  <line x1="770" y1="200" x2="810" y2="220" stroke="#43a047" stroke-width="1.5" marker-end="url(#a3)"/>
+  <text x="793" y="197" fill="#2e7d32" font-size="9">API calls</text>
+
+  <!-- CDN -->
+  <rect x="810" y="400" width="250" height="60" rx="10" fill="#ede7f6" stroke="#7e57c2" stroke-width="1.5" filter="url(#s3)"/>
+  <text x="935" y="425" text-anchor="middle" fill="#4527a0" font-size="13" font-weight="700">Azure Front Door + CDN</text>
+  <text x="935" y="445" text-anchor="middle" fill="#546e7a" font-size="10">Static assets · Edge caching · TLS</text>
+
+  <line x1="770" y1="480" x2="810" y2="440" stroke="#7e57c2" stroke-width="1.5" marker-end="url(#a3)"/>
+
+  <!-- Entra ID -->
+  <rect x="810" y="490" width="250" height="55" rx="10" fill="#fff3e0" stroke="#fb8c00" stroke-width="1.5" filter="url(#s3)"/>
+  <text x="935" y="515" text-anchor="middle" fill="#e65100" font-size="13" font-weight="700">🔐 Microsoft Entra ID</text>
+  <text x="935" y="533" text-anchor="middle" fill="#546e7a" font-size="10">OAuth 2.0 + PKCE · SSO · RBAC</text>
+
+  <text x="1080" y="642" text-anchor="end" fill="#b0bec5" font-size="9">QI Offerings — UI/UX Architecture v1.0</text>
+</svg>

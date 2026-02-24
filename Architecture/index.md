@@ -12,6 +12,9 @@ permalink: "/"
      width="100%"
      style="border-radius: 6px; margin-bottom: 1.5rem;" />
 
+<!-- Platform Architecture Diagram -->
+![QI Offerings — End-to-End Platform Architecture](assets/images/01-platform-overview.svg)
+
 # QI Offerings – Architecture Hub
 
 Welcome to the **QI Offerings** architecture documentation site. This hub provides comprehensive technical references for the end-to-end platform with LLM + RAG integration.
